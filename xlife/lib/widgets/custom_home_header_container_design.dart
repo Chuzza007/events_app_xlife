@@ -55,46 +55,25 @@ class _CustomHomeHeaderContainerDesignState
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.3,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            child: Text(
-                              "\$523.00",
-                              style: normal_h3Style.merge(
-                                TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 3.sp, horizontal: 7.sp),
-                            decoration: BoxDecoration(
-                              color: Colors.white12,
-                              borderRadius: BorderRadius.circular(20.sp),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 3.sp,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                            },
-                            child: Hero(
-                              tag: "about",
-                              child: Container(
+                      GestureDetector(
+                        onTap: (){
+                        },
+                        child: Hero(
+                          tag: "about",
+                          child: Container(
 
-                                height: MediaQuery.of(context).size.height * 0.045,
-                                width: MediaQuery.of(context).size.height * 0.045,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(width: 2.sp, color: Colors.white),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            "https://hireme.ga/images/mubashar.png"))),
-                              ),
-                            ),
-                          )
-                        ],
+                            height: MediaQuery.of(context).size.height * 0.045,
+                            width: MediaQuery.of(context).size.height * 0.045,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(width: 2.sp, color: Colors.white),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        "https://hireme.ga/images/mubashar.png"))),
+                          ),
+                        ),
                       )
                     ],
                   ),

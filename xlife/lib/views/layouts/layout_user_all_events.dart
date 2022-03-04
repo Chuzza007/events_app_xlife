@@ -1,8 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/views/layouts/item_user_event.dart';
+import 'package:xlife/views/screens/screen_user_event_details.dart';
 import 'package:xlife/widgets/custom_card_swiper.dart';
 
 class LayoutUserAllEvents extends StatefulWidget {
@@ -26,28 +26,26 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+        height: Get.height * 0.7,
+        alignment: Alignment.center,
         child: Swiper(
-      itemBuilder: (BuildContext context, int index) {
-        return events[index];
-      },
-      index: selectedIndex,
-      onIndexChanged: (index) {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
-      itemHeight: Get.height * 0.6,
-      itemWidth: Get.width * 0.9,
-      itemCount: events.length,
-      containerHeight: Get.height * 0.8,
-      pagination: SwiperPagination(
-        builder: DotSwiperPaginationBuilder(
-          color: Colors.grey,
-          activeColor: appPrimaryColor,
-        ),
-      ),
-      layout: SwiperLayout.TINDER,
-    ));
+          itemBuilder: (BuildContext context, int index) {
+            return events[index];
+          },
+          index: selectedIndex,
+          onIndexChanged: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          onTap: (index){
+            Get.to(ScreenUserEventDetails());
+          },
+          itemHeight: Get.height * 0.7,
+          itemWidth: Get.width * 0.9,
+          itemCount: events.length,
+          containerHeight: Get.height * 0.8,
+          layout: SwiperLayout.TINDER,
+        ));
   }
 }

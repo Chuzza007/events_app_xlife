@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/styles.dart';
 
 class ItemUserEvent extends StatelessWidget {
@@ -30,11 +31,18 @@ class ItemUserEvent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)
               ),
               padding: EdgeInsets.all(10),
-              child: Text(
-                "22 Km",
-                style: normal_h1Style_bold.copyWith(
-                  color: Colors.white
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.location_on, color: Colors.white,),
+                  SizedBox(width: 2.sp,),
+                  Text(
+                    "22 Km",
+                    style: normal_h1Style_bold.copyWith(
+                      color: Colors.white
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
