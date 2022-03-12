@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/views/screens/organizer/screen_organizer_homepage.dart';
 import 'package:xlife/views/screens/screen_forgot_password.dart';
 
 import '../../generated/locales.g.dart';
@@ -68,6 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     style: normal_h2Style.merge(TextStyle(color: appPrimaryColor)),
                   )),
               CustomButton(text: LocaleKeys.SignIn.tr, onPressed: () {
+                Get.to(ScreenOrganizerHomepage());
               }),
               Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -88,5 +88,5 @@ BoxDecoration roundDecoration = BoxDecoration(
 );
 
 List<BoxShadow> appBoxShadow = [
-  BoxShadow(blurRadius: 12.sp, color: Color(0x414D5678))
+  BoxShadow(blurRadius: 5.sp, color: Color(0x414D5678))
 ];

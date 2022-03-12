@@ -2,8 +2,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xlife/views/screens/screen_homepage.dart';
 import 'package:xlife/views/screens/screen_signin.dart';
+import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 
 import '../../generated/locales.g.dart';
 import '../../helpers/constants.dart';
@@ -76,10 +76,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Transform.scale(
-                      scale: 1.3,
+                      scale: 1.1,
                       child: RadioListTile(
                         dense: true,
                         visualDensity: const VisualDensity(
@@ -99,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   Expanded(
                     child: Transform.scale(
-                      scale: 1.3,
+                      scale: 1.1,
                       child: RadioListTile(
                         dense: true,
                         visualDensity: const VisualDensity(
@@ -115,11 +116,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           });
                         },
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 0,
                     ),
                   ),
                 ],
@@ -172,7 +168,7 @@ class _SignupScreenState extends State<SignupScreen> {
               CustomButton(
                 text: LocaleKeys.SignUp.tr,
                 onPressed: () {
-                  Get.offAll(ScreenHomepage());
+                  Get.offAll(ScreenUserHomepage());
                 },
               ),
               Padding(

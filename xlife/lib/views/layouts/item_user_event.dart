@@ -3,8 +3,15 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/styles.dart';
 
-class ItemUserEvent extends StatelessWidget {
+class ItemUserEvent extends StatefulWidget {
+  @override
+  State<ItemUserEvent> createState() => _ItemUserEventState();
+}
+
+class _ItemUserEventState extends State<ItemUserEvent> {
   double cardHeight = Get.height * 0.6;
+
+  bool favorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,59 +34,107 @@ class ItemUserEvent extends StatelessWidget {
             right: 20,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white38,
-                borderRadius: BorderRadius.circular(10)
-              ),
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.circular(10)),
               padding: EdgeInsets.all(10),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.location_on, color: Colors.white,),
-                  SizedBox(width: 2.sp,),
+                  Icon(
+                    Icons.location_on,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 2.sp,
+                  ),
                   Text(
                     "22 Km",
                     style: normal_h1Style_bold.copyWith(
-                      color: Colors.white
-                    ),
+                        color: Colors.white),
                   ),
                 ],
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                )),
-            height: cardHeight * 0.3,
-            alignment: Alignment.bottomLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Event Title",
-                  style: heading1_style.copyWith(color: Colors.white),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                    )),
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.watch_later_outlined,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 5.sp,
+                    ),
+                    Text(
+                      "2 days left",
+                      style: normal_h1Style_bold.copyWith(
+                          color: Colors.white),
+                    ),
+                  ],
                 ),
-                ListTile(
-                  title: Text(
-                    "This is the event description This is the event description This is the event description This is the event description This is the event description This is the event description ",
-                    style:
-                        normal_h1Style.copyWith(color: Colors.white),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: Icon(
-                    Icons.info,
-                    size: cardHeight * 0.06,
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    )),
+                height: cardHeight * 0.35,
+                alignment: Alignment.bottomLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Event Title",
+                      style: heading2_style.copyWith(
+                          color: Colors.white),
+                    ),
+                    ListTile(
+                      title: Text(
+                        "This is the event description This is the event description This is the event description This is the event description This is the event description This is the event description ",
+                        style: normal_h2Style.copyWith(
+                            color: Colors.white),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(
+                        "Organized by #####",
+                        style: normal_h3Style_bold.copyWith(
+                            color: Colors.white),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            favorite = !favorite;
+                          });
+                        },
+                        icon: ImageIcon(
+                          AssetImage(
+                              "assets/images/heart_$favorite.png"),
+                          color: Colors.white,
+                          size: cardHeight * 0.06,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
           )
         ],
       ),

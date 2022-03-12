@@ -2,7 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/views/layouts/item_user_event.dart';
-import 'package:xlife/views/screens/screen_user_event_details.dart';
+import 'package:xlife/views/screens/user/screen_user_event_details.dart';
 import 'package:xlife/widgets/custom_card_swiper.dart';
 
 class LayoutUserAllEvents extends StatefulWidget {

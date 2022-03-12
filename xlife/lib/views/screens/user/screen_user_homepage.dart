@@ -7,14 +7,14 @@ import 'package:xlife/views/layouts/layout_user_search_events_by_organizers.dart
 import 'package:xlife/widgets/custom_bottom_navigation.dart';
 import 'package:xlife/widgets/custom_home_header_container_design.dart';
 
-class ScreenHomepage extends StatefulWidget {
-  const ScreenHomepage({Key? key}) : super(key: key);
+class ScreenUserHomepage extends StatefulWidget {
+  const ScreenUserHomepage({Key? key}) : super(key: key);
 
   @override
-  _ScreenHomepageState createState() => _ScreenHomepageState();
+  _ScreenUserHomepageState createState() => _ScreenUserHomepageState();
 }
 
-class _ScreenHomepageState extends State<ScreenHomepage> {
+class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   int selectedIndex = 0;
   List<Widget> pages = [
     LayoutUserAllEvents(),
@@ -62,7 +62,7 @@ class _ScreenHomepageState extends State<ScreenHomepage> {
             ),
           ],
           primaryIndex: 0,
-        ),
+        ), type: HomePageType.user,
       ),
     );
   }

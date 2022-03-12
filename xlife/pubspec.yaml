@@ -39,6 +39,19 @@ dependencies:
   animated_splash_screen: ^1.2.0
   card_swiper: ^2.0.1
   sizer: ^2.0.15
+  draggable_home: ^1.0.2
+  google_maps_flutter: any
+  geolocator: ^8.2.0
+  location: any
+  flutter_reaction_button: ^2.0.0+1
+  cached_network_image: ^3.2.0
+  image_picker: ^0.8.4+11
+  intl: ^0.17.0
+  badges: ^2.0.2
+  map_picker: ^0.0.3
+  geocode: ^1.0.1
+  flutter_svg: ^1.0.3
+#  flutter_google_places: ^0.3.0
 
 dev_dependencies:
   flutter_test:

@@ -48,6 +48,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFFFAFBFF),
           backgroundColor: Color(0xFFFAFBFF),
         ),
+        defaultTransition: Transition.circularReveal,
+        transitionDuration: Duration(seconds: 1),
         builder: (context, widget) {
           return ScrollConfiguration(
               behavior: ScrollBehaviorModified(), child: widget!);

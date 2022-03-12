@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../helpers/constants.dart';
 
@@ -21,6 +22,7 @@ class CustomInputField extends StatefulWidget {
   bool? showBorder;
   bool? isDense;
   EdgeInsetsGeometry? margin;
+  Widget? suffix;
 
   CustomInputField(
       {required this.hint,
@@ -40,6 +42,7 @@ class CustomInputField extends StatefulWidget {
       this.showBorder,
       this.minLines,
       this.margin,
+      this.suffix,
       this.isDense});
 
   @override
@@ -57,7 +60,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: widget.margin ?? EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
@@ -95,27 +97,31 @@ class _CustomInputFieldState extends State<CustomInputField> {
             fillColor: widget.fillColor ?? /*Color(0xFFECECEC)*/
                 Colors.white,
             filled: true,
-            suffixIcon: widget.isPasswordField
-                ? IconButton(
-                    onPressed: () {
-                      if (widget.isPasswordField) {
-                        setState(() {
-                          _isHidden = !_isHidden;
-                        });
-                      }
-                    },
-                    icon: Visibility(
-                      visible: widget.isPasswordField,
-                      child: Icon(
-                        widget.isPasswordField
-                            ? (_isHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off)
-                            : null,
-                      ),
-                    ),
-                  )
-                : null,
+            suffixIconConstraints: BoxConstraints(
+              minWidth: 50.sp
+            ),
+            suffixIcon: widget.suffix ??
+                (widget.isPasswordField
+                    ? IconButton(
+                        onPressed: () {
+                          if (widget.isPasswordField) {
+                            setState(() {
+                              _isHidden = !_isHidden;
+                            });
+                          }
+                        },
+                        icon: Visibility(
+                          visible: widget.isPasswordField,
+                          child: Icon(
+                            widget.isPasswordField
+                                ? (_isHidden
+                                    ? Icons.visibility
+                                    : Icons.visibility_off)
+                                : null,
+                          ),
+                        ),
+                      )
+                    : null),
             hintStyle: TextStyle(color: hintColor),
             contentPadding: EdgeInsets.only(
                 left: 15,

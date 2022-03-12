@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../generated/locales.g.dart';
 import '../widgets/custom_button.dart';
 
@@ -22,6 +22,8 @@ MaterialColor appPrimaryColor = MaterialColor(
 String appName = LocaleKeys.AppName.tr;
 Color hintColor = Color(0xFFA0A2A8);
 Color buttonColor = Color(0xFFF13B2D);
+String googleAPIKey = "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY";
+
 
 void showOptionsBottomSheet({
   required BuildContext context,
@@ -108,3 +110,25 @@ Widget flightShuttleBuilder(
     child: toHeroContext.widget,
   );
 }
+
+
+Future<DateTime> selectDate(BuildContext context, int startTimestamp,
+    int? selectedTimestamp) async {
+  DateTime selectedDate = DateTime.now();
+  final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.fromMillisecondsSinceEpoch(
+          selectedTimestamp ?? startTimestamp),
+      firstDate: DateTime.fromMillisecondsSinceEpoch(startTimestamp),
+      lastDate: DateTime(2101));
+  if (picked != null && picked != selectedDate) selectedDate = picked;
+
+  return selectedDate;
+}
+
+
+String timestampToDateFormat(int timestamp, String format) {
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  return DateFormat(format).format(dateTime);
+}
+

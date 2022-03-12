@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/views/screens/organizer/screen_organizer_update_event.dart';
 
 import '../../helpers/styles.dart';
 import '../screens/user/screen_user_event_details.dart';
 
-class ItemUserEventByOrganizer extends StatefulWidget {
-  bool favorite;
+class ItemOrganizerEvent extends StatefulWidget {
 
 
   @override
-  State<ItemUserEventByOrganizer> createState() => _ItemUserEventByOrganizerState();
+  State<ItemOrganizerEvent> createState() => _ItemOrganizerEventState();
 
-  ItemUserEventByOrganizer({
-    required this.favorite,
-  });
+
 }
 
-class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> {
+class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(ScreenUserEventDetails());
+        Get.to(ScreenOrganizerUpdateEvent());
       },
       child: Container(
         decoration: BoxDecoration(
@@ -64,27 +62,17 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> {
                       ),
                       dense: true,
                       leading: Icon(Icons.event),
-                      subtitle: Text("Organized by ##"),
                     ),
                     ListTile(
                       title: Text(
-                        "22 Km",
-                        style: normal_h3Style_bold,
+                        "22 favorites",
+                        style: normal_h3Style,
                       ),
                       dense: true,
-                      leading: Icon(Icons.location_on),
-                      subtitle: Text("30 hours left"),
-                      trailing: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.favorite = !widget.favorite;
-                          });
-                        },
-                        icon: ImageIcon(
-                          AssetImage(
-                              "assets/images/heart_${widget.favorite}.png"),
-                          color: Colors.red,
-                        ),
+                      leading: ImageIcon(
+                        AssetImage(
+                            "assets/images/heart_true.png"),
+                        color: Colors.red,
                       ),
                     ),
                   ],

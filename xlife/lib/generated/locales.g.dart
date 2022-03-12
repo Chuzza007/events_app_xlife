@@ -71,6 +71,80 @@ class LocaleKeys {
   static const term1 = 'term1';
   static const term2 = 'term2';
   static const term3 = 'term3';
+  static const appName = 'appName';
+  static const Expired = 'Expired';
+  static const Open = 'Open';
+  static const Contest = 'Contest';
+  static const Winners = 'Winners';
+  static const Participate = 'Participate';
+  static const Organizedby = 'Organizedby';
+  static const Endofcontest = 'Endofcontest';
+  static const GameRules = 'GameRules';
+  static const Participants = 'Participants';
+  static const Youinvestedtickets = 'Youinvestedtickets';
+  static const EXTRACHANCES = 'EXTRACHANCES';
+  static const HELP = 'HELP';
+  static const PRIVACYPOLICY = 'PRIVACYPOLICY';
+  static const TERMSANDCONDITIONS = 'TERMSANDCONDITIONS';
+  static const Logout = 'Logout';
+  static const Login = 'Login';
+  static const Donthaveanaccount = 'Donthaveanaccount';
+  static const FirstName = 'FirstName';
+  static const LastName = 'LastName';
+  static const Nickname = 'Nickname';
+  static const DateofBirth = 'DateofBirth';
+  static const City = 'City';
+  static const Email = 'Email';
+  static const Alreadyhaveanaccount = 'Alreadyhaveanaccount';
+  static const Edit = 'Edit';
+  static const Users = 'Users';
+  static const Organizers = 'Organizers';
+  static const AdminArea = 'AdminArea';
+  static const NewContest = 'NewContest';
+  static const ContestImages = 'ContestImages';
+  static const ContestDetails = 'ContestDetails';
+  static const Title = 'Title';
+  static const Description = 'Description';
+  static const Organizer = 'Organizer';
+  static const Startingfrom = 'Startingfrom';
+  static const Endingat = 'Endingat';
+  static const Showparticipantstousers = 'Showparticipantstousers';
+  static const Add = 'Add';
+  static const Areyousuretologout = 'Areyousuretologout';
+  static const Congrats1ticketaddedforyou = 'Congrats1ticketaddedforyou';
+  static const morechance = 'morechance';
+  static const Wallet = 'Wallet';
+  static const Winmoretickets = 'Winmoretickets';
+  static const Clickthebuttonbelowtowatchvideoadandearnmoretickets =
+      'Clickthebuttonbelowtowatchvideoadandearnmoretickets';
+  static const Earnticket = 'Earnticket';
+  static const Youalreadyhaveinyouraccountbalance =
+      'Youalreadyhaveinyouraccountbalance';
+  static const WatchAdanyway = 'WatchAdanyway';
+  static const Useaccountticket = 'Useaccountticket';
+  static const No = 'No';
+  static const Yes = 'Yes';
+  static const Pleaseselectimage = 'Pleaseselectimage';
+  static const Fillallfields = 'Fillallfields';
+  static const InvalidEmailAddress = 'InvalidEmailAddress';
+  static const PleaseWait = 'PleaseWait';
+  static const CreatingYourAccount = 'CreatingYourAccount';
+  static const Error = 'Error';
+  static const ImageNotUploaded = 'ImageNotUploaded';
+  static const BothFieldsRequired = 'BothFieldsRequired';
+  static const Alert = 'Alert';
+  static const Account = 'Account';
+  static const Sorry = 'Sorry';
+  static const ContestHasBeenExpired = 'ContestHasBeenExpired';
+  static const Invested1ticket = 'Invested1ticket';
+  static const NoWinnersYet = 'NoWinnersYet';
+  static const NewContestAdded = 'NewContestAdded';
+  static const Update = 'Update';
+  static const UpdateName = 'UpdateName';
+  static const Cancel = 'Cancel';
+  static const Success = 'Success';
+  static const NameUpdatedSuccessfully = 'NameUpdatedSuccessfully';
+  static const NoContests = 'NoContests';
 }
 
 class Locales {
@@ -146,5 +220,79 @@ class Locales {
         'I acknowledge having read and accepted the general conditions of use of the application',
     'term3':
         'I certify that i am over 18 years of age or a authorization of my legal representative',
+    'appName': 'Contests App',
+    'Expired': 'Expired',
+    'Open': 'Open',
+    'Contest': 'Contest',
+    'Winners': 'Winners',
+    'Participate': 'Participate',
+    'Organizedby': 'Organized by',
+    'Endofcontest': 'End of contest',
+    'GameRules': 'Game Rules',
+    'Participants': 'Participants',
+    'Youinvestedtickets': 'You invested 1 tickets',
+    'EXTRACHANCES': 'EXTRA CHANCES',
+    'HELP': 'HELP',
+    'PRIVACYPOLICY': 'PRIVACY POLICY',
+    'TERMSANDCONDITIONS': 'TERMS AND CONDITIONS',
+    'Logout': 'Logout',
+    'Login': 'Login',
+    'Donthaveanaccount': 'Don\'t have an account? Sign Up',
+    'FirstName': 'First Name',
+    'LastName': 'Last Name',
+    'Nickname': 'Nickname',
+    'DateofBirth': 'Date of Birth',
+    'City': 'City',
+    'Email': 'Email',
+    'Alreadyhaveanaccount': 'Already have an account ? Sign in',
+    'Edit': 'Edit',
+    'Users': 'Users',
+    'Organizers': 'Organizers',
+    'AdminArea': 'Admin Area',
+    'NewContest': 'New Contest',
+    'ContestImages': 'Contest Images',
+    'ContestDetails': 'Contest Details',
+    'Title': 'Title',
+    'Description': 'Description',
+    'Organizer': 'Organizer',
+    'Startingfrom': 'Starding from ',
+    'Endingat': 'Ending at  ',
+    'Showparticipantstousers': 'Show participants to users',
+    'Add': 'Add',
+    'Areyousuretologout': 'Are you sure to logout ?',
+    'Congrats1ticketaddedforyou': 'Congrats - 1 ticket added for you',
+    'morechance': '1 ticket = 1 more chance',
+    'Wallet': 'Wallet',
+    'Winmoretickets': 'Win more tickets',
+    'Clickthebuttonbelowtowatchvideoadandearnmoretickets':
+        'Click the button below to watch video ad and earn more tickets',
+    'Earnticket': 'Earn 1 ticket',
+    'Youalreadyhaveinyouraccountbalance':
+        'You already have 1 in your account balance. You can either use them or watch more ads to earn more tickets',
+    'WatchAdanyway': 'Watch Ad anyway',
+    'Useaccountticket': 'Use account ticket',
+    'No': 'No',
+    'Yes': 'Yes',
+    'Pleaseselectimage': 'Please select your image',
+    'Fillallfields': 'Fill all the fields',
+    'InvalidEmailAddress': 'Invalid Email Address',
+    'PleaseWait': 'Please Wait',
+    'CreatingYourAccount': 'Creating Your account',
+    'Error': 'Error',
+    'ImageNotUploaded': 'Image not uploaded',
+    'BothFieldsRequired': 'Both fields are required',
+    'Alert': 'Alert',
+    'Account': 'Account',
+    'Sorry': 'Sorry',
+    'ContestHasBeenExpired': 'Contest Has Been Expired',
+    'Invested1ticket': 'Invested 1 Ticket',
+    'NoWinnersYet': 'No Winners Yet',
+    'NewContestAdded': 'New Contest Added',
+    'Update': 'Update',
+    'UpdateName': 'Update Name',
+    'Cancel': 'Cancel',
+    'Success': 'Success',
+    'NameUpdatedSuccessfully': 'Name updated successfully',
+    'NoContests': 'No Contests',
   };
 }

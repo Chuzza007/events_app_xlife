@@ -40,12 +40,15 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
             controller: widget.tabController,
             unselectedLabelColor: Colors.grey,
             isScrollable: widget.isScrollable ?? false,
-            labelColor: appPrimaryColor,
+            labelColor: Colors.white,
             labelStyle: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 17,
                 fontFamily: "Outfit"),
-            indicatorColor: appPrimaryColor,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: appPrimaryColor
+            ),
             physics: BouncingScrollPhysics(),
             tabs: getTabBarTitlesToTabs(widget.tabs_titles_list),
           ),

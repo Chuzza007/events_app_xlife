@@ -1,11 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/views/screens/organizer/screen_organizer_edit_profile.dart';
+import 'package:xlife/views/screens/user/screen_user_edit_profile.dart';
 
 import '../helpers/constants.dart';
-import '../helpers/styles.dart';
 
 class CustomHomeHeaderContainerDesign extends StatefulWidget {
   Widget child;
@@ -13,6 +13,7 @@ class CustomHomeHeaderContainerDesign extends StatefulWidget {
   Widget? title;
   Color? headerColor;
   Color? bodyColor;
+  HomePageType type;
 
   @override
   _CustomHomeHeaderContainerDesignState createState() =>
@@ -23,7 +24,8 @@ class CustomHomeHeaderContainerDesign extends StatefulWidget {
     this.bottomNavigationBar,
     this.title,
     this.headerColor,
-    this.bodyColor
+    this.bodyColor,
+    required this.type,
   });
 }
 
@@ -52,23 +54,32 @@ class _CustomHomeHeaderContainerDesignState
                     children: [
                       Image.asset(
                         'assets/images/logo.png',
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.3,
+                        height:
+                            MediaQuery.of(context).size.height * 0.1,
+                        width:
+                            MediaQuery.of(context).size.width * 0.3,
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
+                          Get.to(widget.type == HomePageType.user
+                              ? ScreenUserEditProfile()
+                              : ScreenOrganizerEditProfile());
                         },
                         child: Hero(
-                          tag: "about",
+                          tag: "edit_profile",
+                          flightShuttleBuilder: flightShuttleBuilder,
                           child: Container(
-
-                            height: MediaQuery.of(context).size.height * 0.045,
-                            width: MediaQuery.of(context).size.height * 0.045,
+                            height:
+                                MediaQuery.of(context).size.height *
+                                    0.045,
+                            width:
+                                MediaQuery.of(context).size.height *
+                                    0.045,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                                color: Colors.white,
                                 shape: BoxShape.circle,
-                                border:
-                                    Border.all(width: 2.sp, color: Colors.white),
+                                border: Border.all(
+                                    width: 2.sp, color: Colors.white),
                                 image: DecorationImage(
                                     image: NetworkImage(
                                         "https://hireme.ga/images/mubashar.png"))),
@@ -126,3 +137,5 @@ class _CustomHomeHeaderContainerDesignState
     );
   }
 }
+
+enum HomePageType { user, organizer }

@@ -22,26 +22,28 @@ class _CustomListviewBuilderState
     extends State<CustomListviewBuilder> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      reverse: widget.reverse ?? false,
-      physics:
-          (widget.scrollable != null && widget.scrollable == false)
-              ? NeverScrollableScrollPhysics()
-              : BouncingScrollPhysics(),
-      scrollDirection: widget.scrollDirection == CustomDirection.vertical
-          ? Axis.vertical
-          : Axis.horizontal,
-      child: widget.scrollDirection == CustomDirection.vertical
-          ? Column(
-              children: List.generate(widget.itemCount,
-                      (index) => widget.itemBuilder(context, index))
-                  .toList(),
-            )
-          : Row(
-              children: List.generate(widget.itemCount,
-                      (index) => widget.itemBuilder(context, index))
-                  .toList(),
-            ),
+    return Expanded(
+      child: SingleChildScrollView(
+        reverse: widget.reverse ?? false,
+        physics:
+            (widget.scrollable != null && widget.scrollable == false)
+                ? NeverScrollableScrollPhysics()
+                : BouncingScrollPhysics(),
+        scrollDirection: widget.scrollDirection == CustomDirection.vertical
+            ? Axis.vertical
+            : Axis.horizontal,
+        child: widget.scrollDirection == CustomDirection.vertical
+            ? Column(
+                children: List.generate(widget.itemCount,
+                        (index) => widget.itemBuilder(context, index))
+                    .toList(),
+              )
+            : Row(
+                children: List.generate(widget.itemCount,
+                        (index) => widget.itemBuilder(context, index))
+                    .toList(),
+              ),
+      ),
     );
   }
 }
