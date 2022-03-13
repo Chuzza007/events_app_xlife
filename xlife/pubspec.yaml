@@ -51,6 +51,10 @@ dependencies:
   map_picker: ^0.0.3
   geocode: ^1.0.1
   flutter_svg: ^1.0.3
+  mime: ^1.0.1
+  open_file: ^3.2.1
+  flutter_chat_ui: ^1.5.5
+  file_picker: ^4.5.1
 #  flutter_google_places: ^0.3.0
 
 dev_dependencies:

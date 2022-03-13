@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_edit_profile.dart';
 import 'package:xlife/views/screens/user/screen_user_edit_profile.dart';
+import 'package:xlife/views/screens/user/screen_user_inbox.dart';
 
 import '../helpers/constants.dart';
 
@@ -59,32 +60,52 @@ class _CustomHomeHeaderContainerDesignState
                         width:
                             MediaQuery.of(context).size.width * 0.3,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(widget.type == HomePageType.user
-                              ? ScreenUserEditProfile()
-                              : ScreenOrganizerEditProfile());
-                        },
-                        child: Hero(
-                          tag: "edit_profile",
-                          flightShuttleBuilder: flightShuttleBuilder,
-                          child: Container(
-                            height:
-                                MediaQuery.of(context).size.height *
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (widget.type == HomePageType.user)
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Get.to(ScreenUserInbox());
+                                  },
+                                  color: Colors.white,
+                                  icon: ImageIcon(AssetImage(
+                                      "assets/images/icon_inbox.png"))),
+                            ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(widget.type == HomePageType.user
+                                  ? ScreenUserEditProfile()
+                                  : ScreenOrganizerEditProfile());
+                            },
+                            child: Hero(
+                              tag: "edit_profile",
+                              flightShuttleBuilder:
+                                  flightShuttleBuilder,
+                              child: Container(
+                                height: MediaQuery.of(context)
+                                        .size
+                                        .height *
                                     0.045,
-                            width:
-                                MediaQuery.of(context).size.height *
+                                width: MediaQuery.of(context)
+                                        .size
+                                        .height *
                                     0.045,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    width: 2.sp, color: Colors.white),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://hireme.ga/images/mubashar.png"))),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        width: 2.sp,
+                                        color: Colors.white),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "https://hireme.ga/images/mubashar.png"))),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       )
                     ],
                   ),
