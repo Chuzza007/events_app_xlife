@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/views/screens/admin/screen_admin_homepage.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_homepage.dart';
 import 'package:xlife/views/screens/screen_forgot_password.dart';
 
@@ -20,6 +21,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   bool stayConnected = true;
+  String adminEmail = "admin", adminPassword = "admin";
+  String email = "", password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +39,17 @@ class _SignInScreenState extends State<SignInScreen> {
                   hint: LocaleKeys.EmailAddress.tr,
                   isPasswordField: false,
                   fillColor: Colors.white,
+                  onChange: (value){
+                    email = value.toString();
+                  },
                   keyboardType: TextInputType.emailAddress),
               CustomInputField(
                   hint: LocaleKeys.Password.tr,
                   isPasswordField: true,
                   fillColor: Colors.white,
+                  onChange: (value){
+                    password = value.toString();
+                  },
                   keyboardType: TextInputType.visiblePassword),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -69,6 +78,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     style: normal_h2Style.merge(TextStyle(color: appPrimaryColor)),
                   )),
               CustomButton(text: LocaleKeys.SignIn.tr, onPressed: () {
+                if (email == adminEmail && password == adminPassword){
+                  Get.to(ScreenAdminHomepage());
+                  return;
+                }
                 Get.to(ScreenOrganizerHomepage());
               }),
               Padding(
