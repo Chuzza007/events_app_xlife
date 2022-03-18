@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_edit_profile.dart';
 import 'package:xlife/views/screens/user/screen_user_edit_profile.dart';
-import 'package:xlife/views/screens/user/screen_user_inbox.dart';
+import 'package:xlife/views/screens/user/screen_user_connections.dart';
 
 import '../helpers/constants.dart';
 
@@ -68,7 +68,7 @@ class _CustomHomeHeaderContainerDesignState
                               padding: const EdgeInsets.only(right: 8.0),
                               child: IconButton(
                                   onPressed: () {
-                                    Get.to(ScreenUserInbox());
+                                    Get.to(ScreenUserConnections());
                                   },
                                   color: Colors.white,
                                   icon: ImageIcon(AssetImage(

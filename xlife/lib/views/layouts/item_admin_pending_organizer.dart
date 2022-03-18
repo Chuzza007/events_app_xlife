@@ -52,7 +52,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
                 child: CustomButton(
                   text: "Approve",
                   onPressed: () {},
-                  height: Get.height * 0.05,
+                  height: Get.height * 0.07,
                   color: Colors.green,
                 ),
               ),
@@ -60,7 +60,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
                 child: CustomButton(
                   text: "Reject",
                   onPressed: () {},
-                  height: Get.height * 0.05,
+                  height: Get.height * 0.07,
                   color: Colors.red,
                 ),
               ),

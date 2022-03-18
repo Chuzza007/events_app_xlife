@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_events.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_organizers.dart';
+import 'package:xlife/views/screens/admin/screen_admin_all_posts.dart';
 import 'package:xlife/widgets/custom_button.dart';
 
 class ScreenAdminHomepage extends StatefulWidget {
@@ -23,13 +25,25 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton(text: "All Events", onPressed: (){
-              Get.to(ScreenAdminAllEvents());
-            }),
-            CustomButton(text: "Organizers", onPressed: (){
-              Get.to(ScreenAdminAllOrganizers());
-            }),
-            CustomButton(text: "Posts", onPressed: (){}),
+            Text(
+              "Select an option",
+              style: normal_h1Style_bold,
+            ),
+            CustomButton(
+                text: "All Events",
+                onPressed: () {
+                  Get.to(ScreenAdminAllEvents());
+                }),
+            CustomButton(
+                text: "Organizers",
+                onPressed: () {
+                  Get.to(ScreenAdminAllOrganizers());
+                }),
+            CustomButton(
+                text: "Posts",
+                onPressed: () {
+                  Get.to(ScreenAdminAllPosts());
+                }),
           ],
         ),
       ),
