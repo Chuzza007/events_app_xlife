@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "797516731889",
+    "project_id": "fenua-xlife",
+    "storage_bucket": "fenua-xlife.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797516731889:android:44ff73cb0284fada806050",
+        "android_client_info": {
+          "package_name": "com.microprogramers.notice.fenua.xlife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797516731889-31kik9lo0dg8v2jmmkk1n5uocgth4s4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgFMx7b-AGOZ0kcRrPOeIVH9XaKu3PAqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797516731889-31kik9lo0dg8v2jmmkk1n5uocgth4s4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

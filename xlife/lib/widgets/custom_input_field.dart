@@ -22,28 +22,29 @@ class CustomInputField extends StatefulWidget {
   bool? showBorder;
   bool? isDense;
   EdgeInsetsGeometry? margin;
+  String? Function(String?)? validator;
   Widget? suffix;
 
-  CustomInputField(
-      {required this.hint,
-      required this.isPasswordField,
-      this.onChange,
-      required this.keyboardType,
-      this.prefix,
-      this.limit,
-      this.controller,
-      this.onTap,
-      this.readOnly,
-      this.fillColor,
-      this.maxLines,
-      this.text,
-      this.showCounter,
-      this.counterColor,
-      this.showBorder,
-      this.minLines,
-      this.margin,
-      this.suffix,
-      this.isDense});
+  CustomInputField({required this.hint,
+    required this.isPasswordField,
+    this.onChange,
+    required this.keyboardType,
+    this.prefix,
+    this.limit,
+    this.controller,
+    this.onTap,
+    this.readOnly,
+    this.fillColor,
+    this.maxLines,
+    this.text,
+    this.showCounter,
+    this.counterColor,
+    this.showBorder,
+    this.minLines,
+    this.margin,
+    this.suffix,
+    this.validator,
+    this.isDense});
 
   @override
   _CustomInputFieldState createState() => _CustomInputFieldState();
@@ -62,16 +63,18 @@ class _CustomInputFieldState extends State<CustomInputField> {
   Widget build(BuildContext context) {
     return Container(
       margin: widget.margin ?? EdgeInsets.symmetric(vertical: 8.0),
-      child: TextField(
+      child: TextFormField(
         maxLength: widget.limit,
         onChanged: widget.onChange,
         obscureText: _isHidden,
         onTap: widget.onTap,
+        validator: widget.validator,
         maxLines: widget.maxLines ?? 1,
         minLines: widget.minLines,
         readOnly: widget.readOnly ?? false,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         buildCounter: (_,
             {required currentLength, maxLength, required isFocused}) {
           return Visibility(
@@ -98,29 +101,29 @@ class _CustomInputFieldState extends State<CustomInputField> {
                 Colors.white,
             filled: true,
             suffixIconConstraints: BoxConstraints(
-              minWidth: 50.sp
+                minWidth: 50.sp
             ),
             suffixIcon: widget.suffix ??
                 (widget.isPasswordField
                     ? IconButton(
-                        onPressed: () {
-                          if (widget.isPasswordField) {
-                            setState(() {
-                              _isHidden = !_isHidden;
-                            });
-                          }
-                        },
-                        icon: Visibility(
-                          visible: widget.isPasswordField,
-                          child: Icon(
-                            widget.isPasswordField
-                                ? (_isHidden
-                                    ? Icons.visibility
-                                    : Icons.visibility_off)
-                                : null,
-                          ),
-                        ),
-                      )
+                  onPressed: () {
+                    if (widget.isPasswordField) {
+                      setState(() {
+                        _isHidden = !_isHidden;
+                      });
+                    }
+                  },
+                  icon: Visibility(
+                    visible: widget.isPasswordField,
+                    child: Icon(
+                      widget.isPasswordField
+                          ? (_isHidden
+                          ? Icons.visibility
+                          : Icons.visibility_off)
+                          : null,
+                    ),
+                  ),
+                )
                     : null),
             hintStyle: TextStyle(color: hintColor),
             contentPadding: EdgeInsets.only(
@@ -129,25 +132,25 @@ class _CustomInputFieldState extends State<CustomInputField> {
                 top: (widget.maxLines != null) ? 15 : 5,
                 bottom: (widget.maxLines != null) ? 15 : 5),
             border: (widget.showBorder != null &&
-                    widget.showBorder == false)
+                widget.showBorder == false)
                 ? InputBorder.none
                 : OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(10)),
-                    borderSide:
-                        BorderSide(width: 1, color: hintColor),
-                  ),
-            enabledBorder: (widget.showBorder != null &&
-                    widget.showBorder == false)
-                ? InputBorder.none
-                : OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(10)),
-                    borderSide:
-                        BorderSide(width: 1, color: hintColor))
-            // filled: true,
-            // fillColor: Color(0xF0BBBBBB),
+              borderRadius:
+              BorderRadius.all(Radius.circular(10)),
+              borderSide:
+              BorderSide(width: 1, color: hintColor),
             ),
+            enabledBorder: (widget.showBorder != null &&
+                widget.showBorder == false)
+                ? InputBorder.none
+                : OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(10)),
+                borderSide:
+                BorderSide(width: 1, color: hintColor))
+          // filled: true,
+          // fillColor: Color(0xF0BBBBBB),
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +24,8 @@ String appName = LocaleKeys.AppName.tr;
 Color hintColor = Color(0xFFA0A2A8);
 Color buttonColor = Color(0xFFF13B2D);
 String googleAPIKey = "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY";
-
+CollectionReference usersRef =
+FirebaseFirestore.instance.collection("users");
 
 void showOptionsBottomSheet({
   required BuildContext context,

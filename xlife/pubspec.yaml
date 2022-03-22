@@ -55,6 +55,13 @@ dependencies:
   open_file: ^3.2.1
   flutter_chat_ui: ^1.5.5
   file_picker: ^4.5.1
+  firebase_core: ^1.13.1
+  firebase_auth: ^3.3.11
+
+  cloud_firestore: ^3.1.10
+  firebase_storage: ^10.2.9
+  firebase_messaging: ^11.2.11
+  flutter_firebase_app: any
 #  flutter_google_places: ^0.3.0
 
 dev_dependencies:
