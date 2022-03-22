@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:xlife/views/layouts/layout_admin_approved_organizers.dart';
 import 'package:xlife/views/layouts/layout_admin_pending_organizers.dart';
+import 'package:xlife/views/screens/admin/screen_admin_add_organizer.dart';
 import 'package:xlife/widgets/custom_tab_bar_view.dart';
+
+import '../../layouts/item_admin_approved_organizer.dart';
 
 class ScreenAdminAllOrganizers extends StatefulWidget {
   const ScreenAdminAllOrganizers({Key? key}) : super(key: key);
@@ -20,19 +24,17 @@ class _ScreenAdminAllOrganizersState
       appBar: AppBar(
         title: Text("All Organizers (27)"),
       ),
-      body: Container(
-        margin: EdgeInsets.all(10),
-        child: CustomTabBarView(
-          tabs_length: 2,
-          borderRadius: BorderRadius.circular(20),
-          tabs_titles_list: ["Approved (20)", "Pending (12)"],
-          tabController: TabController(length: 2, vsync: this),
-          tab_children_layouts: [
-            LayoutAdminApprovedOrganizers(),
-            LayoutAdminPendingOrganizers()
-          ],
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Get.to(ScreenAdminAddOrganizer());
+        },
+        child: Icon(Icons.add),
       ),
+      body: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (_, index){
+            return ItemAdminApprovedOrganizer();
+          }),
     );
   }
 }

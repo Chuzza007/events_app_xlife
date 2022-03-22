@@ -1,57 +1,54 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+import 'package:xlife/views/screens/user/screen_user_chat.dart';
 
-import '../../helpers/constants.dart';
 import '../../helpers/styles.dart';
-import '../screens/user/screen_user_chat.dart';
 
 class ItemUserSuggestion extends StatelessWidget {
   const ItemUserSuggestion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(
-              "Julia H.",
-              style: normal_h2Style_bold,
-            ),
-            leading: Container(
-              height: Get.height * 0.1,
-              width: Get.width * 0.1,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                      "https://deadline.com/wp-content/uploads/2020/09/Gugu-Mbatha-Raw-e1610021013129.jpg"),
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: Column(
+          children: [
+            Badge(
+              position:
+                  BadgePosition.bottomEnd(bottom: 0.sp, end: 6.sp),
+              badgeColor: Colors.green,
+              toAnimate: false,
+              badgeContent: SizedBox(
+                height: Get.height * 0.01,
+                width: Get.width * 0.01,
+              ),
+              animationType: BadgeAnimationType.slide,
+              child: Container(
+                height: Get.height * 0.09,
+                width: Get.width * 0.2,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                        "https://deadline.com/wp-content/uploads/2020/09/Gugu-Mbatha-Raw-e1610021013129.jpg"),
+                  ),
                 ),
               ),
             ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.location_on),
-                Text(
-                  "2 km",
-                  style: TextStyle(color: hintColor),
-                ),
-              ],
+            Text(
+              "Alina",
+              style: normal_h4Style,
             ),
-            onTap: () {
-              Get.to(ScreenUserChat());
-            },
-          ),
-          Divider(
-            color: Colors.black45,
-            indent: Get.width * 0.1,
-            endIndent: Get.width * 0.05,
-            height: Get.height * 0.03,
-          )
-        ],
+          ],
+        ),
       ),
+      onTap: (){
+        Get.to(ScreenUserChat());
+      },
     );
   }
 }

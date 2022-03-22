@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/widgets/custom_button.dart';
 
 import '../../helpers/styles.dart';
 
@@ -63,8 +64,12 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             title: Text("Approved", style: normal_h2Style_bold.copyWith(
               color: Colors.green
             ),),
+            // trailing: IconButton(
+            //   icon: Icon(Icons.block),
+            //   onPressed: (){},
+            // ),
             leading: Icon(Icons.check_circle_rounded, color: Colors.green,),
-          )
+          ),
         ],
       ),
     );

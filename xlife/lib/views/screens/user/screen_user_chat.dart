@@ -73,21 +73,28 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Hero(
-                tag: "inbox_title",
-                flightShuttleBuilder: flightShuttleBuilder,
-                child: Text(
-                    "${receiver.firstName} ${receiver.lastName}")),
-            Text(
-              "2 km away",
-              style: normal_h5Style.copyWith(color: Colors.grey, fontWeight: FontWeight.normal),
-            )
-          ],
+        title: InkWell(
+          onTap: () {
+            _modalBottomSheetMenu();
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Hero(
+                  tag: "inbox_title",
+                  flightShuttleBuilder: flightShuttleBuilder,
+                  child: Text(
+                      "${receiver.firstName} ${receiver.lastName}")),
+              Text(
+                "2 km away",
+                style: normal_h5Style.copyWith(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.normal),
+              )
+            ],
+          ),
         ),
         leadingWidth: Get.width * 0.25,
         leading: Container(
@@ -111,7 +118,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
               ],
             ),
             borderRadius: BorderRadius.circular(50),
-            onTap: (){
+            onTap: () {
               Get.back();
             },
           ),
@@ -261,11 +268,36 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
               _handlePreviewDataFetched(textMessage, previewData);
             },
             onAvatarTap: (user) {},
-            emptyState: Center(
-              child: Text(
-                "No messages",
-                style: normal_h1Style.copyWith(color: Colors.grey),
-              ),
+            emptyState: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: Get.height * 0.15,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey,
+                          image: DecorationImage(
+                              image: NetworkImage(
+                            receiver.imageUrl.toString(),
+                          ))),
+                    ),
+                    Text(
+                      "From Which City",
+                      style: normal_h3Style_bold,
+                    ),
+                    Text(
+                      "2 km Away",
+                      style: normal_h4Style,
+                    )
+                  ],
+                ),
+                Container(
+                  color: Colors.white.withOpacity(0.6),
+                )
+              ],
             ),
             onSendPressed: (text) {
               _handleSendPressed(text);
@@ -437,6 +469,59 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     controller.selection = textSelection.copyWith(
       baseOffset: textSelection.start + myTextLength,
       extentOffset: textSelection.start + myTextLength,
+    );
+  }
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)),
+      builder: (builder) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: Get.height * 0.15,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey,
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              receiver.imageUrl.toString(),
+                            ))),
+                  ),
+                ),
+                ListTile(
+                  title: Text("Which City"),
+                  leading: Icon(Icons.home),
+                ),
+                ListTile(
+                  title: Text("user@test.com"),
+                  leading: Icon(Icons.alternate_email),
+                ),
+                ListTile(
+                  title: Text("+923086765898"),
+                  leading: Icon(Icons.phone),
+                ),
+                ListTile(
+                  title: Text("2 km away"),
+                  leading: Icon(Icons.location_on),
+                ),
+                CustomButton(text: "Chat", onPressed: (){
+                  Get.back();
+                }),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

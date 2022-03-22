@@ -37,32 +37,34 @@ class _LayoutUserSearchEventsByOrganizersState
           title: _buildSearchField(),
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            Visibility(
-              visible: filtersList.isNotEmpty,
-              child: CustomChips(
-                chipNames: filtersList,
-                selectable: false,
-                scrollable: true,
-                onDeleted: (newList) {
-                  setState(() {
-                    filtersList = newList;
-                  });
-                },
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Visibility(
+                visible: filtersList.isNotEmpty,
+                child: CustomChips(
+                  chipNames: filtersList,
+                  selectable: false,
+                  scrollable: true,
+                  onDeleted: (newList) {
+                    setState(() {
+                      filtersList = newList;
+                    });
+                  },
+                ),
               ),
-            ),
-            CustomListviewBuilder(
-              itemCount: 20,
-              scrollable: true,
-              itemBuilder: (context, index) {
-                return ItemUserEventByOrganizer(
-                  favorite: false,
-                );
-              },
-              scrollDirection: CustomDirection.vertical,
-            ),
-          ],
+              CustomListviewBuilder(
+                itemCount: 20,
+                scrollable: true,
+                itemBuilder: (context, index) {
+                  return ItemUserEventByOrganizer(
+                    favorite: false,
+                  );
+                },
+                scrollDirection: CustomDirection.vertical,
+              ),
+            ],
+          ),
         ),
       ),
     );
