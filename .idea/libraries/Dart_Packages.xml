@@ -926,6 +926,13 @@
             </list>
           </value>
         </entry>
+        <entry key="xlife">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="xml">
           <value>
             <list>
@@ -943,6 +950,7 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/animated_splash_screen-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.2.1/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.0/lib" />
