@@ -32,7 +32,7 @@ class _EmailVerificationDoneScreenState
             ),
             Text(
               LocaleKeys.VerificationLinkSent.tr,
-              style: normal_h1Style_bold,
+              style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
             ),
             SizedBox(
               height: 20,
@@ -40,7 +40,7 @@ class _EmailVerificationDoneScreenState
             Text(
               LocaleKeys.WeHaveSentVerificationLink.tr,
               textAlign: TextAlign.center,
-              style: normal_h3Style,
+              style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
             ),
             SizedBox(height: Get.height * 0.2,),
             CustomButton(text: LocaleKeys.Done.tr, onPressed: (){

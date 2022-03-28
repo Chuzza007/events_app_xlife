@@ -23,7 +23,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
             ListTile(
               title: Text(
                 "Sami Khan",
-                style: normal_h2Style_bold,
+                style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
               subtitle: Text(
                 "hey john,\n I’m looking for a video editor for my video editing task.",
@@ -33,7 +33,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
               leading: Badge(
                 badgeContent: Text(
                   "  ",
-                  style: normal_h6Style.copyWith(color: Colors.white),
+                  style: (GetPlatform.isWeb ? normal_h6Style_web : normal_h6Style).copyWith(color: Colors.white),
                 ),
                 badgeColor: Colors.green,
                 elevation: 0,
@@ -64,7 +64,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                   Badge(
                     badgeContent: Text(
                       " 1 ",
-                      style: normal_h3Style.copyWith(color: Colors.white),
+                      style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.white),
                     ),
                     toAnimate: false,
                     shape: BadgeShape.circle,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../helpers/styles.dart';
@@ -34,11 +35,11 @@ class _ItemUserCommentState extends State<ItemUserComment> {
         ),
         title: Text(
           "Mubashar Hussain",
-          style: normal_h3Style_bold,
+          style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
         subtitle: Text(
           "This is the user comment",
-          style: normal_h4Style,
+          style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
         ),
         trailing: Text(
           "1 h",

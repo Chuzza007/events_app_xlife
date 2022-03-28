@@ -44,7 +44,7 @@ class _ItemOrganizerNewsFeedState
               ),
               title: Text(
                 "Mubashar Hussain",
-                style: normal_h3Style_bold,
+                style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
               subtitle: Text("1 h"),
             ),
@@ -53,7 +53,7 @@ class _ItemOrganizerNewsFeedState
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "post text will be here",
-              style: normal_h3Style,
+              style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -77,7 +77,7 @@ class _ItemOrganizerNewsFeedState
                   child: Text(
                     "273 Reactions",
                     style:
-                        normal_h3Style.copyWith(color: Colors.grey),
+                        (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
                     Get.to(ScreenOrganizerPostReactions());
@@ -86,7 +86,7 @@ class _ItemOrganizerNewsFeedState
                 GestureDetector(
                   child: Text(
                     "97 Comments",
-                    style: normal_h3Style.copyWith(color: Colors.grey),
+                    style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
                     Get.to(ScreenOrganizerPostComments());

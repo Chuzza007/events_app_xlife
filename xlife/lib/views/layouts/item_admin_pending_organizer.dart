@@ -33,13 +33,13 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
             ),
             title: Text(
               "Mubashar Hussain",
-              style: normal_h3Style_bold,
+              style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
             ),
           ),
           ListTile(
             title: Text(
               "Pending",
-              style: normal_h2Style_bold.copyWith(color: Colors.grey),
+              style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: Colors.grey),
             ),
             leading: Icon(
               Icons.info,

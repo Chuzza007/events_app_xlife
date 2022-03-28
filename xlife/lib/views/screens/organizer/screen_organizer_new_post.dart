@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/controllers/controller_organizer_new_post.dart';
@@ -53,10 +54,10 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
-                        image: controller.postImage.value.path != ""
+                        image: (kIsWeb ? controller.postImageWeb.value.path : controller.postImage.value.path) != ""
                             ? DecorationImage(
-                          image: FileImage(
-                              File(controller.postImage.value.path)),
+                          image: kIsWeb ? NetworkImage(controller.postImageWeb.value.path) : FileImage(
+                              File(controller.postImage.value.path)) as ImageProvider,
                           fit: BoxFit.cover,
                         )
                             : null,
@@ -85,14 +86,14 @@ class ScreenOrganizerNewPost extends StatelessWidget {
         children: [
           Text(
             title,
-            style: normal_h2Style_bold,
+            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
           SizedBox(
             width: 5,
           ),
           Text(
             optional ? "(optional)" : "*",
-            style: normal_h2Style_bold.copyWith(
+            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: optional ? Colors.grey : Colors.red,
             ),
           ),

@@ -31,7 +31,7 @@ class _CustomButtonState extends State<CustomButton> {
       onTap: widget.onPressed,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-        height: widget.height ?? 7.h,
+        height: widget.height ?? Get.height * .07,
         width: widget.width ?? MediaQuery.of(context).size.width,
         child: ElevatedButton(
           onPressed: widget.onPressed,
@@ -44,7 +44,7 @@ class _CustomButtonState extends State<CustomButton> {
           ),
           child: Text(
             widget.text,
-            style: normal_h2Style.copyWith(color: Colors.white),
+            style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style).copyWith(color: Colors.white),
           ),
         ),
       ),

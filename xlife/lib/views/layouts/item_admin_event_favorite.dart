@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../helpers/styles.dart';
@@ -36,7 +37,7 @@ class _ItemAdminEventFavoriteState
         ),
         title: Text(
           "Mubashar Hussain",
-          style: normal_h3Style_bold,
+          style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
         trailing: Text(
           "1 h",

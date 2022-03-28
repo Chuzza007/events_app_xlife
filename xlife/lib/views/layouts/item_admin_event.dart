@@ -47,7 +47,7 @@ class ItemAdminEvent extends StatelessWidget {
                     ListTile(
                       title: Text(
                         "Event title",
-                        style: normal_h2Style_bold,
+                        style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                       ),
                       dense: true,
                       leading: Icon(Icons.event),
@@ -68,7 +68,7 @@ class ItemAdminEvent extends StatelessWidget {
                     ListTile(
                       title: Text(
                         "22 favorites",
-                        style: normal_h3Style,
+                        style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,
                       leading: ImageIcon(

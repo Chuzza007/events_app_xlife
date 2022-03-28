@@ -43,7 +43,7 @@ class ItemOrganizerPostReaction extends StatelessWidget {
         ),
         title: Text(
           "Mubashar Hussain",
-          style: normal_h3Style_bold,
+          style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
         trailing: Text(
           "1 h",

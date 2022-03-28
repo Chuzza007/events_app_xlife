@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/views/layouts/item_user_event_by_organizer.dart';
 import 'package:xlife/widgets/custom_chips.dart';
@@ -82,7 +83,7 @@ class _LayoutUserSearchEventsByOrganizersState
             children: [
               Text(
                 "${filtersList.length}",
-                style: normal_h4Style.copyWith(
+                style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style).copyWith(
                   color: Colors.grey,
                 ),
               ),

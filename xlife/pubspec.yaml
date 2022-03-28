@@ -62,6 +62,8 @@ dependencies:
   firebase_storage: ^10.2.9
   firebase_messaging: ^11.2.11
   flutter_firebase_app: any
+  image_picker_for_web: ^2.1.6
+
 #  flutter_google_places: ^0.3.0
 
 dev_dependencies:

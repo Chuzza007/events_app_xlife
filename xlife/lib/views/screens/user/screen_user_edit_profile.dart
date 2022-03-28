@@ -123,7 +123,7 @@ class _ScreenUserEditProfileState
                                 children: [
                                   Text(
                                     "Profile Information",
-                                    style: normal_h1Style_bold,
+                                    style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
                                     margin: EdgeInsets.symmetric(
@@ -140,11 +140,11 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "Name",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Mubashar Hussain",
-                                            style: normal_h3Style,
+                                            style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: IconButton(
                                             icon: Icon(Icons.edit),
@@ -155,7 +155,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "Email",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "user@test.com",
@@ -169,7 +169,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "Change Password",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
                                             icon: Icon(
@@ -181,7 +181,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "My QR Code",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
                                             icon: Icon(
@@ -195,7 +195,7 @@ class _ScreenUserEditProfileState
                                   ),
                                   Text(
                                     "Terms",
-                                    style: normal_h1Style_bold,
+                                    style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
                                     margin: EdgeInsets.symmetric(
@@ -212,7 +212,7 @@ class _ScreenUserEditProfileState
                                           onTap: () {},
                                           title: Text(
                                             LocaleKeys.HELP.tr,
-                                            style: normal_h3Style,
+                                            style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: Icon(
                                             Icons
@@ -225,7 +225,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             LocaleKeys
                                                 .PRIVACYPOLICY.tr,
-                                            style: normal_h3Style,
+                                            style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: Icon(
                                             Icons
@@ -239,7 +239,7 @@ class _ScreenUserEditProfileState
                                             LocaleKeys
                                                 .TERMSANDCONDITIONS
                                                 .tr,
-                                            style: normal_h3Style,
+                                            style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: Icon(
                                             Icons
@@ -252,7 +252,7 @@ class _ScreenUserEditProfileState
                                   ),
                                   Text(
                                     "Others",
-                                    style: normal_h1Style_bold,
+                                    style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
                                     margin: EdgeInsets.symmetric(
@@ -270,7 +270,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "Rate",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Rate us on app store",
@@ -290,7 +290,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "Share",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Share this app with friends",
@@ -310,7 +310,7 @@ class _ScreenUserEditProfileState
                                           title: Text(
                                             "Win Gifts",
                                             style:
-                                                normal_h2Style_bold,
+                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Win amazing gifts by downloading our app",

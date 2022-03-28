@@ -323,14 +323,14 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
         children: [
           Text(
             title,
-            style: normal_h2Style_bold,
+            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
           SizedBox(
             width: 5,
           ),
           Text(
             optional ? "(optional)" : "*",
-            style: normal_h2Style_bold.copyWith(
+            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: optional ? Colors.grey : Colors.red,
             ),
           ),

@@ -89,7 +89,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                       "${receiver.firstName} ${receiver.lastName}")),
               Text(
                 "2 km away",
-                style: normal_h5Style.copyWith(
+                style: (GetPlatform.isWeb ? normal_h5Style_web : normal_h5Style).copyWith(
                     color: Colors.grey,
                     fontWeight: FontWeight.normal),
               )
@@ -130,7 +130,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                   context: context,
                   title: Text(
                     "More Options",
-                    style: normal_h1Style_bold,
+                    style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                   ),
                   options: [
                     ListTile(
@@ -162,11 +162,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                               ),
                               Text(
                                 "Confirmation",
-                                style: normal_h1Style_bold,
+                                style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                               ),
                               Text(
                                 "Are you sure, you want to block this  user?",
-                                style: normal_h2Style,
+                                style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style),
                                 textAlign: TextAlign.center,
                               ),
                               Row(
@@ -286,11 +286,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                     ),
                     Text(
                       "From Which City",
-                      style: normal_h3Style_bold,
+                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
                     ),
                     Text(
                       "2 km Away",
-                      style: normal_h4Style,
+                      style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
                     )
                   ],
                 ),
@@ -312,7 +312,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
       context: context,
       title: Text(
         "Select Attachment Option",
-        style: normal_h1Style_bold,
+        style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
       ),
       options: [
         ListTile(

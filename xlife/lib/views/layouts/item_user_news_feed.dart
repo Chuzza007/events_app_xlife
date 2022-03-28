@@ -74,7 +74,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
               ),
               title: Text(
                 "Mubashar Hussain",
-                style: normal_h3Style_bold,
+                style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
               subtitle: Text("1 h"),
             ),
@@ -83,7 +83,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "post text will be here",
-              style: normal_h3Style,
+              style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -103,8 +103,8 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("273 Reactions", style: normal_h3Style.copyWith(color: Colors.grey),),
-                Text("97 Comments", style: normal_h3Style.copyWith(color: Colors.grey),)
+                Text("273 Reactions", style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),),
+                Text("97 Comments", style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),)
               ],
             ),
           ),
@@ -140,7 +140,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
                       ),
                       Text(
                         "Comment",
-                        style: normal_h3Style,
+                        style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -163,7 +163,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
       ),
       child: Text(
         title,
-        style: normal_h3Style.copyWith(color: Colors.white),
+        style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.white),
       ),
     );
   }
@@ -180,7 +180,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
         ),
         Text(
           title,
-          style: normal_h3Style.copyWith(color: appPrimaryColor),
+          style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: appPrimaryColor),
         )
       ],
     );

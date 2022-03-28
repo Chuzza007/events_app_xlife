@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/views/layouts/item_user_suggestion.dart';
@@ -26,7 +27,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15.0, bottom: 10),
-                child: Text("Suggestions", style: normal_h2Style_bold.copyWith(
+                child: Text("Suggestions", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
                   color: appPrimaryColor
                 ),),
               ),
@@ -38,7 +39,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
 
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 15.0, bottom: 10),
-                child: Text("Messages", style: normal_h2Style_bold.copyWith(
+                child: Text("Messages", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
                     color: appPrimaryColor
                 ),),
               ),

@@ -60,7 +60,7 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> {
                     ListTile(
                       title: Text(
                         "Event title",
-                        style: normal_h2Style_bold,
+                        style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                       ),
                       dense: true,
                       leading: Icon(Icons.event),
@@ -69,7 +69,7 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> {
                     ListTile(
                       title: Text(
                         "22 Km",
-                        style: normal_h3Style_bold,
+                        style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
                       ),
                       dense: true,
                       leading: Icon(Icons.location_on),

@@ -49,7 +49,7 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                   ),
                   Text(
                     "22 Km",
-                    style: normal_h1Style_bold.copyWith(
+                    style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold).copyWith(
                         color: Colors.white),
                   ),
                 ],
@@ -79,7 +79,7 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                     ),
                     Text(
                       "2 days left",
-                      style: normal_h1Style_bold.copyWith(
+                      style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold).copyWith(
                           color: Colors.white),
                     ),
                   ],
@@ -101,20 +101,20 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                   children: [
                     Text(
                       "Event Title",
-                      style: heading2_style.copyWith(
+                      style: (GetPlatform.isWeb ? heading2_style_web : heading2_style).copyWith(
                           color: Colors.white),
                     ),
                     ListTile(
                       title: Text(
                         "This is the event description This is the event description This is the event description This is the event description This is the event description This is the event description ",
-                        style: normal_h2Style.copyWith(
+                        style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style).copyWith(
                             color: Colors.white),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       subtitle: Text(
                         "Organized by #####",
-                        style: normal_h3Style_bold.copyWith(
+                        style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(
                             color: Colors.white),
                       ),
                       trailing: IconButton(

@@ -92,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           },
                           child: Text(
                             LocaleKeys.ForgotPassword.tr + "?",
-                            style: normal_h2Style.merge(
+                            style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style).merge(
                                 TextStyle(color: appPrimaryColor)),
                           )),
                       CustomButton(

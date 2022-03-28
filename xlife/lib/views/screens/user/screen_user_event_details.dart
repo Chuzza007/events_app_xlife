@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
@@ -78,7 +79,7 @@ class _ScreenUserEventDetailsState
                     children: [
                       Text(
                         "Event Title",
-                        style: heading3_style.copyWith(
+                        style: (GetPlatform.isWeb ? heading3_style_web : heading3_style).copyWith(
                             color: Colors.white),
                       ),
                       IconButton(
@@ -108,7 +109,7 @@ class _ScreenUserEventDetailsState
                     ),
                     child: Text(
                       "${imageIndex + 1} / ${images.length}",
-                      style: normal_h3Style_bold.copyWith(
+                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(
                         color: Colors.white
                       ),
                     ),
@@ -134,7 +135,7 @@ class _ScreenUserEventDetailsState
             ListTile(
               title: Text(
                 "Distance",
-                style: normal_h2Style_bold,
+                style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -145,7 +146,7 @@ class _ScreenUserEventDetailsState
             ListTile(
               title: Text(
                 "Organized By",
-                style: normal_h1Style_bold,
+                style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -156,7 +157,7 @@ class _ScreenUserEventDetailsState
             ListTile(
               title: Text(
                 "Description",
-                style: normal_h1Style_bold,
+                style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -31,7 +31,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           children: [
             Text(LocaleKeys.EnterYourEmailReset.tr,
               textAlign: TextAlign.center,
-              style: normal_h1Style,),
+              style: (GetPlatform.isWeb ? normal_h1Style_web : normal_h1Style),),
             SizedBox(
               height: Get.height * 0.1,
             ),

@@ -34,14 +34,14 @@ class ItemUserSuggestion extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                        "https://deadline.com/wp-content/uploads/2020/09/Gugu-Mbatha-Raw-e1610021013129.jpg"),
+                        "https://upload.wikimedia.org/wikipedia/commons/3/3a/Elton_John_Cannes_2019.jpg"),
                   ),
                 ),
               ),
             ),
             Text(
               "Alina",
-              style: normal_h4Style,
+              style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
             ),
           ],
         ),

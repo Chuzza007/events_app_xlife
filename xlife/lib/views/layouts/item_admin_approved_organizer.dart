@@ -33,7 +33,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             ),
             title: Text(
               "Mubashar Hussain",
-              style: normal_h3Style_bold,
+              style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
             ),
             subtitle: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -61,7 +61,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("Approved", style: normal_h2Style_bold.copyWith(
+            title: Text("Approved", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: Colors.green
             ),),
             // trailing: IconButton(

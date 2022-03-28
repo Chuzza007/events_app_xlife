@@ -27,7 +27,7 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
           children: [
             Text(
               "Select an option",
-              style: normal_h1Style_bold,
+              style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
             ),
             CustomButton(
                 text: "All Events",
