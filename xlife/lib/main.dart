@@ -12,7 +12,20 @@ import 'helpers/constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  if (GetPlatform.isWeb) {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY",
+          authDomain: "fenua-xlife.firebaseapp.com",
+          projectId: "fenua-xlife",
+          storageBucket: "fenua-xlife.appspot.com",
+          messagingSenderId: "797516731889",
+          appId: "1:797516731889:web:4d468fd95ba56058806050",
+          measurementId: "G-DJG5N590E2"),
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(const MyApp());
 }
 
@@ -21,7 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(builder: (context, orientation, device){
+    return Sizer(builder: (context, orientation, device) {
       return GetMaterialApp(
         locale: Locale('en', 'US'),
         debugShowCheckedModeBanner: false,
@@ -58,7 +71,10 @@ class MyApp extends StatelessWidget {
         },
         translationsKeys: AppTranslation.translations,
         home: AnimatedSplashScreen(
-          splash: Image.asset("assets/gifs/splash.gif", fit: BoxFit.cover,),
+          splash: Image.asset(
+            "assets/gifs/splash.gif",
+            fit: BoxFit.cover,
+          ),
           duration: 3000,
           splashIconSize: Get.height,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
