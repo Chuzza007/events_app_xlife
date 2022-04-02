@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/controllers/controller_admin_new_organizer.dart';
+import 'package:xlife/widgets/custom_progress_widget.dart';
 
 import '../../../helpers/styles.dart';
 import '../../../widgets/custom_button.dart';
@@ -13,70 +14,83 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ControllerAdminNewOrganizer controller =
-        Get.put(ControllerAdminNewOrganizer());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add new Organizer"),
       ),
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildHeading("Name", false),
-                CustomInputField(
-                    hint: "organizer@test.com",
-                    isPasswordField: false,
-                    keyboardType: TextInputType.emailAddress),
-                _buildHeading("Email Address", false),
-                CustomInputField(
-                    hint: "organizer@test.com",
-                    isPasswordField: false,
-                    keyboardType: TextInputType.emailAddress),
-                _buildHeading("Password", false),
-                CustomInputField(
-                    hint: "Password",
-                    isPasswordField: false,
-                    keyboardType: TextInputType.text),
-                _buildHeading("Insert image", true),
-                Obx(() {
-                  print(controller.postImage.value.path);
-                  return GestureDetector(
-                    child: Container(
-                      width: Get.width * .3,
-                      margin: const EdgeInsets.all(5),
-                      height: Get.height * 0.1,
-                      child: controller.postImage.value.path != ""
-                          ? Container()
-                          : const Icon(Icons.add),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          image: controller.postImage.value.path != ""
-                              ? DecorationImage(
-                                  image: FileImage(File(controller
-                                      .postImage.value.path)),
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
-                          boxShadow: const [
-                            BoxShadow(
-                                blurRadius: 2, offset: Offset(0, 1))
-                          ]),
+        child: GetBuilder<ControllerAdminNewOrganizer>(
+          init: ControllerAdminNewOrganizer(),
+          builder: (controller) {
+            return CustomProgressWidget(
+              loading: controller.showLoading,
+              child: Form(
+                key: controller.newOrganizerFormKey,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _buildHeading("Name", false),
+                        CustomInputField(
+                            hint: "Organizer name",
+                            isPasswordField: false,
+                            controller: controller.name_controller,
+                            validator: (value) => controller.validateName(value.toString()),
+                            keyboardType: TextInputType.emailAddress),
+                        _buildHeading("Email Address", false),
+                        CustomInputField(
+                            hint: "organizer@test.com",
+                            isPasswordField: false,
+                            controller: controller.email_controller,
+                            asyncValidator: (value) => controller.validateLoginEmail(value.toString()),
+                            keyboardType: TextInputType.emailAddress),
+                        _buildHeading("Password", false),
+                        CustomInputField(
+                            hint: "Password",
+                            isPasswordField: false,
+                            controller: controller.password_controller,
+                            validator: (value) => controller.validatePassword(value.toString()),
+                            keyboardType: TextInputType.text),
+                        _buildHeading("Insert image", true),
+                        GestureDetector(
+                          child: Container(
+                            width: Get.width * .3,
+                            margin: const EdgeInsets.all(5),
+                            height: Get.height * 0.1,
+                            child: controller.postImage.path != "" ? Container() : const Icon(Icons.add),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                image: controller.postImage.path != ""
+                                    ? DecorationImage(
+                                        image: FileImage(File(controller.postImage.path)),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                                boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
+                          ),
+                          onTap: () {
+                            controller.pickImage();
+                          },
+                        ),
+                        CustomButton(
+                            text: "Add",
+                            onPressed: () async {
+                              String response = await controller.addOrganizer();
+                              print(response);
+                              controller.update();
+                              if (response == "success") {
+                                Get.back();
+                              }
+                            }),
+                      ],
                     ),
-                    onTap: () {
-                      controller.pickImage();
-                    },
-                  );
-                }),
-                CustomButton(text: "Add", onPressed: () {
-                  Get.back();
-                }),
-              ],
-            ),
-          ),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:xlife/controllers/controller_user_registration.dart';
 import 'package:xlife/helpers/styles.dart';
-import 'package:xlife/views/screens/organizer/screen_apply_as_organizer.dart';
 import 'package:xlife/views/screens/screen_signin.dart';
 import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 import 'package:xlife/widgets/custom_progress_widget.dart';

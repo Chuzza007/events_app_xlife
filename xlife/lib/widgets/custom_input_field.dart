@@ -90,7 +90,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
     super.initState();
   }
 
-  Timer? _debounce;
   var isValidating = false;
   var isValid = false;
   var isDirty = false;
@@ -130,12 +129,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
         onFieldSubmitted: widget.onFieldSubmitted,
         focusNode: widget.focusNode,
         enabled: widget.keyboardType != TextInputType.none,
-        onSaved: (value) {
-          print("saved");
-        },
-        onEditingComplete: () {
-          print("onEditingComplete");
-        },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         buildCounter: (_, {required currentLength, maxLength, required isFocused}) {
           return Visibility(

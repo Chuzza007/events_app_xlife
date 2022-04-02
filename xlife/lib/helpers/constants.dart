@@ -31,6 +31,7 @@ CollectionReference usersRef =
 FirebaseFirestore.instance.collection("users");
 CollectionReference organizersRef =
 FirebaseFirestore.instance.collection("organizers");
+String userPlaceholder = "https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png";
 
 void showOptionsBottomSheet({
   required BuildContext context,

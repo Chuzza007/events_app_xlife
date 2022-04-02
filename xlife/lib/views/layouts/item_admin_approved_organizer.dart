@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/models/organizer.dart';
 
 import '../../helpers/styles.dart';
 
 class ItemAdminApprovedOrganizer extends StatelessWidget {
-  const ItemAdminApprovedOrganizer({Key? key}) : super(key: key);
+  Organizer organizer;
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +26,17 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             leading: Container(
               height: 10.h,
               width: 15.w,
-              decoration: const BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://hireme.ga/images/mubashar.png"))),
+              decoration: BoxDecoration(
+                color: Colors.white60,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage((organizer.image_url!.isNotEmpty ? organizer.image_url! : userPlaceholder)),
+                ),
+              ),
             ),
             title: Text(
-              "Mubashar Hussain",
+              organizer.full_name,
               style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
             ),
             subtitle: Column(
@@ -42,9 +47,14 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Icon(Icons.event, color: Colors.grey,),
-                    SizedBox(width: Get.width * 0.02,),
-                    const Text("Organized 10 events"),
+                    const Icon(
+                      Icons.event,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: Get.width * 0.02,
+                    ),
+                    Text("Organized 0 events"),
                   ],
                 ),
                 // Row(
@@ -60,17 +70,25 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("Approved", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
-              color: Colors.green
-            ),),
+            title: Text(
+              "Approved",
+              style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: Colors.green),
+            ),
             // trailing: IconButton(
             //   icon: Icon(Icons.block),
             //   onPressed: (){},
             // ),
-            leading: const Icon(Icons.check_circle_rounded, color: Colors.green,),
+            leading: const Icon(
+              Icons.check_circle_rounded,
+              color: Colors.green,
+            ),
           ),
         ],
       ),
     );
   }
+
+  ItemAdminApprovedOrganizer({
+    required this.organizer,
+  });
 }
