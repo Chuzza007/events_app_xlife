@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/views/layouts/item_organizer_event.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_new_event.dart';
-import 'package:xlife/widgets/custom_listview_builder.dart';
 
 class LayoutOrganizerEvents extends StatefulWidget {
   const LayoutOrganizerEvents({Key? key}) : super(key: key);
@@ -21,8 +20,8 @@ class _LayoutOrganizerEventsState
         onPressed: () {
           Get.to(ScreenOrganizerNewEvent());
         },
-        label: Text("Event"),
-        icon: Icon(Icons.add),
+        label: const Text("Event"),
+        icon: const Icon(Icons.add),
         tooltip: "Add new Event",
       ),
       body: ListView.builder(

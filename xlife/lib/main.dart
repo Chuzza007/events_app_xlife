@@ -14,7 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (GetPlatform.isWeb) {
     await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY",
           authDomain: "fenua-xlife.firebaseapp.com",
           projectId: "fenua-xlife",
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, device) {
       return GetMaterialApp(
-        locale: Locale('en', 'US'),
+        locale: const Locale('en', 'US'),
         debugShowCheckedModeBanner: false,
         title: LocaleKeys.AppName.tr,
         theme: ThemeData(
@@ -48,9 +48,9 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
-            side: BorderSide(color: Color(0xff585858), width: 1),
+            side: const BorderSide(color: Color(0xff585858), width: 1),
           ),
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             color: Colors.white,
             elevation: 0,
             titleTextStyle: TextStyle(
@@ -61,13 +61,13 @@ class MyApp extends StatelessWidget {
             centerTitle: false,
             iconTheme: IconThemeData(color: Colors.black),
           ),
-          scaffoldBackgroundColor: Color(0xFFFAFBFF),
-          backgroundColor: Color(0xFFFAFBFF),
+          scaffoldBackgroundColor: const Color(0xFFFAFBFF),
+          backgroundColor: const Color(0xFFFAFBFF),
         ),
         defaultTransition: Transition.downToUp,
         builder: (context, widget) {
           return ScrollConfiguration(
-              behavior: ScrollBehaviorModified(), child: widget!);
+              behavior: const ScrollBehaviorModified(), child: widget!);
         },
         translationsKeys: AppTranslation.translations,
         home: AnimatedSplashScreen(

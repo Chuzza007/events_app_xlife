@@ -53,7 +53,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pick your location"),
+        title: const Text("Pick your location"),
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -107,7 +107,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
             child: CustomInputField(
                 hint: "Search place here...",
                 fillColor: Colors.transparent,
-                prefix: Icon(Icons.search),
+                prefix: const Icon(Icons.search),
                 controller: textController,
                 isPasswordField: false,
                 keyboardType: TextInputType.text),

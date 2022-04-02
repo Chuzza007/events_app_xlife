@@ -21,14 +21,14 @@ class _CustomProgressWidgetState extends State<CustomProgressWidget> {
       children: <Widget>[
         Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: widget.child),
         widget.loading
             ? Container(
                 color: Colors.black.withOpacity(0.5),
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(
                     color: Colors.white,
                   ),

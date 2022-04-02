@@ -21,7 +21,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return CustomHeaderContainerDesign(
       title: Text(LocaleKeys.ResetPassword.tr),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             Text(LocaleKeys.CreateNewPassword.tr),

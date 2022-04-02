@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xlife/models/user.dart' as model;
-import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 
 import '../helpers/constants.dart';
+import '../models/organizer.dart';
 
-class ControllerUserRegistration extends GetxController {
+class ControllerApplyAsOrganizer extends GetxController {
   final email_controller = TextEditingController().obs;
   final password_controller = TextEditingController().obs;
   final full_name_controller = TextEditingController().obs;
@@ -21,23 +20,13 @@ class ControllerUserRegistration extends GetxController {
   final acceptedTerm3 = false.obs;
   final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
-  final selectedRole = "users".obs;
-  final stayConnected = true.obs;
 
-
-  String? validateEmail(String value) {
+  Future<String?> validateEmail(String value) async {
     if (!GetUtils.isEmail(value)) {
       return "Provide valid Email";
     }
-    return null;
-  }
-
-  Future<String?> validateLoginEmail(String value) async {
-    if (!GetUtils.isEmail(value)) {
-      return "Provide valid Email";
-    }
-    return await checkIfEmailExists(value) ? null : "Email doesn't exist";
+    String? response = await checkIfEmailExists(value);
+    return response;
   }
 
   String? validatePassword(String value) {
@@ -101,49 +90,45 @@ class ControllerUserRegistration extends GetxController {
     String gender = selected_gender.value;
 
     isLoading.value = true;
-    String status = "";
-
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) async {
-      status = await _setDatabase(model.User(
-          full_name: fullName,
-          nick_name: nickname,
-          email: email,
-          phone: phone,
-          address: address,
-          password: password,
-          gender: gender,
-          acceptedTerms: true));
-    }).catchError((error) {
-      Get.snackbar("Error", error.toString());
-    });
+    String id = DateTime.now().millisecondsSinceEpoch.toString();
+    String status = await _setDatabase(Organizer(
+        full_name: fullName,
+        id: id,
+        nick_name: nickname,
+        email: email,
+        phone: phone,
+        address: address,
+        password: password,
+        gender: gender,
+        acceptedTerms: true,
+        pending: true));
 
     signupFormKey.currentState!.save();
     update();
     return status;
   }
 
-  Future<String> _setDatabase(model.User info) async {
+  Future<String> _setDatabase(Organizer info) async {
     String response = "";
     isLoading.value = true;
-    usersRef.doc(FirebaseAuth.instance.currentUser!.uid).set(info.toMap()).then((value) {
+    organizersRef.doc(info.id).set(info.toMap()).then((value) {
       response = "success";
-      Get.off(const ScreenUserHomepage());
     }).catchError((error) {
       response = error.toString();
     });
     return response;
   }
 
-  Future<bool> checkIfEmailExists(String email) async {
-    bool response = false;
-    print(email);
+  Future<String?> checkIfEmailExists(String email) async {
+    String? response;
 
-    final QuerySnapshot result = await FirebaseFirestore.instance.collection(selectedRole.value).where('email', isEqualTo: email).limit(1).get();
+    final QuerySnapshot result = await organizersRef.where('email', isEqualTo: email).limit(1).get();
     final List<DocumentSnapshot> documents = result.docs;
     if (documents.isNotEmpty) {
-      response = true;
+      response = (documents[0].data() as Map<String, dynamic>)['email'] == true ? "Email is already pending" : "Email is already used";
     }
     print(response);
     return response;
   }
+
 }

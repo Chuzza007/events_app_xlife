@@ -22,7 +22,7 @@ class _EmailVerificationDoneScreenState
   Widget build(BuildContext context) {
     return CustomHeaderContainerDesign(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,7 +34,7 @@ class _EmailVerificationDoneScreenState
               LocaleKeys.VerificationLinkSent.tr,
               style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(

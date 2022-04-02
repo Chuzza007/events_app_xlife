@@ -30,12 +30,12 @@ class _ItemOrganizerNewsFeedState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               leading: Container(
                 height: 10.h,
                 width: 15.w,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -46,7 +46,7 @@ class _ItemOrganizerNewsFeedState
                 "Mubashar Hussain",
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: Text("1 h"),
+              subtitle: const Text("1 h"),
             ),
           ),
           Padding(
@@ -60,7 +60,7 @@ class _ItemOrganizerNewsFeedState
           ),
           Container(
             height: 20.h,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
@@ -69,7 +69,7 @@ class _ItemOrganizerNewsFeedState
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -80,7 +80,7 @@ class _ItemOrganizerNewsFeedState
                         (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostReactions());
+                    Get.to(const ScreenOrganizerPostReactions());
                   },
                 ),
                 GestureDetector(
@@ -89,7 +89,7 @@ class _ItemOrganizerNewsFeedState
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostComments());
+                    Get.to(const ScreenOrganizerPostComments());
                   },
                 )
               ],

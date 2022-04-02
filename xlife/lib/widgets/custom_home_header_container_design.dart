@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -68,17 +67,17 @@ class _CustomHomeHeaderContainerDesignState
                               padding: const EdgeInsets.only(right: 8.0),
                               child: IconButton(
                                   onPressed: () {
-                                    Get.to(ScreenUserConnections());
+                                    Get.to(const ScreenUserConnections());
                                   },
                                   color: Colors.white,
-                                  icon: ImageIcon(AssetImage(
+                                  icon: const ImageIcon(AssetImage(
                                       "assets/images/icon_inbox.png"))),
                             ),
                           GestureDetector(
                             onTap: () {
                               Get.to(widget.type == HomePageType.user
-                                  ? ScreenUserEditProfile()
-                                  : ScreenOrganizerEditProfile());
+                                  ? const ScreenUserEditProfile()
+                                  : const ScreenOrganizerEditProfile());
                             },
                             child: Hero(
                               tag: "edit_profile",
@@ -99,7 +98,7 @@ class _CustomHomeHeaderContainerDesignState
                                     border: Border.all(
                                         width: 2.sp,
                                         color: Colors.white),
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                         image: NetworkImage(
                                             "https://hireme.ga/images/mubashar.png"))),
                               ),
@@ -124,24 +123,24 @@ class _CustomHomeHeaderContainerDesignState
                           topLeft: Radius.circular(26.sp),
                           topRight: Radius.circular(26.sp),
                         ),
-                        boxShadow: []),
+                        boxShadow: const []),
                   ),
                   Positioned(
                     child: Container(
                       alignment: Alignment.topCenter,
                       height: double.infinity,
                       width: double.infinity,
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
-                        color: widget.bodyColor ?? Color(0xFFFAFBFF),
+                        color: widget.bodyColor ?? const Color(0xFFFAFBFF),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(26.sp),
                           topRight: Radius.circular(26.sp),
                         ),
                       ),
                       child: Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             top: 10,
                             left: 10,
                             right: 10,

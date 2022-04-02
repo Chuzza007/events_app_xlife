@@ -23,7 +23,7 @@ class _ScreenOrganizerEditProfileState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Organizer profile"),
+        title: const Text("Organizer profile"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +46,7 @@ class _ScreenOrganizerEditProfileState
                               color: Colors.white, width: 5.sp),
                           shape: BoxShape.circle,
                           color: Colors.white,
-                          image: DecorationImage(
+                          image: const DecorationImage(
                               fit: BoxFit.cover,
                               image: CachedNetworkImageProvider(
                                   "https://hireme.ga/images/mubashar.png"))),
@@ -57,13 +57,13 @@ class _ScreenOrganizerEditProfileState
                       child: Container(
                         height: Get.height * 0.04,
                         width: Get.height * 0.04,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle),
-                        child: Icon(Icons.edit),
+                        child: const Icon(Icons.edit),
                       ),
                     ),
-                    Positioned(
+                    const Positioned(
                       child: Visibility(
                         visible: false,
                         child: CircularProgressIndicator.adaptive(
@@ -80,8 +80,8 @@ class _ScreenOrganizerEditProfileState
             child: Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: const BoxDecoration(
                       color: Colors.white38,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -94,9 +94,9 @@ class _ScreenOrganizerEditProfileState
                     alignment: Alignment.topCenter,
                     height: double.infinity,
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     padding: EdgeInsets.zero,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: CupertinoColors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -112,7 +112,7 @@ class _ScreenOrganizerEditProfileState
                           backgroundColor: Colors.transparent,
                           resizeToAvoidBottomInset: false,
                           body: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 top: 10, left: 10, right: 10),
                             child: SingleChildScrollView(
                               child: Column(
@@ -124,9 +124,9 @@ class _ScreenOrganizerEditProfileState
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 5),
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius:
                                       BorderRadius.circular(10),
@@ -145,7 +145,7 @@ class _ScreenOrganizerEditProfileState
                                             style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(Icons.edit),
+                                            icon: const Icon(Icons.edit),
                                             onPressed: () {},
                                           ),
                                         ),
@@ -170,7 +170,7 @@ class _ScreenOrganizerEditProfileState
                                             (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(
+                                            icon: const Icon(
                                                 Icons.navigate_next),
                                             onPressed: () {},
                                           ),
@@ -182,11 +182,11 @@ class _ScreenOrganizerEditProfileState
                                             (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(
+                                            icon: const Icon(
                                                 Icons.navigate_next),
                                             onPressed: () {},
                                           ),
-                                          leading: Icon(Icons.qr_code),
+                                          leading: const Icon(Icons.qr_code),
                                         ),
                                       ],
                                     ),
@@ -196,9 +196,9 @@ class _ScreenOrganizerEditProfileState
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 5),
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius:
                                       BorderRadius.circular(10),
@@ -253,9 +253,9 @@ class _ScreenOrganizerEditProfileState
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 5),
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius:
                                       BorderRadius.circular(10),
@@ -327,7 +327,7 @@ class _ScreenOrganizerEditProfileState
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.symmetric(
                                         horizontal: 20),
                                     child: CustomButton(
                                       text: LocaleKeys.Logout.tr,

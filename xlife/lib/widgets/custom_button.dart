@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 
 import '../helpers/constants.dart';
 import '../helpers/styles.dart';
@@ -30,15 +29,15 @@ class _CustomButtonState extends State<CustomButton> {
     return GestureDetector(
       onTap: widget.onPressed,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         height: widget.height ?? Get.height * .07,
         width: widget.width ?? MediaQuery.of(context).size.width,
         child: ElevatedButton(
           onPressed: widget.onPressed,
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             primary: widget.color ?? buttonColor,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             )
           ),

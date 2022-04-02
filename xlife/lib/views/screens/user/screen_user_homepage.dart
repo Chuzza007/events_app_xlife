@@ -17,10 +17,10 @@ class ScreenUserHomepage extends StatefulWidget {
 class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   int selectedIndex = 0;
   List<Widget> pages = [
-    LayoutUserAllEvents(),
-    LayoutUserSearchEventsByOrganizers(),
-    LayoutUserFavoriteEvents(),
-    LayoutUserNewsFeed(),
+    const LayoutUserAllEvents(),
+    const LayoutUserSearchEventsByOrganizers(),
+    const LayoutUserFavoriteEvents(),
+    const LayoutUserNewsFeed(),
   ];
 
   @override
@@ -43,22 +43,22 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
           items: [
             CustomBottomMenuItem(
               label: "Nearby Events",
-              icon: ImageIcon(
+              icon: const ImageIcon(
                   AssetImage("assets/images/multiple_events.png")),
             ),
             CustomBottomMenuItem(
               label: "Search",
-              icon: ImageIcon(
+              icon: const ImageIcon(
                   AssetImage("assets/images/search_events.png")),
             ),
             CustomBottomMenuItem(
               label: "Favorites",
-              icon: ImageIcon(AssetImage("assets/images/star.png")),
+              icon: const ImageIcon(AssetImage("assets/images/star.png")),
             ),
             CustomBottomMenuItem(
               label: "News Feed",
               icon:
-                  ImageIcon(AssetImage("assets/images/newsfeed.png")),
+                  const ImageIcon(AssetImage("assets/images/newsfeed.png")),
             ),
           ],
           primaryIndex: 0,

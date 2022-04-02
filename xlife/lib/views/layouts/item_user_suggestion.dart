@@ -13,7 +13,7 @@ class ItemUserSuggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
         child: Column(
           children: [
             Badge(
@@ -29,7 +29,7 @@ class ItemUserSuggestion extends StatelessWidget {
               child: Container(
                 height: Get.height * 0.09,
                 width: Get.width * 0.2,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -47,7 +47,7 @@ class ItemUserSuggestion extends StatelessWidget {
         ),
       ),
       onTap: (){
-        Get.to(ScreenUserChat());
+        Get.to(const ScreenUserChat());
       },
     );
   }

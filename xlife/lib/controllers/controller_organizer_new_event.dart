@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ControllerOrganizerNewEvent extends GetxController {
 
   List<XFile> images = [XFile(""), XFile(""), XFile("")].obs;
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
   late Rx<int> startTimestamp;
   late Rx<int> endTimestamp;
-  Rx<DateTime> _currentDate = DateTime.now().obs;
+  final Rx<DateTime> _currentDate = DateTime.now().obs;
   var tagsList = List<String>.empty(growable: true).obs;
 
   Future<void> pickImage({required int index}) async {

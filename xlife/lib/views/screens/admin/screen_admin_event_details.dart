@@ -4,14 +4,11 @@ import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
-import 'package:xlife/views/layouts/item_admin_event.dart';
 import 'package:xlife/views/layouts/item_admin_event_favorite.dart';
-import 'package:xlife/views/layouts/item_user_comment.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 
 class ScreenAdminEventDetails extends StatefulWidget {
@@ -24,14 +21,14 @@ class ScreenAdminEventDetails extends StatefulWidget {
 
 class _ScreenAdminEventDetailsState
     extends State<ScreenAdminEventDetails> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
   LatLng initPosition =
-  LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = LatLng(0.0,
+  const LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = const LatLng(0.0,
       0.0); //initial currentPosition values cannot assign null values
   //initial permission status
-  static final CameraPosition _kGooglePlex = CameraPosition(
+  static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
@@ -58,7 +55,7 @@ class _ScreenAdminEventDetailsState
     return Scaffold(
       body: SafeArea(
         child: DraggableHome(
-          title: Text("Event Title"),
+          title: const Text("Event Title"),
           headerWidget: Stack(
             children: [
               PageView(
@@ -91,7 +88,7 @@ class _ScreenAdminEventDetailsState
                   right: 1.w,
                   bottom: 5.h,
                   child: Container(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       color: Colors.grey[600],
                       borderRadius: BorderRadius.circular(20),
@@ -114,37 +111,37 @@ class _ScreenAdminEventDetailsState
                 "Distance",
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
+              subtitle: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text("22 Km"),
               ),
-              leading: Icon(Icons.location_on),
+              leading: const Icon(Icons.location_on),
             ),
             ListTile(
               title: Text(
                 "Organized By",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
+              subtitle: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text("#####"),
               ),
-              leading: Icon(Icons.info),
+              leading: const Icon(Icons.info),
             ),
             ListTile(
               title: Text(
                 "Description",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
+              subtitle: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text("#####"),
               ),
-              leading: Icon(Icons.event),
+              leading: const Icon(Icons.event),
             ),
             ListTile(
               onTap: () {
-                ShapeBorder shape = RoundedRectangleBorder(
+                ShapeBorder shape = const RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
                         top: Radius.circular(10.0)));
 
@@ -169,7 +166,7 @@ class _ScreenAdminEventDetailsState
                                   actions: [
                                     IconButton(onPressed: () {
                                       Get.back();
-                                    }, icon: Icon(Icons.close))
+                                    }, icon: const Icon(Icons.close))
                                   ],
                                   title: Container(
                                       child: Text(
@@ -183,7 +180,7 @@ class _ScreenAdminEventDetailsState
                                 Expanded(child: ListView.builder(
                                     itemCount: 20,
                                     itemBuilder: (_, index) {
-                                      return ItemAdminEventFavorite();
+                                      return const ItemAdminEventFavorite();
                                     }))
                               ],
                             ),
@@ -199,14 +196,14 @@ class _ScreenAdminEventDetailsState
                 "Favorite by",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
+              subtitle: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text("30 Users"),
               ),
-              leading: Icon(Icons.favorite),
+              leading: const Icon(Icons.favorite),
             ),
             CustomChips(
-              chipNames: [
+              chipNames: const [
                 "Birthday Party",
                 "Drinks",
                 "Dance",
@@ -220,7 +217,7 @@ class _ScreenAdminEventDetailsState
               height: 40.h,
               margin: EdgeInsets.all(20.sp),
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20),

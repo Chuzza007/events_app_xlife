@@ -24,7 +24,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
             leading: Container(
               height: 10.h,
               width: 15.w,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.black,
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -41,7 +41,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
               "Pending",
               style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: Colors.grey),
             ),
-            leading: Icon(
+            leading: const Icon(
               Icons.info,
               color: Colors.grey,
             ),

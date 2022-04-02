@@ -2,23 +2,23 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-List<Size> _cardSizes = new List.empty(growable: true);
-List<Alignment> _cardAligns = new List.empty(growable: true);
+List<Size> _cardSizes = List.empty(growable: true);
+List<Alignment> _cardAligns = List.empty(growable: true);
 
 enum TriggerDirection { none, right, left, up, down }
 
 /// A Tinder-Like Widget.
 class CustomCardSwiper extends StatefulWidget {
-  CardBuilder _cardBuilder;
-  int _totalNum;
-  int _stackNum;
-  int _animDuration;
+  final CardBuilder _cardBuilder;
+  final int _totalNum;
+  final int _stackNum;
+  final int _animDuration;
   int _currentIndex = 0;
-  double _swipeEdge;
-  double _swipeEdgeVertical;
-  bool _swipeUp;
-  bool _swipeDown;
-  bool _allowVerticalMovement;
+  final double _swipeEdge;
+  final double _swipeEdgeVertical;
+  final bool _swipeUp;
+  final bool _swipeDown;
+  final bool _allowVerticalMovement;
   CardSwipeCompleteCallback swipeCompleteCallback;
   CardDragUpdateCallback swipeUpdateCallback;
   CardController cardController;
@@ -50,45 +50,45 @@ class CustomCardSwiper extends StatefulWidget {
       required this.cardController,
       required this.swipeCompleteCallback,
       required this.swipeUpdateCallback})
-      : this._cardBuilder = cardBuilder,
-        this._totalNum = totalNum,
+      : _cardBuilder = cardBuilder,
+        _totalNum = totalNum,
         assert(stackNum > 1),
-        this._stackNum = stackNum,
-        this._animDuration = animDuration,
+        _stackNum = stackNum,
+        _animDuration = animDuration,
         assert(swipeEdge > 0),
-        this._swipeEdge = swipeEdge,
+        _swipeEdge = swipeEdge,
         assert(swipeEdgeVertical > 0),
-        this._swipeEdgeVertical = swipeEdgeVertical,
-        this._swipeUp = swipeUp,
-        this._swipeDown = swipeDown,
+        _swipeEdgeVertical = swipeEdgeVertical,
+        _swipeUp = swipeUp,
+        _swipeDown = swipeDown,
         assert(maxWidth > minWidth && maxHeight > minHeight),
-        this._allowVerticalMovement = allowVerticalMovement {
+        _allowVerticalMovement = allowVerticalMovement {
     double widthGap = maxWidth - minWidth;
     double heightGap = maxHeight - minHeight;
 
     currentIndex = _currentIndex;
-    _cardAligns = new List.empty(growable: true);
-    _cardSizes = new List.empty(growable: true);
+    _cardAligns = List.empty(growable: true);
+    _cardSizes = List.empty(growable: true);
 
     for (int i = 0; i < _stackNum; i++) {
-      _cardSizes.add(new Size(minWidth + (widthGap / _stackNum) * i,
+      _cardSizes.add(Size(minWidth + (widthGap / _stackNum) * i,
           minHeight + (heightGap / _stackNum) * i));
 
       switch (orientation) {
         case AmassOrientation.BOTTOM:
-          _cardAligns.add(new Alignment(
+          _cardAligns.add(Alignment(
               0.0, (0.5 / (_stackNum - 1)) * (stackNum - i)));
           break;
         case AmassOrientation.TOP:
-          _cardAligns.add(new Alignment(
+          _cardAligns.add(Alignment(
               0.0, (-0.5 / (_stackNum - 1)) * (stackNum - i)));
           break;
         case AmassOrientation.LEFT:
-          _cardAligns.add(new Alignment(
+          _cardAligns.add(Alignment(
               (-0.5 / (_stackNum - 1)) * (stackNum - i), 0.0));
           break;
         case AmassOrientation.RIGHT:
-          _cardAligns.add(new Alignment(
+          _cardAligns.add(Alignment(
               (0.5 / (_stackNum - 1)) * (stackNum - i), 0.0));
           break;
       }
@@ -131,7 +131,7 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
                             _animationController, frontCardAlign.x)
                         .value
                     : frontCardAlign.x),
-            child: new SizedBox.fromSize(
+            child: SizedBox.fromSize(
               size: _cardSizes[index],
               child: widget._cardBuilder(
                   context, widget._totalNum - realIndex - 1),
@@ -150,7 +150,7 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
                       _cardAligns[index], _cardAligns[index + 1])
                   .value
               : _cardAligns[index],
-      child: new SizedBox.fromSize(
+      child: SizedBox.fromSize(
         size:
             _animationController.status == AnimationStatus.forward &&
                     (frontCardAlign.x > 3.0 ||
@@ -175,12 +175,12 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
       cards.add(_buildCard(context, i));
     }
 
-    cards.add(new SizedBox.expand(
-      child: new GestureDetector(
+    cards.add(SizedBox.expand(
+      child: GestureDetector(
         onPanUpdate: (DragUpdateDetails details) {
           setState(() {
             if (widget._allowVerticalMovement == true) {
-              frontCardAlign = new Alignment(
+              frontCardAlign = Alignment(
                   frontCardAlign.x +
                       details.delta.dx *
                           20 /
@@ -190,21 +190,17 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
                           30 /
                           MediaQuery.of(context).size.height);
             } else {
-              frontCardAlign = new Alignment(
+              frontCardAlign = Alignment(
                   frontCardAlign.x +
                       details.delta.dx *
                           20 /
                           MediaQuery.of(context).size.width,
                   0);
 
-              if (widget.swipeUpdateCallback != null) {
-                widget.swipeUpdateCallback(details, frontCardAlign);
-              }
-            }
-
-            if (widget.swipeUpdateCallback != null) {
               widget.swipeUpdateCallback(details, frontCardAlign);
             }
+
+            widget.swipeUpdateCallback(details, frontCardAlign);
           });
         },
         onPanEnd: (DragEndDetails details) {
@@ -256,7 +252,7 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
     widget._currentIndex = widget._totalNum - widget._stackNum;
 
     frontCardAlign = _cardAligns[_cardAligns.length - 1];
-    _animationController = new AnimationController(
+    _animationController = AnimationController(
         vsync: this,
         duration: Duration(milliseconds: widget._animDuration));
     _animationController.addListener(() => setState(() {}));
@@ -265,23 +261,23 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
       widget._currentIndex = index;
       if (status == AnimationStatus.completed) {
         CardSwipeOrientation orientation;
-        if (frontCardAlign.x < -widget._swipeEdge)
+        if (frontCardAlign.x < -widget._swipeEdge) {
           orientation = CardSwipeOrientation.LEFT;
-        else if (frontCardAlign.x > widget._swipeEdge)
+        } else if (frontCardAlign.x > widget._swipeEdge) {
           orientation = CardSwipeOrientation.RIGHT;
-        else if (frontCardAlign.y < -widget._swipeEdgeVertical)
+        } else if (frontCardAlign.y < -widget._swipeEdgeVertical) {
           orientation = CardSwipeOrientation.UP;
-        else if (frontCardAlign.y > widget._swipeEdgeVertical)
+        } else if (frontCardAlign.y > widget._swipeEdgeVertical) {
           orientation = CardSwipeOrientation.DOWN;
-        else {
+        } else {
           frontCardAlign = _cardAligns[widget._stackNum - 1];
           orientation = CardSwipeOrientation.RECOVER;
         }
-        if (widget.swipeCompleteCallback != null)
-          widget.swipeCompleteCallback(
-              orientation, widget._currentIndex);
-        if (orientation != CardSwipeOrientation.RECOVER)
+        widget.swipeCompleteCallback(
+            orientation, widget._currentIndex);
+        if (orientation != CardSwipeOrientation.RECOVER) {
           changeCardOrder();
+        }
       }
     });
   }
@@ -302,7 +298,7 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
   }
 }
 
-typedef Widget CardBuilder(BuildContext context, int index);
+typedef CardBuilder = Widget Function(BuildContext context, int index);
 
 enum CardSwipeOrientation { LEFT, RIGHT, RECOVER, UP, DOWN }
 
@@ -341,15 +337,17 @@ class CardAnimation {
 
       if (swipeUp || swipeDown) {
         if (beginAlign.y < 0) {
-          if (swipeUp)
+          if (swipeUp) {
             endY = beginAlign.y < -swipeEdge
                 ? beginAlign.y - 10.0
                 : baseAlign.y;
+          }
         } else if (beginAlign.y > 0) {
-          if (swipeDown)
+          if (swipeDown) {
             endY = beginAlign.y > swipeEdge
                 ? beginAlign.y + 10.0
                 : baseAlign.y;
+          }
         }
       }
     } else if (_CustomCardSwiperState._trigger ==
@@ -378,23 +376,23 @@ class CardAnimation {
       endX = beginAlign.x + swipeEdge;
       endY = beginAlign.y + 0.5;
     }
-    return new AlignmentTween(
-            begin: beginAlign, end: new Alignment(endX, endY))
-        .animate(new CurvedAnimation(
+    return AlignmentTween(
+            begin: beginAlign, end: Alignment(endX, endY))
+        .animate(CurvedAnimation(
             parent: controller, curve: Curves.easeOut));
   }
 
   static Animation<double> frontCardRota(
       AnimationController controller, double beginRot) {
-    return new Tween(begin: beginRot, end: 0.0).animate(
-        new CurvedAnimation(
+    return Tween(begin: beginRot, end: 0.0).animate(
+        CurvedAnimation(
             parent: controller, curve: Curves.easeOut));
   }
 
   static Animation<Size?> backCardSize(
       AnimationController controller, Size beginSize, Size endSize) {
-    return new SizeTween(begin: beginSize, end: endSize).animate(
-        new CurvedAnimation(
+    return SizeTween(begin: beginSize, end: endSize).animate(
+        CurvedAnimation(
             parent: controller, curve: Curves.easeOut));
   }
 
@@ -402,8 +400,8 @@ class CardAnimation {
       AnimationController controller,
       Alignment beginAlign,
       Alignment endAlign) {
-    return new AlignmentTween(begin: beginAlign, end: endAlign)
-        .animate(new CurvedAnimation(
+    return AlignmentTween(begin: beginAlign, end: endAlign)
+        .animate(CurvedAnimation(
             parent: controller, curve: Curves.easeOut));
   }
 }

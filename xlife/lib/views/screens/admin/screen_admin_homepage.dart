@@ -19,7 +19,7 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Admin Portal"),
+        title: const Text("Admin Portal"),
       ),
       body: Center(
         child: Column(
@@ -32,17 +32,17 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
             CustomButton(
                 text: "All Events",
                 onPressed: () {
-                  Get.to(ScreenAdminAllEvents());
+                  Get.to(const ScreenAdminAllEvents());
                 }),
             CustomButton(
                 text: "Organizers",
                 onPressed: () {
-                  Get.to(ScreenAdminAllOrganizers());
+                  Get.to(const ScreenAdminAllOrganizers());
                 }),
             CustomButton(
                 text: "Posts",
                 onPressed: () {
-                  Get.to(ScreenAdminAllPosts());
+                  Get.to(const ScreenAdminAllPosts());
                 }),
           ],
         ),

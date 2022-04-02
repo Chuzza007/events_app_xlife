@@ -26,7 +26,7 @@ class _ItemUserCommentState extends State<ItemUserComment> {
         leading: Container(
           height: 10.h,
           width: 15.w,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.black,
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -41,7 +41,7 @@ class _ItemUserCommentState extends State<ItemUserComment> {
           "This is the user comment",
           style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
         ),
-        trailing: Text(
+        trailing: const Text(
           "1 h",
           style: TextStyle(color: Colors.grey),
         ),

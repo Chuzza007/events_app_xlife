@@ -17,7 +17,7 @@ class _LayoutAdminApprovedOrganizersState
     return ListView.builder(
         itemCount: 20,
         itemBuilder: (_, index){
-          return ItemAdminApprovedOrganizer();
+          return const ItemAdminApprovedOrganizer();
         });
   }
 }

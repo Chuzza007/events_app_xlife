@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:xlife/controllers/controller_user_registration.dart';
-import 'package:xlife/helpers/styles.dart';
-import 'package:xlife/views/screens/organizer/screen_apply_as_organizer.dart';
-import 'package:xlife/views/screens/screen_signin.dart';
-import 'package:xlife/views/screens/user/screen_user_homepage.dart';
-import 'package:xlife/widgets/custom_progress_widget.dart';
+import 'package:xlife/controllers/controller_apply_as_organizer.dart';
 
-import '../../generated/locales.g.dart';
-import '../../helpers/constants.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_header_container_design.dart';
-import '../../widgets/custom_input_field.dart';
+import '../../../generated/locales.g.dart';
+import '../../../helpers/constants.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_input_field.dart';
+import '../../../widgets/custom_progress_widget.dart';
 
-class SignupScreen extends StatelessWidget {
+class ScreenApplyAsOrganizer extends StatefulWidget {
+  const ScreenApplyAsOrganizer({Key? key}) : super(key: key);
+
+  @override
+  _ScreenApplyAsOrganizerState createState() => _ScreenApplyAsOrganizerState();
+}
+
+class _ScreenApplyAsOrganizerState extends State<ScreenApplyAsOrganizer> {
   @override
   Widget build(BuildContext context) {
-    return CustomHeaderContainerDesign(
-      showBack: false,
-      title: Text(
-        LocaleKeys.SignupTitle.tr,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Become an organizer"),
       ),
-      child: GetBuilder<ControllerUserRegistration>(
+      body: GetBuilder<ControllerApplyAsOrganizer>(
         assignId: true,
-        init: ControllerUserRegistration(),
+        init: ControllerApplyAsOrganizer(),
         builder: (controller) {
           return CustomProgressWidget(
             loading: controller.isLoading.value,
@@ -61,8 +61,9 @@ class SignupScreen extends StatelessWidget {
                           isPasswordField: false,
                           controller: controller.email_controller.value,
                           fillColor: Colors.white,
-                          validator: (value) {
-                            return controller.validateEmail(value!);
+                          asyncValidator: (value) async {
+                            final response = await controller.validateEmail(value!);
+                            return response;
                           },
                           keyboardType: TextInputType.emailAddress),
                       CustomInputField(
@@ -83,6 +84,15 @@ class SignupScreen extends StatelessWidget {
                             return controller.validateName(value!);
                           },
                           keyboardType: TextInputType.streetAddress),
+                      CustomInputField(
+                          hint: "ID Card Number",
+                          isPasswordField: false,
+                          controller: controller.address_controller.value,
+                          fillColor: Colors.white,
+                          validator: (value) {
+                            return controller.validateName(value!);
+                          },
+                          keyboardType: TextInputType.number),
                       CustomInputField(
                           hint: LocaleKeys.Password.tr,
                           isPasswordField: true,
@@ -188,11 +198,12 @@ class SignupScreen extends StatelessWidget {
                             }),
                       ),
                       CustomButton(
-                        text: LocaleKeys.SignUp.tr,
+                        text: "Apply",
                         onPressed: () async {
                           String response = await controller.signUp();
-                          if (response == "success") {
-                            Get.offAll(const ScreenUserHomepage());
+                          if (response == "success"){
+                            Get.back();
+                            Get.snackbar("Success", "Your request submitted successfully. You'll receive a confirmation email", duration: const Duration(seconds: 5));
                           }
                         },
                       ),
@@ -204,40 +215,9 @@ class SignupScreen extends StatelessWidget {
                             Text(LocaleKeys.AlreadyMember.tr),
                             TextButton(
                                 onPressed: () {
-                                  Get.to(SignInScreen());
+                                  Get.back();
                                 },
                                 child: Text(LocaleKeys.SignIn.tr)),
-                            TextButton(
-                              onPressed: () {
-                                Get.defaultDialog(
-                                  title: "Apply as organizer",
-                                  content: Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text("mathieu@polydigit.org", style: normal_h3Style_bold,),
-                                        subtitle: Text("Send request email to admin for being an organizer. Once request accepted you'll be notified"),
-                                        trailing: IconButton(
-                                          icon: Icon(Icons.copy),
-                                          onPressed: () async {
-                                            Get.back();
-                                            await Clipboard.setData(ClipboardData(text: "mathieu@polydigit.org")).catchError((error){
-                                              Get.snackbar("Error", error.toString());
-                                              return;
-                                            });
-                                            Get.snackbar("Alert", "Email copied", colorText: Colors.white, backgroundColor: Colors.green);
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                );
-                              },
-                              child: const Text(
-                                "Apply as Organizer",
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.visible,
-                              ),
-                            ),
                           ],
                         ),
                       ),

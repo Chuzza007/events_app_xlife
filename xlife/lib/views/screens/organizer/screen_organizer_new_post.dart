@@ -14,20 +14,19 @@ class ScreenOrganizerNewPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ControllerOrganizerNewPost controller =
-    Get.put(ControllerOrganizerNewPost());
+    ControllerOrganizerNewPost controller = Get.put(ControllerOrganizerNewPost());
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create new post"),
+        title: const Text("Create new post"),
         leading: IconButton(
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.close)),
+            icon: const Icon(Icons.close)),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -46,25 +45,22 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                 return GestureDetector(
                   child: Container(
                     width: Get.width * .3,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     height: Get.height * 0.1,
-                    child: controller.postImage.value.path != ""
-                        ? Container()
-                        : Icon(Icons.add),
+                    child: controller.postImage.value.path != "" ? Container() : const Icon(Icons.add),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        image: (kIsWeb ? controller.postImageWeb.value.path : controller.postImage.value.path) != ""
-                            ? DecorationImage(
-                          image: kIsWeb ? NetworkImage(controller.postImageWeb.value.path) : FileImage(
-                              File(controller.postImage.value.path)) as ImageProvider,
-                          fit: BoxFit.cover,
-                        )
-                            : null,
-                        boxShadow: [
-                          BoxShadow(blurRadius: 2,
-                              offset: Offset(0, 1))
-                        ]),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      image: (kIsWeb ? controller.postImageWeb.value.path : controller.postImage.value.path) != ""
+                          ? DecorationImage(
+                              image: kIsWeb
+                                  ? NetworkImage(controller.postImageWeb.value.path)
+                                  : FileImage(File(controller.postImage.value.path)) as ImageProvider,
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                      boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))],
+                    ),
                   ),
                   onTap: () {
                     controller.pickImage();
@@ -81,14 +77,14 @@ class ScreenOrganizerNewPost extends StatelessWidget {
 
   Widget _buildHeading(String title, bool optional) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Row(
         children: [
           Text(
             title,
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Text(

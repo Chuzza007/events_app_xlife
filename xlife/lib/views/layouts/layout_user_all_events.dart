@@ -39,7 +39,7 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> {
             });
           },
           onTap: (index){
-            Get.to(ScreenUserEventDetails());
+            Get.to(const ScreenUserEventDetails());
           },
           itemHeight: Get.height * 0.7,
           itemWidth: Get.width * 0.9,

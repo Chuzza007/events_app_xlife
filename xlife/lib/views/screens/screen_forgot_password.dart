@@ -25,7 +25,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return CustomHeaderContainerDesign(
       title: Text(LocaleKeys.ForgotPassword.tr),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,7 +36,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               height: Get.height * 0.1,
             ),
             CustomInputField(
-                hint: "${LocaleKeys.EmailAddress.tr}",
+                hint: LocaleKeys.EmailAddress.tr,
                 isPasswordField: false,
                 fillColor: Colors.white,
                 onChange: (value){
@@ -48,7 +48,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             CustomButton(text: LocaleKeys.Submit.tr, onPressed: () {
               if (enteredValue.isEmail){
-                Get.to(EmailVerificationDoneScreen());
+                Get.to(const EmailVerificationDoneScreen());
               } else {
                 Get.snackbar("Alert", "Invalid Email");
               }

@@ -32,7 +32,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
                 ),),
               ),
               CustomListviewBuilder(itemBuilder: (_, index){
-                return ItemUserSuggestion();
+                return const ItemUserSuggestion();
               },
                   itemCount: 15,
                   scrollDirection: CustomDirection.horizontal),
@@ -45,7 +45,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
               ),
               CustomListviewBuilder(
                   itemBuilder: (_, index) {
-                    return ItemUserInbox();
+                    return const ItemUserInbox();
                   },
                   itemCount: 10,
                   scrollDirection: CustomDirection.vertical)

@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 class ControllerAdminNewOrganizer extends GetxController{
 
   Rx<XFile> postImage = XFile("").obs;
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
 
 

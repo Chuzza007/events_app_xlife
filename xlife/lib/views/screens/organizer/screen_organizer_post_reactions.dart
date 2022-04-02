@@ -8,12 +8,12 @@ class ScreenOrganizerPostReactions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("297  Reactions"),
+        title: const Text("297  Reactions"),
       ),
       body: ListView.builder(
         itemCount: 30,
         itemBuilder: (_, index) {
-          return ItemOrganizerPostReaction();
+          return const ItemOrganizerPostReaction();
         },
       ),
     );

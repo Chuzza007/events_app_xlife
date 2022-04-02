@@ -30,7 +30,7 @@ class _LayoutUserSearchEventsByOrganizersState
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -75,7 +75,7 @@ class _LayoutUserSearchEventsByOrganizersState
     return CustomInputField(
         hint: "Search Event",
         isPasswordField: false,
-        prefix: Icon(Icons.search),
+        prefix: const Icon(Icons.search),
         suffix: IconButton(
           onPressed: () {},
           icon: Row(
@@ -87,7 +87,7 @@ class _LayoutUserSearchEventsByOrganizersState
                   color: Colors.grey,
                 ),
               ),
-              Icon(Icons.filter_list),
+              const Icon(Icons.filter_list),
             ],
           ),
           splashColor: Colors.transparent,

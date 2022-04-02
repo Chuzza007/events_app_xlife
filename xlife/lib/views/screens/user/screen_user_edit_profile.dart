@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/views/screens/screen_signup.dart';
 import 'package:xlife/widgets/custom_button.dart';
 
 import '../../../generated/locales.g.dart';
@@ -13,19 +15,17 @@ class ScreenUserEditProfile extends StatefulWidget {
   const ScreenUserEditProfile({Key? key}) : super(key: key);
 
   @override
-  _ScreenUserEditProfileState createState() =>
-      _ScreenUserEditProfileState();
+  _ScreenUserEditProfileState createState() => _ScreenUserEditProfileState();
 }
 
-class _ScreenUserEditProfileState
-    extends State<ScreenUserEditProfile> {
+class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appPrimaryColor,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text("My Profile"),
+        title: const Text("My Profile"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -44,14 +44,11 @@ class _ScreenUserEditProfileState
                       height: Get.height * 0.15,
                       width: Get.height * 0.15,
                       decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.white, width: 5.sp),
+                          border: Border.all(color: Colors.white, width: 5.sp),
                           shape: BoxShape.circle,
                           color: Colors.white,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: CachedNetworkImageProvider(
-                                  "https://hireme.ga/images/mubashar.png"))),
+                          image:
+                              const DecorationImage(fit: BoxFit.cover, image: CachedNetworkImageProvider("https://hireme.ga/images/mubashar.png"))),
                     ),
                     Positioned(
                       right: 5,
@@ -59,13 +56,11 @@ class _ScreenUserEditProfileState
                       child: Container(
                         height: Get.height * 0.04,
                         width: Get.height * 0.04,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle),
-                        child: Icon(Icons.edit),
+                        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                        child: const Icon(Icons.edit),
                       ),
                     ),
-                    Positioned(
+                    const Positioned(
                       child: Visibility(
                         visible: false,
                         child: CircularProgressIndicator.adaptive(
@@ -82,8 +77,8 @@ class _ScreenUserEditProfileState
             child: Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: const BoxDecoration(
                       color: Colors.white38,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -96,9 +91,9 @@ class _ScreenUserEditProfileState
                     alignment: Alignment.topCenter,
                     height: double.infinity,
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     padding: EdgeInsets.zero,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: CupertinoColors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -114,24 +109,20 @@ class _ScreenUserEditProfileState
                           backgroundColor: Colors.transparent,
                           resizeToAvoidBottomInset: false,
                           body: Container(
-                            margin: EdgeInsets.only(
-                                top: 10, left: 10, right: 10),
+                            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
                             child: SingleChildScrollView(
                               child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "Profile Information",
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    padding: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.black12,
                                     ),
                                     child: Column(
@@ -139,56 +130,47 @@ class _ScreenUserEditProfileState
                                         ListTile(
                                           title: Text(
                                             "Name",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Mubashar Hussain",
                                             style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(Icons.edit),
+                                            icon: const Icon(Icons.edit),
                                             onPressed: () {},
                                           ),
                                         ),
                                         ListTile(
                                           title: Text(
                                             "Email",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "user@test.com",
-                                            style: normal_h3Style
-                                                .copyWith(
-                                                    color: Colors
-                                                        .black54),
+                                            style: normal_h3Style.copyWith(color: Colors.black54),
                                           ),
                                         ),
                                         ListTile(
                                           title: Text(
                                             "Change Password",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(
-                                                Icons.navigate_next),
+                                            icon: const Icon(Icons.navigate_next),
                                             onPressed: () {},
                                           ),
                                         ),
                                         ListTile(
                                           title: Text(
                                             "My QR Code",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(
-                                                Icons.navigate_next),
+                                            icon: const Icon(Icons.navigate_next),
                                             onPressed: () {},
                                           ),
-                                          leading: Icon(Icons.qr_code),
+                                          leading: const Icon(Icons.qr_code),
                                         ),
                                       ],
                                     ),
@@ -198,12 +180,10 @@ class _ScreenUserEditProfileState
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    padding: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.black12,
                                     ),
                                     child: Column(
@@ -215,35 +195,29 @@ class _ScreenUserEditProfileState
                                             style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: Icon(
-                                            Icons
-                                                .navigate_next_outlined,
+                                            Icons.navigate_next_outlined,
                                             color: appTextColor,
                                           ),
                                         ),
                                         ListTile(
                                           onTap: () {},
                                           title: Text(
-                                            LocaleKeys
-                                                .PRIVACYPOLICY.tr,
+                                            LocaleKeys.PRIVACYPOLICY.tr,
                                             style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: Icon(
-                                            Icons
-                                                .navigate_next_outlined,
+                                            Icons.navigate_next_outlined,
                                             color: appTextColor,
                                           ),
                                         ),
                                         ListTile(
                                           onTap: () {},
                                           title: Text(
-                                            LocaleKeys
-                                                .TERMSANDCONDITIONS
-                                                .tr,
+                                            LocaleKeys.TERMSANDCONDITIONS.tr,
                                             style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: Icon(
-                                            Icons
-                                                .navigate_next_outlined,
+                                            Icons.navigate_next_outlined,
                                             color: appTextColor,
                                           ),
                                         ),
@@ -255,12 +229,10 @@ class _ScreenUserEditProfileState
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    padding: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.black12,
                                     ),
                                     child: Column(
@@ -269,19 +241,14 @@ class _ScreenUserEditProfileState
                                           onTap: () {},
                                           title: Text(
                                             "Rate",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Rate us on app store",
-                                            style: normal_h3Style
-                                                .copyWith(
-                                                    color: Colors
-                                                        .black45),
+                                            style: normal_h3Style.copyWith(color: Colors.black45),
                                           ),
                                           trailing: Icon(
-                                            Icons
-                                                .navigate_next_outlined,
+                                            Icons.navigate_next_outlined,
                                             color: appTextColor,
                                           ),
                                         ),
@@ -289,19 +256,14 @@ class _ScreenUserEditProfileState
                                           onTap: () {},
                                           title: Text(
                                             "Share",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Share this app with friends",
-                                            style: normal_h3Style
-                                                .copyWith(
-                                                    color: Colors
-                                                        .black45),
+                                            style: normal_h3Style.copyWith(color: Colors.black45),
                                           ),
                                           trailing: Icon(
-                                            Icons
-                                                .navigate_next_outlined,
+                                            Icons.navigate_next_outlined,
                                             color: appTextColor,
                                           ),
                                         ),
@@ -309,19 +271,14 @@ class _ScreenUserEditProfileState
                                           onTap: () {},
                                           title: Text(
                                             "Win Gifts",
-                                            style:
-                                                (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                            style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           subtitle: Text(
                                             "Win amazing gifts by downloading our app",
-                                            style: normal_h3Style
-                                                .copyWith(
-                                                    color: Colors
-                                                        .black45),
+                                            style: normal_h3Style.copyWith(color: Colors.black45),
                                           ),
                                           trailing: Icon(
-                                            Icons
-                                                .navigate_next_outlined,
+                                            Icons.navigate_next_outlined,
                                             color: appTextColor,
                                           ),
                                         ),
@@ -329,11 +286,26 @@ class _ScreenUserEditProfileState
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 20),
+                                    margin: const EdgeInsets.symmetric(horizontal: 20),
                                     child: CustomButton(
                                       text: LocaleKeys.Logout.tr,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showIosDialog(
+                                          context: context,
+                                          title: "Logout",
+                                          message: "Are you sure to logout?",
+                                          onConfirm: (){
+                                            FirebaseAuth.instance.signOut().then((value) {
+                                              return Get.offAll(SignupScreen());
+                                            });
+                                          },
+                                          onCancel: (){
+                                            Get.back();
+                                          },
+                                          confirmText: "Logout",
+                                          cancelText: "Cancel"
+                                        );
+                                      },
                                     ),
                                   )
                                 ],

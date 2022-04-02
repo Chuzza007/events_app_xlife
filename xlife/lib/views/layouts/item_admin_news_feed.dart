@@ -28,12 +28,12 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               leading: Container(
                 height: 10.h,
                 width: 15.w,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -44,7 +44,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                 "Mubashar Hussain",
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: Text("1 h"),
+              subtitle: const Text("1 h"),
               trailing: IconButton(
                 onPressed: (){
                   Get.defaultDialog(
@@ -56,7 +56,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     textCancel: "No"
                   );
                 },
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
               ),
             ),
           ),
@@ -71,7 +71,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
           ),
           Container(
             height: 20.h,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
@@ -80,7 +80,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -91,7 +91,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostReactions());
+                    Get.to(const ScreenOrganizerPostReactions());
                   },
                 ),
                 GestureDetector(
@@ -100,7 +100,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostComments());
+                    Get.to(const ScreenOrganizerPostComments());
                   },
                 )
               ],

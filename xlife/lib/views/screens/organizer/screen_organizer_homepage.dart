@@ -16,8 +16,8 @@ class _ScreenOrganizerHomepageState
     extends State<ScreenOrganizerHomepage>
     with TickerProviderStateMixin {
   List<Widget> organizer_layouts = [
-    LayoutOrganizerEvents(),
-    LayoutOrganizerNewsFeed()
+    const LayoutOrganizerEvents(),
+    const LayoutOrganizerNewsFeed()
   ];
   int selectedIndex = 0;
 
@@ -28,7 +28,7 @@ class _ScreenOrganizerHomepageState
       child: CustomTabBarView(
           tabs_length: 2,
           borderRadius: BorderRadius.circular(30),
-          tabs_titles_list: ["My Events", "News Feed"],
+          tabs_titles_list: const ["My Events", "News Feed"],
           tabController: TabController(length: 2, vsync: this),
           tab_children_layouts: organizer_layouts),
     );

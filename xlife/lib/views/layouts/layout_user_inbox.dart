@@ -17,7 +17,7 @@ class _LayoutUserInboxState extends State<LayoutUserInbox> {
       scrollDirection: CustomDirection.vertical,
       itemCount: 20,
       itemBuilder: (_, index) {
-        return ItemUserInbox();
+        return const ItemUserInbox();
       },
     );
   }

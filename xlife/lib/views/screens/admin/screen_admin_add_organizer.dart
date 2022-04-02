@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:xlife/controllers/controller_admin_new_organizer.dart';
 
 import '../../../helpers/styles.dart';
@@ -18,14 +17,19 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
         Get.put(ControllerAdminNewOrganizer());
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add new Organizer"),
+        title: const Text("Add new Organizer"),
       ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                _buildHeading("Name", false),
+                CustomInputField(
+                    hint: "organizer@test.com",
+                    isPasswordField: false,
+                    keyboardType: TextInputType.emailAddress),
                 _buildHeading("Email Address", false),
                 CustomInputField(
                     hint: "organizer@test.com",
@@ -42,11 +46,11 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
                   return GestureDetector(
                     child: Container(
                       width: Get.width * .3,
-                      margin: EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
                       height: Get.height * 0.1,
                       child: controller.postImage.value.path != ""
                           ? Container()
-                          : Icon(Icons.add),
+                          : const Icon(Icons.add),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
@@ -57,7 +61,7 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 )
                               : null,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                                 blurRadius: 2, offset: Offset(0, 1))
                           ]),
@@ -80,14 +84,14 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
 
   Widget _buildHeading(String title, bool optional) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Row(
         children: [
           Text(
             title,
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Text(

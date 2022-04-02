@@ -14,12 +14,12 @@ class _ScreenAdminAllPostsState extends State<ScreenAdminAllPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Posts"),
+        title: const Text("All Posts"),
       ),
       body: ListView.builder(
           itemCount: 20,
           itemBuilder: (context, index){
-        return ItemAdminNewsFeed();
+        return const ItemAdminNewsFeed();
       }),
     );
   }

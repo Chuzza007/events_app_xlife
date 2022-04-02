@@ -28,7 +28,7 @@ class _ItemAdminEventFavoriteState
         leading: Container(
           height: 10.h,
           width: 15.w,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.black,
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -39,7 +39,7 @@ class _ItemAdminEventFavoriteState
           "Mubashar Hussain",
           style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
-        trailing: Text(
+        trailing: const Text(
           "1 h",
           style: TextStyle(color: Colors.grey),
         ),

@@ -14,14 +14,14 @@ class _ScreenAdminAllEventsState extends State<ScreenAdminAllEvents> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Events  (20)"),
+        title: const Text("All Events  (20)"),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: ListView.builder(
             itemCount: 20,
             itemBuilder: (_, index) {
-          return ItemAdminEvent();
+          return const ItemAdminEvent();
         }),
       ),
     );

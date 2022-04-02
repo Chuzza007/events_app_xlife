@@ -32,9 +32,9 @@ class _CustomChipsState extends State<CustomChips> {
 
   _buildChoiceList() {
     List<Widget> choices = List.empty(growable: true);
-    widget.chipNames.forEach((item) {
-      if (item.trim().isNotEmpty)
-      choices.add(Container(
+    for (var item in widget.chipNames) {
+      if (item.trim().isNotEmpty) {
+        choices.add(Container(
         child: RawChip(
           label: Text(item),
           labelStyle: TextStyle(
@@ -68,7 +68,8 @@ class _CustomChipsState extends State<CustomChips> {
           },
         ),
       ));
-    });
+      }
+    }
     return choices;
   }
 
@@ -76,7 +77,7 @@ class _CustomChipsState extends State<CustomChips> {
   Widget build(BuildContext context) {
     List<Widget> choices = _buildChoiceList();
     return (widget.scrollable != null && widget.scrollable == true)
-        ? Container(
+        ? SizedBox(
             height: 7.h,
             child: ListView.separated(
                 itemBuilder: (context, index) {

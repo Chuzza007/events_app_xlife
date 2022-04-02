@@ -47,7 +47,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       text: message.text,
-      previewData: types.PreviewData(),
+      previewData: const types.PreviewData(),
       type: types.MessageType.text,
     );
 
@@ -98,17 +98,17 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
         ),
         leadingWidth: Get.width * 0.25,
         leading: Container(
-          margin: EdgeInsets.only(left: 5),
+          margin: const EdgeInsets.only(left: 5),
           child: InkWell(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Icon(Icons.arrow_back),
+                const Icon(Icons.arrow_back),
                 Container(
                   width: Get.width * 0.1,
                   height: Get.height * 0.1,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -133,11 +133,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                   ),
                   options: [
-                    ListTile(
+                    const ListTile(
                       title: Text("Block User"),
                       leading: Icon(Icons.block),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text("Delete Chat"),
                       leading: Icon(Icons.delete),
                     ),
@@ -148,7 +148,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                       case 3:
                         Get.defaultDialog(
                           contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20),
+                              const EdgeInsets.symmetric(horizontal: 20),
                           content: Column(
                             mainAxisAlignment:
                                 MainAxisAlignment.center,
@@ -157,7 +157,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                                 "assets/images/block.png",
                                 height: Get.height * 0.05,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Text(
@@ -197,7 +197,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                   },
                 );
               },
-              icon: Icon(Icons.more_vert_rounded))
+              icon: const Icon(Icons.more_vert_rounded))
         ],
       ),
       body: SafeArea(
@@ -209,10 +209,10 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
             usePreviewData: true,
             customBottomWidget: Container(
               width: Get.width,
-              padding: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(20.0),
                     topLeft: Radius.circular(20.0),
                   ),
@@ -228,11 +228,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         isDense: true,
                         maxLines: 7,
                         minLines: 1,
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         keyboardType: TextInputType.multiline),
                   ),
                   Container(
-                    padding: EdgeInsets.only(right: 15),
+                    padding: const EdgeInsets.only(right: 15),
                     alignment: Alignment.centerRight,
                     child: IconButton(
                       onPressed: () {
@@ -253,7 +253,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         }
                       },
                       icon: ImageIcon(
-                        AssetImage("assets/images/icon_send.png"),
+                        const AssetImage("assets/images/icon_send.png"),
                         color: appPrimaryColor,
                       ),
                     ),
@@ -315,10 +315,10 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
       ),
       options: [
-        ListTile(
+        const ListTile(
           title: Text("Insert Images"),
         ),
-        ListTile(
+        const ListTile(
           title: Text("Choose file"),
         ),
       ],
@@ -449,7 +449,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
   }
 
   List<String> checkForLinks(String text) {
-    RegExp exp = new RegExp(
+    RegExp exp = RegExp(
         r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
     Iterable<RegExpMatch> matches = exp.allMatches(text);
 
@@ -480,7 +480,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
           borderRadius: BorderRadius.circular(20)),
       builder: (builder) {
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -498,19 +498,19 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                             ))),
                   ),
                 ),
-                ListTile(
+                const ListTile(
                   title: Text("Which City"),
                   leading: Icon(Icons.home),
                 ),
-                ListTile(
+                const ListTile(
                   title: Text("user@test.com"),
                   leading: Icon(Icons.alternate_email),
                 ),
-                ListTile(
+                const ListTile(
                   title: Text("+923086765898"),
                   leading: Icon(Icons.phone),
                 ),
-                ListTile(
+                const ListTile(
                   title: Text("2 km away"),
                   leading: Icon(Icons.location_on),
                 ),

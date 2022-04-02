@@ -27,8 +27,8 @@ class _CustomListviewBuilderState
       reverse: widget.reverse ?? false,
       physics:
       (widget.scrollable != null && widget.scrollable == false)
-          ? NeverScrollableScrollPhysics()
-          : BouncingScrollPhysics(),
+          ? const NeverScrollableScrollPhysics()
+          : const BouncingScrollPhysics(),
       scrollDirection:
       widget.scrollDirection == CustomDirection.vertical
           ? Axis.vertical

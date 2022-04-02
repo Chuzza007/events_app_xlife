@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -23,22 +22,22 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
     reactions = [
       Reaction(
           title: _buildReactionTitle("None"),
-          previewIcon: Icon(Icons.thumb_up_alt_outlined),
+          previewIcon: const Icon(Icons.thumb_up_alt_outlined),
           icon: _buildIcon(Icons.thumb_up_alt_outlined, "None"),
           value: "none"),
       Reaction(
           title: _buildReactionTitle("Like"),
-          previewIcon: Icon(Icons.thumb_up),
+          previewIcon: const Icon(Icons.thumb_up),
           icon: _buildIcon(Icons.thumb_up, "Like"),
           value: "like"),
       Reaction(
           title: _buildReactionTitle("Love"),
-          previewIcon: Icon(Icons.favorite),
+          previewIcon: const Icon(Icons.favorite),
           icon: _buildIcon(Icons.favorite, "Love"),
           value: "love"),
       Reaction(
           title: _buildReactionTitle("Dislike"),
-          previewIcon: Icon(Icons.thumb_down),
+          previewIcon: const Icon(Icons.thumb_down),
           icon: _buildIcon(Icons.thumb_down, "Dislike"),
           value: "dislike"),
     ];
@@ -60,12 +59,12 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               leading: Container(
                 height: 10.h,
                 width: 15.w,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -76,7 +75,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
                 "Mubashar Hussain",
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: Text("1 h"),
+              subtitle: const Text("1 h"),
             ),
           ),
           Padding(
@@ -90,7 +89,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
           ),
           Container(
             height: 20.h,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
@@ -99,7 +98,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -121,20 +120,20 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
                   reactions: reactions,
                   boxPosition: Position.BOTTOM,
                   boxElevation: 10,
-                  boxPadding: EdgeInsets.all(10),
-                  boxDuration: Duration(milliseconds: 500),
+                  boxPadding: const EdgeInsets.all(10),
+                  boxDuration: const Duration(milliseconds: 500),
                   itemScaleDuration:
                       const Duration(milliseconds: 200),
                 ),
                 InkWell(
                   onTap: (){
-                    Get.to(ScreenUserPostComments());
+                    Get.to(const ScreenUserPostComments());
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.comment),
+                      const Icon(Icons.comment),
                       SizedBox(
                         width: 5.sp,
                       ),
@@ -156,7 +155,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
 
   Widget _buildReactionTitle(String title) {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: appPrimaryColor,
         borderRadius: BorderRadius.circular(50),

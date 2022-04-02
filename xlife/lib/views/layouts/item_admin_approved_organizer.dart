@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xlife/widgets/custom_button.dart';
 
 import '../../helpers/styles.dart';
 
@@ -24,7 +23,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             leading: Container(
               height: 10.h,
               width: 15.w,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.black,
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -43,9 +42,9 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(Icons.event, color: Colors.grey,),
+                    const Icon(Icons.event, color: Colors.grey,),
                     SizedBox(width: Get.width * 0.02,),
-                    Text("Organized 10 events"),
+                    const Text("Organized 10 events"),
                   ],
                 ),
                 // Row(
@@ -68,7 +67,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             //   icon: Icon(Icons.block),
             //   onPressed: (){},
             // ),
-            leading: Icon(Icons.check_circle_rounded, color: Colors.green,),
+            leading: const Icon(Icons.check_circle_rounded, color: Colors.green,),
           ),
         ],
       ),

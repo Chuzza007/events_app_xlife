@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xlife/views/layouts/layout_admin_approved_organizers.dart';
-import 'package:xlife/views/layouts/layout_admin_pending_organizers.dart';
 import 'package:xlife/views/screens/admin/screen_admin_add_organizer.dart';
-import 'package:xlife/widgets/custom_tab_bar_view.dart';
 
 import '../../layouts/item_admin_approved_organizer.dart';
 
@@ -22,18 +19,18 @@ class _ScreenAdminAllOrganizersState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Organizers (27)"),
+        title: const Text("All Organizers (27)"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Get.to(ScreenAdminAddOrganizer());
+          Get.to(const ScreenAdminAddOrganizer());
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: ListView.builder(
           itemCount: 20,
           itemBuilder: (_, index){
-            return ItemAdminApprovedOrganizer();
+            return const ItemAdminApprovedOrganizer();
           }),
     );
   }

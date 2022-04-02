@@ -32,7 +32,7 @@ class _CustomHeaderContainerDesignState
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             child: Image.asset(
               'assets/images/logo.png',
               height: MediaQuery.of(context).size.height * 0.06,
@@ -44,8 +44,8 @@ class _CustomHeaderContainerDesignState
             child: Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: const BoxDecoration(
                       color: Colors.white38,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -58,9 +58,9 @@ class _CustomHeaderContainerDesignState
                     alignment: Alignment.topCenter,
                     height: double.infinity,
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     padding: EdgeInsets.zero,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: CupertinoColors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -81,7 +81,7 @@ class _CustomHeaderContainerDesignState
                               title: widget.title,
                               elevation: 0,
                               titleSpacing: 0,
-                              titleTextStyle: TextStyle(
+                              titleTextStyle: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -94,7 +94,7 @@ class _CustomHeaderContainerDesignState
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      icon: Icon(Icons.arrow_back_outlined),
+                                      icon: const Icon(Icons.arrow_back_outlined),
                                     )
                                   : null,
                             ),

@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/views/screens/user/screen_user_chat.dart';
@@ -25,7 +24,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 "Sami Khan",
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 "hey john,\n I’m looking for a video editor for my video editing task.",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -38,7 +37,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 badgeColor: Colors.green,
                 elevation: 0,
                 toAnimate: false,
-                animationDuration: Duration(seconds: 1),
+                animationDuration: const Duration(seconds: 1),
                 animationType: BadgeAnimationType.fade,
                 position: BadgePosition.bottomEnd(
                   bottom: 5,
@@ -47,7 +46,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 child: Container(
                   height: Get.height * 0.08,
                   width: Get.width * 0.14,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -73,7 +72,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 ],
               ),
               onTap: (){
-                Get.to(ScreenUserChat());
+                Get.to(const ScreenUserChat());
               },
             ),
             Divider(

@@ -17,7 +17,7 @@ class _LayoutUserFavoriteEventsState
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text("Liked Events"),
+        title: const Text("Liked Events"),
       ),
       body: ListView.builder(
         itemCount: 20,

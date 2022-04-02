@@ -15,12 +15,12 @@ class _ScreenUserPostCommentsState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("97 comments"),
+        title: const Text("97 comments"),
       ),
       body: ListView.builder(
         itemCount: 30,
         itemBuilder: (_, index) {
-          return ItemUserComment();
+          return const ItemUserComment();
         },
       ),
     );

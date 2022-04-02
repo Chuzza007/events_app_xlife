@@ -345,6 +345,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_lints">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_native_splash">
           <value>
             <list>
@@ -531,6 +538,13 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/linkify-4.1.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="lints">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -999,6 +1013,7 @@
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_firebase_app-0.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_link_previewer-2.6.3/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_linkify-5.0.2/lib" />
+      <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.0.5/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_reaction_button-2.0.0+1/lib" />
@@ -1024,6 +1039,7 @@
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.4.0/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/linkify-4.1.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/location-4.3.0/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/location_platform_interface-2.3.0/lib" />
       <root url="file://$PROJECT_DIR$/../../SDK/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/location_web-3.1.1/lib" />

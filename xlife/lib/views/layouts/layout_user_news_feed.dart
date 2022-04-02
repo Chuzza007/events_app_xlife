@@ -18,18 +18,18 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text("News feed"),
+        title: const Text("News feed"),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: (){
-          Get.to(ScreenOrganizerNewPost());
+          Get.to(const ScreenOrganizerNewPost());
         },
       ),
       body: ListView.builder(
           itemCount: 20,
           itemBuilder: (_, index) {
-        return ItemUserNewsFeed();
+        return const ItemUserNewsFeed();
       }),
     );
   }

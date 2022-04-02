@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xlife/views/layouts/item_user_news_feed.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_new_post.dart';
 
 import 'item_organizer_news_feed.dart';
@@ -20,17 +19,17 @@ class _LayoutOrganizerNewsFeedState
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.to(ScreenOrganizerNewPost());
+          Get.to(const ScreenOrganizerNewPost());
         },
-        label: Text("Post"),
-        icon: Icon(Icons.add),
+        label: const Text("Post"),
+        icon: const Icon(Icons.add),
         tooltip: "Add new Post",
       ),
 
       body: ListView.builder(
           itemCount: 20,
           itemBuilder: (_, index){
-        return ItemOrganizerNewsFeed();
+        return const ItemOrganizerNewsFeed();
       }),
     );
   }
