@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/models/event.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_update_event.dart';
 
 import '../../helpers/styles.dart';
 
 class ItemOrganizerEvent extends StatefulWidget {
 
+  Event event;
 
   @override
   State<ItemOrganizerEvent> createState() => _ItemOrganizerEventState();
 
-
+  ItemOrganizerEvent({
+    required this.event,
+  });
 }
 
 class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -43,7 +48,7 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
                     bottomLeft: Radius.circular(20),
                   ),
                   child: Image.network(
-                    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
+                    widget.event.image1,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -56,7 +61,7 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
                   children: [
                     ListTile(
                       title: Text(
-                        "Event title",
+                        widget.event.title,
                         style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                       ),
                       dense: true,
@@ -64,7 +69,7 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
                     ),
                     ListTile(
                       title: Text(
-                        "22 favorites",
+                        "0 favorites",
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,

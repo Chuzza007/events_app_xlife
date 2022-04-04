@@ -121,7 +121,7 @@
         		</dict>
         		<dict>
         			<key>SKAdNetworkIdentifier</key>
-        			<string>8s468mfl3y.skadnetwork</string>
+        			<string>8s468mfl3fy.skadnetwork</string>
         		</dict>
         		<dict>
         			<key>SKAdNetworkIdentifier</key>
@@ -164,7 +164,15 @@
         	</array>
 
         <key>NSLocationWhenInUseUsageDescription</key>
-        <string>The app needs your location permission</string>
+        <string>This app needs access to location when open.</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>This app needs access to location when in the background.</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>This app needs access to location when open and in the background.</string>
+
+        <key>io.flutter.embedded_views_preview</key>
+        <true/>
+
 
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>

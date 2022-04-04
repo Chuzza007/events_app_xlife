@@ -36,10 +36,11 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                   isPasswordField: false,
                   minLines: 1,
                   maxLines: 7,
+                  controller: controller.title_controller.value,
                   limit: 500,
                   showCounter: true,
                   keyboardType: TextInputType.multiline),
-              _buildHeading("Insert image", true),
+              _buildHeading("Insert image", false),
               Obx(() {
                 print(controller.postImage.value.path);
                 return GestureDetector(
@@ -67,7 +68,12 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                   },
                 );
               }),
-              CustomButton(text: "Post", onPressed: () {}),
+              CustomButton(text: "Post", onPressed: () async {
+                String response = await controller.addPost();
+                if (response == "success"){
+                  Get.back();
+                }
+              }),
             ],
           ),
         ),

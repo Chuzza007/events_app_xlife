@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xlife/helpers/constants.dart';
-import 'package:xlife/models/organizer.dart';
+import 'package:xlife/models/user.dart' as model;
 
 class ControllerAdminNewOrganizer extends GetxController {
   XFile postImage = XFile("");
@@ -47,9 +47,14 @@ class ControllerAdminNewOrganizer extends GetxController {
       String uid = value.user!.uid;
       String image_url = postImage.path == "" ? "" : await _uploadImage(uid);
 
-      response = await _setDatabase(Organizer(
+      response = await _setDatabase(model.User(
         id: uid,
         full_name: name,
+        address: "",
+        nick_name: "",
+        gender: "",
+        phone: "",
+        type: "organizer",
         email: email,
         image_url: image_url,
         password: password,
@@ -103,7 +108,7 @@ class ControllerAdminNewOrganizer extends GetxController {
     return response;
   }
 
-  Future<String> _setDatabase(Organizer organizer) async {
+  Future<String> _setDatabase(model.User organizer) async {
     String response = "";
     await organizersRef.doc(organizer.id).set(organizer.toMap()).then((value) {
       response = "success";

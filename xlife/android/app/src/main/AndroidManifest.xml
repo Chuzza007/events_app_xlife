@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 
     <application
@@ -12,7 +13,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY" />
+            android:value="AIzaSyABX26IH0zu3R2VEJahb7cYvqPTOaFtacY" />
 
         <activity
             android:name=".MainActivity"

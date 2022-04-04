@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_edit_profile.dart';
-import 'package:xlife/views/screens/user/screen_user_edit_profile.dart';
 import 'package:xlife/views/screens/user/screen_user_connections.dart';
+import 'package:xlife/views/screens/user/screen_user_edit_profile.dart';
 
 import '../helpers/constants.dart';
 
@@ -13,11 +13,11 @@ class CustomHomeHeaderContainerDesign extends StatefulWidget {
   Widget? title;
   Color? headerColor;
   Color? bodyColor;
+  String image_url;
   HomePageType type;
 
   @override
-  _CustomHomeHeaderContainerDesignState createState() =>
-      _CustomHomeHeaderContainerDesignState();
+  _CustomHomeHeaderContainerDesignState createState() => _CustomHomeHeaderContainerDesignState();
 
   CustomHomeHeaderContainerDesign({
     required this.child,
@@ -25,12 +25,12 @@ class CustomHomeHeaderContainerDesign extends StatefulWidget {
     this.title,
     this.headerColor,
     this.bodyColor,
+    required this.image_url,
     required this.type,
   });
 }
 
-class _CustomHomeHeaderContainerDesignState
-    extends State<CustomHomeHeaderContainerDesign> {
+class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContainerDesign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +54,8 @@ class _CustomHomeHeaderContainerDesignState
                     children: [
                       Image.asset(
                         'assets/images/logo.png',
-                        height:
-                            MediaQuery.of(context).size.height * 0.1,
-                        width:
-                            MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.3,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
@@ -70,37 +68,23 @@ class _CustomHomeHeaderContainerDesignState
                                     Get.to(const ScreenUserConnections());
                                   },
                                   color: Colors.white,
-                                  icon: const ImageIcon(AssetImage(
-                                      "assets/images/icon_inbox.png"))),
+                                  icon: const ImageIcon(AssetImage("assets/images/icon_inbox.png"))),
                             ),
                           GestureDetector(
                             onTap: () {
-                              Get.to(widget.type == HomePageType.user
-                                  ? const ScreenUserEditProfile()
-                                  : const ScreenOrganizerEditProfile());
+                              Get.to(widget.type == HomePageType.user ? const ScreenUserEditProfile() : const ScreenOrganizerEditProfile());
                             },
                             child: Hero(
                               tag: "edit_profile",
-                              flightShuttleBuilder:
-                                  flightShuttleBuilder,
+                              flightShuttleBuilder: flightShuttleBuilder,
                               child: Container(
-                                height: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                    0.045,
-                                width: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                    0.045,
+                                height: MediaQuery.of(context).size.height * 0.045,
+                                width: MediaQuery.of(context).size.height * 0.045,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 2.sp,
-                                        color: Colors.white),
-                                    image: const DecorationImage(
-                                        image: NetworkImage(
-                                            "https://hireme.ga/images/mubashar.png"))),
+                                    border: Border.all(width: 2.sp, color: Colors.white),
+                                    image: DecorationImage(image: NetworkImage(widget.image_url.isNotEmpty ? widget.image_url : userPlaceholder))),
                               ),
                             ),
                           ),

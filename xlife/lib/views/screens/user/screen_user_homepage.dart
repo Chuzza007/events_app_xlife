@@ -27,6 +27,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomHomeHeaderContainerDesign(
+        image_url: "",
         child: pages[selectedIndex],
         bottomNavigationBar: CustomBottomNavigation(
           currentIndex: selectedIndex,

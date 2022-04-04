@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/helpers/constants.dart';
-import 'package:xlife/models/organizer.dart';
 import 'package:xlife/views/screens/admin/screen_admin_add_organizer.dart';
 import 'package:xlife/widgets/not_found.dart';
 
+import '../../../models/user.dart';
 import '../../layouts/item_admin_approved_organizer.dart';
 
 class ScreenAdminAllOrganizers extends StatefulWidget {
@@ -63,7 +63,7 @@ class _ScreenAdminAllOrganizersState extends State<ScreenAdminAllOrganizers> wit
                   itemCount: docs.length,
                   itemBuilder: (_, index) {
                     var data = docs[index].data();
-                    var organizer = Organizer.fromMap(data as Map<String, dynamic>);
+                    var organizer = User.fromMap(data as Map<String, dynamic>);
                     return ItemAdminApprovedOrganizer(organizer: organizer);
                   })
               : NotFound(message: "No data");

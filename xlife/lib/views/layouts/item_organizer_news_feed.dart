@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/models/post.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_post_comments.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_post_reactions.dart';
 
 import '../../helpers/styles.dart';
 
 class ItemOrganizerNewsFeed extends StatefulWidget {
-  const ItemOrganizerNewsFeed({Key? key}) : super(key: key);
+
+  Post post;
 
   @override
   _ItemOrganizerNewsFeedState createState() =>
       _ItemOrganizerNewsFeedState();
+
+  ItemOrganizerNewsFeed({
+    required this.post,
+  });
 }
 
 class _ItemOrganizerNewsFeedState
@@ -35,24 +42,24 @@ class _ItemOrganizerNewsFeedState
               leading: Container(
                 height: 10.h,
                 width: 15.w,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://hireme.ga/images/mubashar.png"))),
+                            widget.post.image))),
               ),
               title: Text(
-                "Mubashar Hussain",
+                "Organizer",
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: const Text("1 h"),
+              subtitle: Text(convertTimeToText(widget.post.timestamp, "")),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "post text will be here",
+              widget.post.title,
               style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -60,11 +67,11 @@ class _ItemOrganizerNewsFeedState
           ),
           Container(
             height: 20.h,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg"),
+                    widget.post.image),
               ),
             ),
           ),

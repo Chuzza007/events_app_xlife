@@ -1,11 +1,16 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/models/event.dart';
+import 'package:xlife/models/post.dart';
+import 'package:xlife/models/user.dart';
+
 import '../generated/locales.g.dart';
+import '../interfaces/listener_organizer_events_posts.dart';
 import '../widgets/custom_button.dart';
 
 MaterialColor appPrimaryColor = const MaterialColor(
@@ -27,11 +32,12 @@ String appName = LocaleKeys.AppName.tr;
 Color hintColor = const Color(0xFFA0A2A8);
 Color buttonColor = const Color(0xFFF13B2D);
 String googleAPIKey = "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY";
-CollectionReference usersRef =
-FirebaseFirestore.instance.collection("users");
-CollectionReference organizersRef =
-FirebaseFirestore.instance.collection("organizers");
+CollectionReference usersRef = FirebaseFirestore.instance.collection("users");
+CollectionReference organizersRef = FirebaseFirestore.instance.collection("organizers");
+CollectionReference eventsRef = FirebaseFirestore.instance.collection("events");
+CollectionReference postsRef = FirebaseFirestore.instance.collection("posts");
 String userPlaceholder = "https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png";
+
 
 void showOptionsBottomSheet({
   required BuildContext context,
@@ -60,10 +66,8 @@ void showOptionsBottomSheet({
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10),
-                  child: Align(
-                      alignment: Alignment.centerLeft, child: title),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                  child: Align(alignment: Alignment.centerLeft, child: title),
                 ),
                 Container(
                   child: MediaQuery.removePadding(
@@ -94,7 +98,7 @@ void showOptionsBottomSheet({
                     child: CustomButton(
                         text: skipButtonText ?? "Cancel",
                         onPressed: onSkipPressed ??
-                                () {
+                            () {
                               Navigator.of(context).pop();
                             }),
                   ),
@@ -106,27 +110,42 @@ void showOptionsBottomSheet({
       });
 }
 
+
+void showModalBottomSheetMenu(
+    {required BuildContext context, required Widget content, double? height}) {
+  showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+      ),
+      builder: (context) {
+        return SafeArea(child: Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: SingleChildScrollView(child: content)));
+      });
+}
+
+
 Widget flightShuttleBuilder(
-    BuildContext flightContext,
-    Animation<double> animation,
-    HeroFlightDirection flightDirection,
-    BuildContext fromHeroContext,
-    BuildContext toHeroContext,
-    ) {
+  BuildContext flightContext,
+  Animation<double> animation,
+  HeroFlightDirection flightDirection,
+  BuildContext fromHeroContext,
+  BuildContext toHeroContext,
+) {
   return DefaultTextStyle(
     style: DefaultTextStyle.of(toHeroContext).style,
     child: toHeroContext.widget,
   );
 }
 
-
-Future<DateTime> selectDate(BuildContext context, int startTimestamp,
-    int? selectedTimestamp) async {
+Future<DateTime> selectDate(BuildContext context, int startTimestamp, int? selectedTimestamp) async {
   DateTime selectedDate = DateTime.now();
   final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.fromMillisecondsSinceEpoch(
-          selectedTimestamp ?? startTimestamp),
+      initialDate: DateTime.fromMillisecondsSinceEpoch(selectedTimestamp ?? startTimestamp),
       firstDate: DateTime.fromMillisecondsSinceEpoch(startTimestamp),
       lastDate: DateTime(2101));
   if (picked != null && picked != selectedDate) selectedDate = picked;
@@ -134,21 +153,19 @@ Future<DateTime> selectDate(BuildContext context, int startTimestamp,
   return selectedDate;
 }
 
-
 String timestampToDateFormat(int timestamp, String format) {
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
   return intl.DateFormat(format).format(dateTime);
 }
 
-
 void showIosDialog(
     {required BuildContext context,
-      required String title,
-      required String message,
-      VoidCallback? onConfirm,
-      VoidCallback? onCancel,
-      String? confirmText,
-      String? cancelText}) {
+    required String title,
+    required String message,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+    String? confirmText,
+    String? cancelText}) {
   showCupertinoDialog(
       context: context,
       barrierDismissible: true,
@@ -160,7 +177,7 @@ void showIosDialog(
             CupertinoDialogAction(
               child: Text(cancelText ?? "Cancel"),
               onPressed: onCancel ??
-                      () {
+                  () {
                     Navigator.pop(context);
                   },
               isDefaultAction: true,
@@ -176,7 +193,6 @@ void showIosDialog(
         );
       });
 }
-
 
 String timeStampToDateTime(int timestamp, String pattern) {
   return intl.DateFormat(pattern).format(DateTime.fromMillisecondsSinceEpoch(timestamp));
@@ -217,4 +233,29 @@ String convertTimeToText(int timestamp, String suffix) {
   }
 
   return convTime;
+}
+
+Future<void> getOrganizerEventsPosts(String id, ListenerOrganizerEventsPosts listener) async {
+  eventsRef.where("organizer_id", isEqualTo: id).snapshots().listen((event) {
+    List<Event> events = [];
+    var docs = event.docs;
+    events = docs.map((e) => Event.fromMap(e.data() as Map<String, dynamic>)).toList();
+    listener.onEventsInfo(events);
+  });
+
+  postsRef.where("user_id", isEqualTo: id).snapshots().listen((event) {
+    List<Post> posts = [];
+    var docs = event.docs;
+    posts = docs.map((e) => Post.fromMap(e.data() as Map<String, dynamic>)).toList();
+    listener.onPostsInfo(posts);
+  });
+}
+
+Future<void> getProfileInfo(String id, ListenerProfileInfo listener, String profileType) async {
+  await FirebaseFirestore.instance.collection("${profileType}s").where("id", isEqualTo: id).limit(1).snapshots().listen((event) {
+    var data = event.docs[0].data();
+    print(data);
+    User user = User.fromMap(data);
+    listener.onProfileInfo(user);
+  });
 }

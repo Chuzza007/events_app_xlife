@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:xlife/models/user.dart' as model;
+import 'package:xlife/views/screens/organizer/screen_organizer_homepage.dart';
 import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 
 import '../helpers/constants.dart';
@@ -105,14 +106,16 @@ class ControllerUserRegistration extends GetxController {
 
     await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) async {
       status = await _setDatabase(model.User(
+        id: value.user!.uid,
           full_name: fullName,
           nick_name: nickname,
           email: email,
           phone: phone,
           address: address,
           password: password,
+          type: "user",
           gender: gender,
-          acceptedTerms: true));
+      ));
     }).catchError((error) {
       Get.snackbar("Error", error.toString());
     });
@@ -145,5 +148,24 @@ class ControllerUserRegistration extends GetxController {
     }
     print(response);
     return response;
+  }
+  
+  @override
+  void onInit() async {
+    var _user = FirebaseAuth.instance.currentUser;
+    if (_user != null){
+      selectedRole.value = "users";
+      bool userExists = await checkIfEmailExists(_user.email!);
+      if (userExists){
+        Get.offAll(ScreenUserHomepage());
+      } else{
+        selectedRole.value = "organizers";
+        bool organizerExists = await checkIfEmailExists(_user.email!);
+        if (organizerExists){
+          Get.offAll(ScreenOrganizerHomepage());
+        }
+      }
+    }
+    super.onInit();
   }
 }

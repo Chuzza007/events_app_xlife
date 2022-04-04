@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/controllers/controller_user_registration.dart';
 import 'package:xlife/views/screens/admin/screen_admin_homepage.dart';
+import 'package:xlife/views/screens/organizer/screen_organizer_homepage.dart';
 import 'package:xlife/views/screens/screen_forgot_password.dart';
 import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 import 'package:xlife/widgets/custom_progress_widget.dart';
@@ -14,10 +15,8 @@ import '../../widgets/custom_header_container_design.dart';
 import '../../widgets/custom_input_field.dart';
 
 class SignInScreen extends StatelessWidget {
-  String adminEmail = "admin",
-      adminPassword = "admin";
-  String email = "",
-      password = "";
+  String adminEmail = "admin", adminPassword = "admin";
+  String email = "", password = "";
   CustomInputField? emailField;
 
   @override
@@ -133,7 +132,13 @@ class SignInScreen extends StatelessWidget {
                           }
                           String response = await controller.login();
                           if (response == "success") {
-                            Get.offAll(const ScreenUserHomepage());
+                            if (controller.selectedRole == "users") {
+                              Get.offAll(const ScreenUserHomepage());
+                            } else if (controller.selectedRole == "organizers") {
+                              Get.offAll(ScreenOrganizerHomepage());
+                            } else {
+                              Get.snackbar("Error", "Something went wrong");
+                            }
                           }
                         },
                       ),

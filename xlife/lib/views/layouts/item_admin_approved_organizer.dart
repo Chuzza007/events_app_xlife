@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
-import 'package:xlife/models/organizer.dart';
+import 'package:xlife/models/user.dart';
 
 import '../../helpers/styles.dart';
 
 class ItemAdminApprovedOrganizer extends StatelessWidget {
-  Organizer organizer;
+  User organizer;
 
 
   @override
