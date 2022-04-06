@@ -33,7 +33,7 @@ class SignInScreen extends StatelessWidget {
             child: Form(
               key: controller.loginFormKey,
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.symmetric(horizontal: 10),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +98,7 @@ class SignInScreen extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Obx(() {
                           return CheckboxListTile(
                               contentPadding: EdgeInsets.zero,
@@ -117,7 +117,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            Get.to(const ForgotPasswordScreen());
+                            Get.to(ForgotPasswordScreen());
                           },
                           child: Text(
                             LocaleKeys.ForgotPassword.tr + "?",
@@ -127,13 +127,13 @@ class SignInScreen extends StatelessWidget {
                         text: LocaleKeys.SignIn.tr,
                         onPressed: () async {
                           if (email == adminEmail && password == adminPassword) {
-                            Get.to(const ScreenAdminHomepage());
+                            Get.to(ScreenAdminHomepage());
                             return;
                           }
                           String response = await controller.login();
                           if (response == "success") {
                             if (controller.selectedRole == "users") {
-                              Get.offAll(const ScreenUserHomepage());
+                              Get.offAll(ScreenUserHomepage());
                             } else if (controller.selectedRole == "organizers") {
                               Get.offAll(ScreenOrganizerHomepage());
                             } else {
@@ -143,7 +143,7 @@ class SignInScreen extends StatelessWidget {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

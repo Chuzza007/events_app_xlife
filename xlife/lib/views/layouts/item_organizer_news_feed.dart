@@ -5,6 +5,7 @@ import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_post_comments.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_post_reactions.dart';
+import 'package:xlife/views/screens/screen_full_image.dart';
 
 import '../../helpers/styles.dart';
 
@@ -37,7 +38,7 @@ class _ItemOrganizerNewsFeedState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
+            margin: EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               leading: Container(
                 height: 10.h,
@@ -57,7 +58,7 @@ class _ItemOrganizerNewsFeedState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
               widget.post.title,
               style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -65,18 +66,23 @@ class _ItemOrganizerNewsFeedState
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Container(
-            height: 20.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    widget.post.image),
+          GestureDetector(
+            child: Container(
+              height: 20.h,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                      widget.post.image),
+                ),
               ),
             ),
+            onTap: (){
+              Get.to(ScreenFullImage(image_url: widget.post.image));
+            },
           ),
           Container(
-            margin: const EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -87,7 +93,7 @@ class _ItemOrganizerNewsFeedState
                         (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(const ScreenOrganizerPostReactions());
+                    Get.to(ScreenOrganizerPostReactions());
                   },
                 ),
                 GestureDetector(
@@ -96,7 +102,7 @@ class _ItemOrganizerNewsFeedState
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(const ScreenOrganizerPostComments());
+                    Get.to(ScreenOrganizerPostComments());
                   },
                 )
               ],

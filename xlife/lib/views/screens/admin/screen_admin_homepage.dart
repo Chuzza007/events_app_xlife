@@ -7,7 +7,7 @@ import 'package:xlife/views/screens/admin/screen_admin_all_posts.dart';
 import 'package:xlife/widgets/custom_button.dart';
 
 class ScreenAdminHomepage extends StatefulWidget {
-  const ScreenAdminHomepage({Key? key}) : super(key: key);
+  ScreenAdminHomepage({Key? key}) : super(key: key);
 
   @override
   _ScreenAdminHomepageState createState() =>
@@ -19,7 +19,7 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Admin Portal"),
+        title: Text("Admin Portal"),
       ),
       body: Center(
         child: Column(
@@ -32,17 +32,17 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
             CustomButton(
                 text: "All Events",
                 onPressed: () {
-                  Get.to(const ScreenAdminAllEvents());
+                  Get.to(ScreenAdminAllEvents());
                 }),
             CustomButton(
                 text: "Organizers",
                 onPressed: () {
-                  Get.to(const ScreenAdminAllOrganizers());
+                  Get.to(ScreenAdminAllOrganizers());
                 }),
             CustomButton(
                 text: "Posts",
                 onPressed: () {
-                  Get.to(const ScreenAdminAllPosts());
+                  Get.to(ScreenAdminAllPosts());
                 }),
           ],
         ),

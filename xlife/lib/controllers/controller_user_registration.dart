@@ -130,7 +130,7 @@ class ControllerUserRegistration extends GetxController {
     isLoading.value = true;
     usersRef.doc(FirebaseAuth.instance.currentUser!.uid).set(info.toMap()).then((value) {
       response = "success";
-      Get.off(const ScreenUserHomepage());
+      Get.off(ScreenUserHomepage());
     }).catchError((error) {
       response = error.toString();
     });

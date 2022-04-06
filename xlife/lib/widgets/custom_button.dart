@@ -29,15 +29,15 @@ class _CustomButtonState extends State<CustomButton> {
     return GestureDetector(
       onTap: widget.onPressed,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         height: widget.height ?? Get.height * .07,
         width: widget.width ?? MediaQuery.of(context).size.width,
         child: ElevatedButton(
           onPressed: widget.onPressed,
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
             primary: widget.color ?? buttonColor,
-            shape: const RoundedRectangleBorder(
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             )
           ),

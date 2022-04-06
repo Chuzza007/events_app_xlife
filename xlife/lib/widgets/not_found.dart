@@ -25,7 +25,7 @@ class NotFound extends StatelessWidget {
                   width: imageWidth ?? MediaQuery.of(context).size.height * 0.1,
                 ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: 20.0),
             child: Text(
               message,
               style: TextStyle(color: color),

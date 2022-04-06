@@ -7,7 +7,7 @@ import 'package:xlife/widgets/custom_input_field.dart';
 import 'package:xlife/widgets/custom_listview_builder.dart';
 
 class LayoutUserSearchEventsByOrganizers extends StatefulWidget {
-  const LayoutUserSearchEventsByOrganizers({Key? key})
+  LayoutUserSearchEventsByOrganizers({Key? key})
       : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class _LayoutUserSearchEventsByOrganizersState
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(5),
+      margin: EdgeInsets.all(5),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -75,7 +75,7 @@ class _LayoutUserSearchEventsByOrganizersState
     return CustomInputField(
         hint: "Search Event",
         isPasswordField: false,
-        prefix: const Icon(Icons.search),
+        prefix: Icon(Icons.search),
         suffix: IconButton(
           onPressed: () {},
           icon: Row(
@@ -87,7 +87,7 @@ class _LayoutUserSearchEventsByOrganizersState
                   color: Colors.grey,
                 ),
               ),
-              const Icon(Icons.filter_list),
+              Icon(Icons.filter_list),
             ],
           ),
           splashColor: Colors.transparent,

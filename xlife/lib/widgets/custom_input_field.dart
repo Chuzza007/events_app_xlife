@@ -102,7 +102,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
     }
 
     return Container(
-      margin: widget.margin ?? const EdgeInsets.symmetric(vertical: 8.0),
+      margin: widget.margin ?? EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         maxLength: widget.limit,
         key: widget.key,
@@ -134,7 +134,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
           return Visibility(
             visible: widget.showCounter ?? false,
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: EdgeInsets.only(left: 16.0),
               child: Container(
                 alignment: Alignment.centerRight,
                 child: Text(
@@ -179,12 +179,12 @@ class _CustomInputFieldState extends State<CustomInputField> {
             border: (widget.showBorder != null && widget.showBorder == false)
                 ? InputBorder.none
                 : OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(width: 1, color: hintColor),
                   ),
             enabledBorder: (widget.showBorder != null && widget.showBorder == false)
                 ? InputBorder.none
-                : OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(10)), borderSide: BorderSide(width: 1, color: hintColor))
+                : OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)), borderSide: BorderSide(width: 1, color: hintColor))
             // filled: true,
             // fillColor: Color(0xF0BBBBBB),
             ),
@@ -194,22 +194,22 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   Widget _getSuffixIcon() {
     if (isValidating) {
-      return Transform.scale(scale: 0.7, child: const CupertinoActivityIndicator());
+      return Transform.scale(scale: 0.7, child: CupertinoActivityIndicator());
     } else {
       if (!isValid && isDirty) {
-        return const Icon(
+        return Icon(
           Icons.cancel,
           color: Colors.red,
           size: 20,
         );
       } else if (isValid) {
-        return const Icon(
+        return Icon(
           Icons.check_circle,
           color: Colors.green,
           size: 20,
         );
       } else {
-        return const SizedBox(
+        return SizedBox(
           height: 1,
           width: 1,
         );

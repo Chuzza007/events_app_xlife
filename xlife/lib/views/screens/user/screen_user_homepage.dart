@@ -8,7 +8,7 @@ import 'package:xlife/widgets/custom_bottom_navigation.dart';
 import 'package:xlife/widgets/custom_home_header_container_design.dart';
 
 class ScreenUserHomepage extends StatefulWidget {
-  const ScreenUserHomepage({Key? key}) : super(key: key);
+  ScreenUserHomepage({Key? key}) : super(key: key);
 
   @override
   _ScreenUserHomepageState createState() => _ScreenUserHomepageState();
@@ -17,10 +17,10 @@ class ScreenUserHomepage extends StatefulWidget {
 class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   int selectedIndex = 0;
   List<Widget> pages = [
-    const LayoutUserAllEvents(),
-    const LayoutUserSearchEventsByOrganizers(),
-    const LayoutUserFavoriteEvents(),
-    const LayoutUserNewsFeed(),
+    LayoutUserAllEvents(),
+    LayoutUserSearchEventsByOrganizers(),
+    LayoutUserFavoriteEvents(),
+    LayoutUserNewsFeed(),
   ];
 
   @override
@@ -44,22 +44,22 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
           items: [
             CustomBottomMenuItem(
               label: "Nearby Events",
-              icon: const ImageIcon(
+              icon: ImageIcon(
                   AssetImage("assets/images/multiple_events.png")),
             ),
             CustomBottomMenuItem(
               label: "Search",
-              icon: const ImageIcon(
+              icon: ImageIcon(
                   AssetImage("assets/images/search_events.png")),
             ),
             CustomBottomMenuItem(
               label: "Favorites",
-              icon: const ImageIcon(AssetImage("assets/images/star.png")),
+              icon: ImageIcon(AssetImage("assets/images/star.png")),
             ),
             CustomBottomMenuItem(
               label: "News Feed",
               icon:
-                  const ImageIcon(AssetImage("assets/images/newsfeed.png")),
+                  ImageIcon(AssetImage("assets/images/newsfeed.png")),
             ),
           ],
           primaryIndex: 0,

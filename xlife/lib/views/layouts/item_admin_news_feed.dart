@@ -7,7 +7,7 @@ import '../screens/organizer/screen_organizer_post_comments.dart';
 import '../screens/organizer/screen_organizer_post_reactions.dart';
 
 class ItemAdminNewsFeed extends StatefulWidget {
-  const ItemAdminNewsFeed({Key? key}) : super(key: key);
+  ItemAdminNewsFeed({Key? key}) : super(key: key);
 
   @override
   _ItemAdminNewsFeedState createState() => _ItemAdminNewsFeedState();
@@ -28,12 +28,12 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
+            margin: EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               leading: Container(
                 height: 10.h,
                 width: 15.w,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -44,7 +44,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                 "Mubashar Hussain",
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: const Text("1 h"),
+              subtitle: Text("1 h"),
               trailing: IconButton(
                 onPressed: (){
                   Get.defaultDialog(
@@ -56,12 +56,12 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     textCancel: "No"
                   );
                 },
-                icon: const Icon(Icons.delete),
+                icon: Icon(Icons.delete),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
               "post text will be here",
               style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -71,7 +71,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
           ),
           Container(
             height: 20.h,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
@@ -80,7 +80,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -91,7 +91,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(const ScreenOrganizerPostReactions());
+                    Get.to(ScreenOrganizerPostReactions());
                   },
                 ),
                 GestureDetector(
@@ -100,7 +100,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(const ScreenOrganizerPostComments());
+                    Get.to(ScreenOrganizerPostComments());
                   },
                 )
               ],

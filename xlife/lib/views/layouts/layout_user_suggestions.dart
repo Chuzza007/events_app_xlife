@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xlife/views/layouts/item_user_suggestion.dart';
 
 class LayoutUserSuggestions extends StatefulWidget {
-  const LayoutUserSuggestions({Key? key}) : super(key: key);
+  LayoutUserSuggestions({Key? key}) : super(key: key);
 
   @override
   _LayoutUserSuggestionsState createState() =>
@@ -16,7 +16,7 @@ class _LayoutUserSuggestionsState
     return ListView.builder(
       itemCount: 20,
       itemBuilder: (_, index) {
-        return const ItemUserSuggestion();
+        return ItemUserSuggestion();
       },
     );
   }

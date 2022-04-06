@@ -10,13 +10,13 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_input_field.dart';
 
 class ScreenAdminAddOrganizer extends StatelessWidget {
-  const ScreenAdminAddOrganizer({Key? key}) : super(key: key);
+  ScreenAdminAddOrganizer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add new Organizer"),
+        title: Text("Add new Organizer"),
       ),
       body: SafeArea(
         child: GetBuilder<ControllerAdminNewOrganizer>(
@@ -27,7 +27,7 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
               child: Form(
                 key: controller.newOrganizerFormKey,
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  margin: EdgeInsets.symmetric(horizontal: 15),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -56,9 +56,9 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
                         GestureDetector(
                           child: Container(
                             width: Get.width * .3,
-                            margin: const EdgeInsets.all(5),
+                            margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.postImage.path != "" ? Container() : const Icon(Icons.add),
+                            child: controller.postImage.path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -68,7 +68,7 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       )
                                     : null,
-                                boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
+                                boxShadow: [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
                           ),
                           onTap: () {
                             controller.pickImage();
@@ -98,14 +98,14 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
 
   Widget _buildHeading(String title, bool optional) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
       child: Row(
         children: [
           Text(
             title,
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
-          const SizedBox(
+          SizedBox(
             width: 5,
           ),
           Text(

@@ -12,7 +12,7 @@ import 'package:xlife/views/layouts/item_admin_event_favorite.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 
 class ScreenAdminEventDetails extends StatefulWidget {
-  const ScreenAdminEventDetails({Key? key}) : super(key: key);
+  ScreenAdminEventDetails({Key? key}) : super(key: key);
 
   @override
   _ScreenAdminEventDetailsState createState() =>
@@ -24,11 +24,11 @@ class _ScreenAdminEventDetailsState
   final Completer<GoogleMapController> _controller = Completer();
 
   LatLng initPosition =
-  const LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = const LatLng(0.0,
+  LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = LatLng(0.0,
       0.0); //initial currentPosition values cannot assign null values
   //initial permission status
-  static const CameraPosition _kGooglePlex = CameraPosition(
+  static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
@@ -55,7 +55,7 @@ class _ScreenAdminEventDetailsState
     return Scaffold(
       body: SafeArea(
         child: DraggableHome(
-          title: const Text("Event Title"),
+          title: Text("Event Title"),
           headerWidget: Stack(
             children: [
               PageView(
@@ -88,7 +88,7 @@ class _ScreenAdminEventDetailsState
                   right: 1.w,
                   bottom: 5.h,
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       color: Colors.grey[600],
                       borderRadius: BorderRadius.circular(20),
@@ -111,37 +111,37 @@ class _ScreenAdminEventDetailsState
                 "Distance",
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("22 Km"),
               ),
-              leading: const Icon(Icons.location_on),
+              leading: Icon(Icons.location_on),
             ),
             ListTile(
               title: Text(
                 "Organized By",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("#####"),
               ),
-              leading: const Icon(Icons.info),
+              leading: Icon(Icons.info),
             ),
             ListTile(
               title: Text(
                 "Description",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("#####"),
               ),
-              leading: const Icon(Icons.event),
+              leading: Icon(Icons.event),
             ),
             ListTile(
               onTap: () {
-                ShapeBorder shape = const RoundedRectangleBorder(
+                ShapeBorder shape = RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
                         top: Radius.circular(10.0)));
 
@@ -166,7 +166,7 @@ class _ScreenAdminEventDetailsState
                                   actions: [
                                     IconButton(onPressed: () {
                                       Get.back();
-                                    }, icon: const Icon(Icons.close))
+                                    }, icon: Icon(Icons.close))
                                   ],
                                   title: Container(
                                       child: Text(
@@ -180,7 +180,7 @@ class _ScreenAdminEventDetailsState
                                 Expanded(child: ListView.builder(
                                     itemCount: 20,
                                     itemBuilder: (_, index) {
-                                      return const ItemAdminEventFavorite();
+                                      return ItemAdminEventFavorite();
                                     }))
                               ],
                             ),
@@ -196,14 +196,14 @@ class _ScreenAdminEventDetailsState
                 "Favorite by",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("30 Users"),
               ),
-              leading: const Icon(Icons.favorite),
+              leading: Icon(Icons.favorite),
             ),
             CustomChips(
-              chipNames: const [
+              chipNames: [
                 "Birthday Party",
                 "Drinks",
                 "Dance",
@@ -217,7 +217,7 @@ class _ScreenAdminEventDetailsState
               height: 40.h,
               margin: EdgeInsets.all(20.sp),
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20),

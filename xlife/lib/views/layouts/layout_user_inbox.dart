@@ -4,7 +4,7 @@ import 'package:xlife/widgets/custom_listview_builder.dart';
 import 'item_user_inbox.dart';
 
 class LayoutUserInbox extends StatefulWidget {
-  const LayoutUserInbox({Key? key}) : super(key: key);
+  LayoutUserInbox({Key? key}) : super(key: key);
 
   @override
   _LayoutUserInboxState createState() => _LayoutUserInboxState();
@@ -17,7 +17,7 @@ class _LayoutUserInboxState extends State<LayoutUserInbox> {
       scrollDirection: CustomDirection.vertical,
       itemCount: 20,
       itemBuilder: (_, index) {
-        return const ItemUserInbox();
+        return ItemUserInbox();
       },
     );
   }

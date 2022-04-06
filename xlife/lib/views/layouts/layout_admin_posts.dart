@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LayoutAdminPosts extends StatefulWidget {
-  const LayoutAdminPosts({Key? key}) : super(key: key);
+  LayoutAdminPosts({Key? key}) : super(key: key);
 
   @override
   _LayoutAdminPostsState createState() => _LayoutAdminPostsState();

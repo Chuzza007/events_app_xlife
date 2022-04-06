@@ -7,13 +7,13 @@ import 'package:xlife/views/screens/user/screen_user_chat.dart';
 import '../../helpers/styles.dart';
 
 class ItemUserSuggestion extends StatelessWidget {
-  const ItemUserSuggestion({Key? key}) : super(key: key);
+  ItemUserSuggestion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
+        margin: EdgeInsets.symmetric(horizontal: 5),
         child: Column(
           children: [
             Badge(
@@ -29,7 +29,7 @@ class ItemUserSuggestion extends StatelessWidget {
               child: Container(
                 height: Get.height * 0.09,
                 width: Get.width * 0.2,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -47,7 +47,7 @@ class ItemUserSuggestion extends StatelessWidget {
         ),
       ),
       onTap: (){
-        Get.to(const ScreenUserChat());
+        Get.to(ScreenUserChat());
       },
     );
   }

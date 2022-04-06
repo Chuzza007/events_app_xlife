@@ -62,17 +62,17 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                         children: [
                           if (widget.type == HomePageType.user)
                             Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
+                              padding: EdgeInsets.only(right: 8.0),
                               child: IconButton(
                                   onPressed: () {
-                                    Get.to(const ScreenUserConnections());
+                                    Get.to(ScreenUserConnections());
                                   },
                                   color: Colors.white,
-                                  icon: const ImageIcon(AssetImage("assets/images/icon_inbox.png"))),
+                                  icon: ImageIcon(AssetImage("assets/images/icon_inbox.png"))),
                             ),
                           GestureDetector(
                             onTap: () {
-                              Get.to(widget.type == HomePageType.user ? const ScreenUserEditProfile() : const ScreenOrganizerEditProfile());
+                              Get.to(widget.type == HomePageType.user ? ScreenUserEditProfile() : ScreenOrganizerEditProfile());
                             },
                             child: Hero(
                               tag: "edit_profile",
@@ -107,24 +107,24 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                           topLeft: Radius.circular(26.sp),
                           topRight: Radius.circular(26.sp),
                         ),
-                        boxShadow: const []),
+                        boxShadow: []),
                   ),
                   Positioned(
                     child: Container(
                       alignment: Alignment.topCenter,
                       height: double.infinity,
                       width: double.infinity,
-                      margin: const EdgeInsets.only(top: 10),
+                      margin: EdgeInsets.only(top: 10),
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
-                        color: widget.bodyColor ?? const Color(0xFFFAFBFF),
+                        color: widget.bodyColor ?? Color(0xFFFAFBFF),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(26.sp),
                           topRight: Radius.circular(26.sp),
                         ),
                       ),
                       child: Container(
-                          margin: const EdgeInsets.only(
+                          margin: EdgeInsets.only(
                             top: 10,
                             left: 10,
                             right: 10,

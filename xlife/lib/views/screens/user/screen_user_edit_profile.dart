@@ -12,7 +12,7 @@ import '../../../generated/locales.g.dart';
 import '../../../helpers/constants.dart';
 
 class ScreenUserEditProfile extends StatefulWidget {
-  const ScreenUserEditProfile({Key? key}) : super(key: key);
+  ScreenUserEditProfile({Key? key}) : super(key: key);
 
   @override
   _ScreenUserEditProfileState createState() => _ScreenUserEditProfileState();
@@ -25,7 +25,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
       backgroundColor: appPrimaryColor,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text("My Profile"),
+        title: Text("My Profile"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +48,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                           shape: BoxShape.circle,
                           color: Colors.white,
                           image:
-                              const DecorationImage(fit: BoxFit.cover, image: CachedNetworkImageProvider("https://hireme.ga/images/mubashar.png"))),
+                              DecorationImage(fit: BoxFit.cover, image: CachedNetworkImageProvider("https://hireme.ga/images/mubashar.png"))),
                     ),
                     Positioned(
                       right: 5,
@@ -56,11 +56,11 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                       child: Container(
                         height: Get.height * 0.04,
                         width: Get.height * 0.04,
-                        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                        child: const Icon(Icons.edit),
+                        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                        child: Icon(Icons.edit),
                       ),
                     ),
-                    const Positioned(
+                    Positioned(
                       child: Visibility(
                         visible: false,
                         child: CircularProgressIndicator.adaptive(
@@ -77,8 +77,8 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
             child: Stack(
               children: [
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: const BoxDecoration(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
                       color: Colors.white38,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -91,9 +91,9 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                     alignment: Alignment.topCenter,
                     height: double.infinity,
                     width: double.infinity,
-                    margin: const EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(top: 10),
                     padding: EdgeInsets.zero,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: CupertinoColors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -104,12 +104,12 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                       context: context,
                       removeTop: true,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: EdgeInsets.only(top: 8.0),
                         child: Scaffold(
                           backgroundColor: Colors.transparent,
                           resizeToAvoidBottomInset: false,
                           body: Container(
-                            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                            margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -119,8 +119,8 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                    padding: const EdgeInsets.all(10),
+                                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.black12,
@@ -137,7 +137,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                             style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                           ),
                                           trailing: IconButton(
-                                            icon: const Icon(Icons.edit),
+                                            icon: Icon(Icons.edit),
                                             onPressed: () {},
                                           ),
                                         ),
@@ -157,7 +157,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
-                                            icon: const Icon(Icons.navigate_next),
+                                            icon: Icon(Icons.navigate_next),
                                             onPressed: () {},
                                           ),
                                         ),
@@ -167,10 +167,10 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                           ),
                                           trailing: IconButton(
-                                            icon: const Icon(Icons.navigate_next),
+                                            icon: Icon(Icons.navigate_next),
                                             onPressed: () {},
                                           ),
-                                          leading: const Icon(Icons.qr_code),
+                                          leading: Icon(Icons.qr_code),
                                         ),
                                       ],
                                     ),
@@ -180,8 +180,8 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                    padding: const EdgeInsets.all(10),
+                                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.black12,
@@ -229,8 +229,8 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                    padding: const EdgeInsets.all(10),
+                                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.black12,
@@ -286,7 +286,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> {
                                     ),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                                    margin: EdgeInsets.symmetric(horizontal: 20),
                                     child: CustomButton(
                                       text: LocaleKeys.Logout.tr,
                                       onPressed: () {

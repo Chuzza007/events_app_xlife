@@ -6,7 +6,7 @@ import '../../helpers/constants.dart';
 import '../../helpers/styles.dart';
 
 class ItemUserInbox extends StatefulWidget {
-  const ItemUserInbox({Key? key}) : super(key: key);
+  ItemUserInbox({Key? key}) : super(key: key);
 
   @override
   _ItemUserInboxState createState() => _ItemUserInboxState();
@@ -24,7 +24,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 "Sami Khan",
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
-              subtitle: const Text(
+              subtitle: Text(
                 "hey john,\n I’m looking for a video editor for my video editing task.",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -37,7 +37,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 badgeColor: Colors.green,
                 elevation: 0,
                 toAnimate: false,
-                animationDuration: const Duration(seconds: 1),
+                animationDuration: Duration(seconds: 1),
                 animationType: BadgeAnimationType.fade,
                 position: BadgePosition.bottomEnd(
                   bottom: 5,
@@ -46,7 +46,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 child: Container(
                   height: Get.height * 0.08,
                   width: Get.width * 0.14,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -72,7 +72,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 ],
               ),
               onTap: (){
-                Get.to(const ScreenUserChat());
+                Get.to(ScreenUserChat());
               },
             ),
             Divider(

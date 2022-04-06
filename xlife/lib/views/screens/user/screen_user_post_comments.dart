@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xlife/views/layouts/item_user_comment.dart';
 
 class ScreenUserPostComments extends StatefulWidget {
-  const ScreenUserPostComments({Key? key}) : super(key: key);
+  ScreenUserPostComments({Key? key}) : super(key: key);
 
   @override
   _ScreenUserPostCommentsState createState() =>
@@ -15,12 +15,12 @@ class _ScreenUserPostCommentsState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("97 comments"),
+        title: Text("97 comments"),
       ),
       body: ListView.builder(
         itemCount: 30,
         itemBuilder: (_, index) {
-          return const ItemUserComment();
+          return ItemUserComment();
         },
       ),
     );

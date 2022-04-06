@@ -1,27 +1,26 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_picker_advance/google_places_picker_advance.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/controllers/controller_organizer_new_event.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/models/selected_location.dart';
 import 'package:xlife/widgets/custom_button.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 import 'package:xlife/widgets/custom_input_field.dart';
-import 'package:google_places_picker_advance/google_places_picker_advance.dart';
-import 'package:xlife/widgets/pick_location_screen.dart';
 
 import '../../../helpers/constants.dart';
 import '../../../widgets/custom_progress_widget.dart';
 
 class ScreenOrganizerNewEvent extends StatelessWidget {
-  LatLng initPosition = const LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = const LatLng(0.0, 0.0); //initial currentPosition values cannot assign null values
+  LatLng initPosition = LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = LatLng(0.0, 0.0); //initial currentPosition values cannot assign null values
   //initial permission status
-  static const CameraPosition _kGooglePlex = CameraPosition(
+  static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
@@ -33,19 +32,19 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("New Event"),
+        title: Text("New Event"),
         leading: IconButton(
             onPressed: () {
               Get.back();
             },
-            icon: const Icon(Icons.close)),
+            icon: Icon(Icons.close)),
       ),
       body: Obx(() {
         return CustomProgressWidget(
           loading: controller.showLoading.isTrue,
           child: SingleChildScrollView(
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,9 +67,9 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           child: Container(
-                            margin: const EdgeInsets.all(5),
+                            margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.images[0].path != "" ? Container() : const Icon(Icons.add),
+                            child: controller.images[0].path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -80,7 +79,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       )
                                     : null,
-                                boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
+                                boxShadow: [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
                           ),
                           onTap: () {
                             controller.pickImage(index: 0);
@@ -90,9 +89,9 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           child: Container(
-                            margin: const EdgeInsets.all(5),
+                            margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.images[1].path != "" ? Container() : const Icon(Icons.add),
+                            child: controller.images[1].path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -102,7 +101,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       )
                                     : null,
-                                boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
+                                boxShadow: [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
                           ),
                           onTap: () {
                             controller.pickImage(index: 1);
@@ -112,9 +111,9 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           child: Container(
-                            margin: const EdgeInsets.all(5),
+                            margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.images[2].path != "" ? Container() : const Icon(Icons.add),
+                            child: controller.images[2].path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -124,7 +123,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       )
                                     : null,
-                                boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
+                                boxShadow: [BoxShadow(blurRadius: 2, offset: Offset(0, 1))]),
                           ),
                           onTap: () {
                             controller.pickImage(index: 2);
@@ -134,80 +133,112 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                     ],
                   ),
                   _buildHeading("Pick event location", false),
-                  Stack(
+                  Column(
                     children: [
-                      Container(
-                        height: 40.h,
-                        margin: EdgeInsets.all(20.sp),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
+                      Stack(
+                        children: [
+                          Container(
+                            height: 40.h,
+                            margin: EdgeInsets.all(20.sp),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                              ),
+                              clipBehavior: Clip.hardEdge,
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                heightFactor: 0.3,
+                                widthFactor: 2.5,
+                                child: GoogleMap(
+                                  mapType: MapType.normal,
+                                  myLocationButtonEnabled: false,
+                                  myLocationEnabled: true,
+                                  zoomControlsEnabled: false,
+                                  initialCameraPosition: _kGooglePlex,
+                                  onMapCreated: (GoogleMapController mapController) async {
+                                    final position = await Geolocator.getCurrentPosition(
+                                        forceAndroidLocationManager: true, desiredAccuracy: LocationAccuracy.high);
+                                    this.mapController = mapController;
+                                    print(position);
+                                    initPosition = LatLng(position.longitude, position.longitude);
+                                    controller.pickedLocation.value = SelectedLocation(name: "", latitude: initPosition.latitude, longitude: initPosition.longitude);
+                                    mapController.animateCamera(
+                                      CameraUpdate.newLatLngZoom(LatLng(position.latitude, position.longitude), 19),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
                           ),
-                          clipBehavior: Clip.hardEdge,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            heightFactor: 0.3,
-                            widthFactor: 2.5,
-                            child: GoogleMap(
-                              mapType: MapType.normal,
-                              myLocationButtonEnabled: false,
-                              myLocationEnabled: true,
-                              zoomControlsEnabled: false,
-                              initialCameraPosition: _kGooglePlex,
-                              onMapCreated: (GoogleMapController mapController) async {
-                                final position =
-                                    await Geolocator.getCurrentPosition(forceAndroidLocationManager: true, desiredAccuracy: LocationAccuracy.high);
-                                this.mapController = mapController;
-                                print(position);
-                                mapController.animateCamera(
-                                  CameraUpdate.newLatLngZoom(LatLng(position.latitude, position.longitude), 19),
+                          Positioned(
+                            right: 10.w,
+                            bottom: 10.w,
+                            child: GestureDetector(
+                              child: Container(
+                                height: Get.height * 0.04,
+                                width: Get.height * 0.04,
+                                decoration: BoxDecoration(color: Colors.white, boxShadow: appBoxShadow, shape: BoxShape.circle),
+                                child: Icon(Icons.edit),
+                              ),
+                              onTap: () async {
+                                // controller.pickedLocation.value = await Get.to(LayoutPickLocation());
+                                // double lat = controller.pickedLocation.value.latitude;
+                                // double lng = controller.pickedLocation.value.longitude;
+                                // if(mapController != null){
+                                //   mapController!.animateCamera(
+                                //     CameraUpdate.newLatLngZoom(LatLng(lat, lng), 19),
+                                //   );
+                                // }
+                                PickResult pickedLocation = await Get.to(PlacePicker(
+                                  apiKey: googleAPIKey,
+                                  useCurrentLocation: true,
+                                  forceAndroidLocationManager: true,
+                                  enableMyLocationButton: true,
+                                  initialPosition: initPosition,
+                                  autocompleteLanguage: "fr",
+                                  automaticallyImplyAppBarLeading: true,
+                                  onPlacePicked: (result) {
+                                    print(result.toMap());
+                                  },
+                                  popOnPickResult: true,
+                                ));
+                                double lat = pickedLocation.geometry!.location.lat;
+                                double lng = pickedLocation.geometry!.location.lng;
+                                String name = "${pickedLocation.name ?? "" + ","} ${pickedLocation.formattedAddress.toString()}";
+                                controller.pickedLocation.value = SelectedLocation(
+                                  name: name,
+                                  latitude: lat,
+                                  longitude: lng,
                                 );
+                                initPosition = LatLng(lat, lng);
+                                if (mapController != null) {
+                                  mapController!.animateCamera(
+                                    CameraUpdate.newLatLngZoom(initPosition, 19),
+                                  );
+                                }
                               },
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                      Positioned(
-                        right: 10.w,
-                        bottom: 10.w,
-                        child: GestureDetector(
-                          child: Container(
-                            height: Get.height * 0.04,
-                            width: Get.height * 0.04,
-                            decoration: BoxDecoration(color: Colors.white, boxShadow: appBoxShadow, shape: BoxShape.circle),
-                            child: const Icon(Icons.edit),
-                          ),
-                          onTap: () async {
-                            // controller.pickedLocation.value = await Get.to(LayoutPickLocation());
-                            // double lat = controller.pickedLocation.value.latitude;
-                            // double lng = controller.pickedLocation.value.longitude;
-                            // if(mapController != null){
-                            //   mapController!.animateCamera(
-                            //     CameraUpdate.newLatLngZoom(LatLng(lat, lng), 19),
-                            //   );
-                            // }
-                            var pickedLocation = await Get.to(
-                                PlacePicker(
-                              apiKey: "AIzaSyABX26IH0zu3R2VEJahb7cYvqPTOaFtacY",
-                              initialPosition: initPosition,
-                              useCurrentLocation: true,
-                              onPlacePicked: (result){
-                                print(result);
-                              },
-                              popOnPickResult: true,
-                            ));
-                            print(pickedLocation);
-                          },
+                      AnimatedCrossFade(
+                        firstChild: Text(
+                          controller.pickedLocation.value.name,
+                          style: normal_h4Style_bold,
+                          textAlign: TextAlign.center,
                         ),
+                        secondChild: Container(),
+                        crossFadeState: controller.pickedLocation.value.name.isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        duration: Duration(seconds: 1),
                       ),
                     ],
                   ),
                   _buildHeading("Timings", false),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -219,21 +250,21 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       },
                       title: RichText(
                           text: TextSpan(
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
                               ),
                               children: [
-                            const TextSpan(text: "Starting from "),
+                            TextSpan(text: "Starting from "),
                             TextSpan(
                                 text: timestampToDateFormat(controller.startTimestamp.value, "dd MMM, yyyy"),
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                           ])),
-                      leading: const Icon(Icons.access_time),
+                      leading: Icon(Icons.access_time),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -247,17 +278,17 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       },
                       title: RichText(
                           text: TextSpan(
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
                               ),
                               children: [
-                            const TextSpan(text: "Ending at "),
+                            TextSpan(text: "Ending at "),
                             TextSpan(
                                 text: timestampToDateFormat(controller.endTimestamp.value, "dd MMM, yyyy"),
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                           ])),
-                      leading: const Icon(Icons.access_time),
+                      leading: Icon(Icons.access_time),
                     ),
                   ),
                   _buildHeading("Add tags", false),
@@ -291,14 +322,14 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
 
   Widget _buildHeading(String title, bool optional) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
       child: Row(
         children: [
           Text(
             title,
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
-          const SizedBox(
+          SizedBox(
             width: 5,
           ),
           Text(

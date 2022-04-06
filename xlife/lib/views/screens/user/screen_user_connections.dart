@@ -8,7 +8,7 @@ import '../../../widgets/custom_listview_builder.dart';
 import '../../layouts/item_user_inbox.dart';
 
 class ScreenUserConnections extends StatefulWidget {
-  const ScreenUserConnections({Key? key}) : super(key: key);
+  ScreenUserConnections({Key? key}) : super(key: key);
 
   @override
   State<ScreenUserConnections> createState() =>
@@ -26,26 +26,26 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15.0, bottom: 10),
+                padding: EdgeInsets.only(left: 15.0, bottom: 10),
                 child: Text("Suggestions", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
                   color: appPrimaryColor
                 ),),
               ),
               CustomListviewBuilder(itemBuilder: (_, index){
-                return const ItemUserSuggestion();
+                return ItemUserSuggestion();
               },
                   itemCount: 15,
                   scrollDirection: CustomDirection.horizontal),
 
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 15.0, bottom: 10),
+                padding: EdgeInsets.only(top: 10, left: 15.0, bottom: 10),
                 child: Text("Messages", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
                     color: appPrimaryColor
                 ),),
               ),
               CustomListviewBuilder(
                   itemBuilder: (_, index) {
-                    return const ItemUserInbox();
+                    return ItemUserInbox();
                   },
                   itemCount: 10,
                   scrollDirection: CustomDirection.vertical)

@@ -3,7 +3,7 @@ import 'package:xlife/views/layouts/item_admin_pending_organizer.dart';
 
 
 class LayoutAdminPendingOrganizers extends StatefulWidget {
-  const LayoutAdminPendingOrganizers({Key? key}) : super(key: key);
+  LayoutAdminPendingOrganizers({Key? key}) : super(key: key);
 
   @override
   _LayoutAdminPendingOrganizersState createState() =>
@@ -17,7 +17,7 @@ class _LayoutAdminPendingOrganizersState
     return ListView.builder(
         itemCount: 12,
         itemBuilder: (_, index){
-          return const ItemAdminPendingOrganizer();
+          return ItemAdminPendingOrganizer();
         });
   }
 }

@@ -9,7 +9,7 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_header_container_design.dart';
 
 class EmailVerificationDoneScreen extends StatefulWidget {
-  const EmailVerificationDoneScreen({Key? key}) : super(key: key);
+  EmailVerificationDoneScreen({Key? key}) : super(key: key);
 
   @override
   _EmailVerificationDoneScreenState createState() =>
@@ -22,7 +22,7 @@ class _EmailVerificationDoneScreenState
   Widget build(BuildContext context) {
     return CustomHeaderContainerDesign(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,7 +34,7 @@ class _EmailVerificationDoneScreenState
               LocaleKeys.VerificationLinkSent.tr,
               style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
             Text(

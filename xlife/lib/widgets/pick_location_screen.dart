@@ -20,7 +20,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
   MapPickerController mapPickerController = MapPickerController();
   GoogleMapController? _controller;
 
-  CameraPosition cameraPosition = const CameraPosition(
+  CameraPosition cameraPosition = CameraPosition(
     target: LatLng(41.311158, 69.279737),
     zoom: 14.4746,
   );
@@ -53,7 +53,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Pick your location"),
+        title: Text("Pick your location"),
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -107,7 +107,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
             child: CustomInputField(
                 hint: "Search place here...",
                 fillColor: Colors.transparent,
-                prefix: const Icon(Icons.search),
+                prefix: Icon(Icons.search),
                 controller: textController,
                 isPasswordField: false,
                 keyboardType: TextInputType.text),
@@ -119,7 +119,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
             child: SizedBox(
               height: 50,
               child: TextButton(
-                child: const Text(
+                child: Text(
                   "Submit",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -144,7 +144,7 @@ class _LayoutPickLocationState extends State<LayoutPickLocation> {
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFFA3080C)),
+                      Color(0xFFA3080C)),
                   shape: MaterialStateProperty.all<
                       RoundedRectangleBorder>(
                     RoundedRectangleBorder(

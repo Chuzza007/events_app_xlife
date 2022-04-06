@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 import '../../helpers/styles.dart';
 
 class ItemAdminEventFavorite extends StatefulWidget {
-  const ItemAdminEventFavorite({Key? key}) : super(key: key);
+  ItemAdminEventFavorite({Key? key}) : super(key: key);
 
   @override
   _ItemAdminEventFavoriteState createState() =>
@@ -28,7 +28,7 @@ class _ItemAdminEventFavoriteState
         leading: Container(
           height: 10.h,
           width: 15.w,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               color: Colors.black,
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -39,7 +39,7 @@ class _ItemAdminEventFavoriteState
           "Mubashar Hussain",
           style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
-        trailing: const Text(
+        trailing: Text(
           "1 h",
           style: TextStyle(color: Colors.grey),
         ),

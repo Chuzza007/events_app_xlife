@@ -4,7 +4,7 @@ import 'package:xlife/views/layouts/item_user_news_feed.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_new_post.dart';
 
 class LayoutUserNewsFeed extends StatefulWidget {
-  const LayoutUserNewsFeed({Key? key}) : super(key: key);
+  LayoutUserNewsFeed({Key? key}) : super(key: key);
 
   @override
   _LayoutUserNewsFeedState createState() =>
@@ -18,18 +18,18 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text("News feed"),
+        title: Text("News feed"),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
         onPressed: (){
-          Get.to(const ScreenOrganizerNewPost());
+          Get.to(ScreenOrganizerNewPost());
         },
       ),
       body: ListView.builder(
           itemCount: 20,
           itemBuilder: (_, index) {
-        return const ItemUserNewsFeed();
+        return ItemUserNewsFeed();
       }),
     );
   }

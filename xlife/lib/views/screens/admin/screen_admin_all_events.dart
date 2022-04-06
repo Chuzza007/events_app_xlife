@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xlife/views/layouts/item_admin_event.dart';
 
 class ScreenAdminAllEvents extends StatefulWidget {
-  const ScreenAdminAllEvents({Key? key}) : super(key: key);
+  ScreenAdminAllEvents({Key? key}) : super(key: key);
 
   @override
   _ScreenAdminAllEventsState createState() =>
@@ -14,14 +14,14 @@ class _ScreenAdminAllEventsState extends State<ScreenAdminAllEvents> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All Events  (20)"),
+        title: Text("All Events  (20)"),
       ),
       body: Container(
-        margin: const EdgeInsets.all(10),
+        margin: EdgeInsets.all(10),
         child: ListView.builder(
             itemCount: 20,
             itemBuilder: (_, index) {
-          return const ItemAdminEvent();
+          return ItemAdminEvent();
         }),
       ),
     );

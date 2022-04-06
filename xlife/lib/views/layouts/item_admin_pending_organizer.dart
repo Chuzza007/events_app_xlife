@@ -6,7 +6,7 @@ import 'package:xlife/widgets/custom_button.dart';
 import '../../helpers/styles.dart';
 
 class ItemAdminPendingOrganizer extends StatelessWidget {
-  const ItemAdminPendingOrganizer({Key? key}) : super(key: key);
+  ItemAdminPendingOrganizer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
             leading: Container(
               height: 10.h,
               width: 15.w,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   color: Colors.black,
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -41,7 +41,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
               "Pending",
               style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: Colors.grey),
             ),
-            leading: const Icon(
+            leading: Icon(
               Icons.info,
               color: Colors.grey,
             ),

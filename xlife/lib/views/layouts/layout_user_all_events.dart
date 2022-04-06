@@ -6,7 +6,7 @@ import 'package:xlife/views/screens/user/screen_user_event_details.dart';
 import 'package:xlife/widgets/custom_card_swiper.dart';
 
 class LayoutUserAllEvents extends StatefulWidget {
-  const LayoutUserAllEvents({Key? key}) : super(key: key);
+  LayoutUserAllEvents({Key? key}) : super(key: key);
 
   @override
   _LayoutUserAllEventsState createState() =>
@@ -39,7 +39,7 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> {
             });
           },
           onTap: (index){
-            Get.to(const ScreenUserEventDetails());
+            Get.to(ScreenUserEventDetails());
           },
           itemHeight: Get.height * 0.7,
           itemWidth: Get.width * 0.9,

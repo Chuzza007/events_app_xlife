@@ -7,7 +7,7 @@ import 'package:xlife/helpers/constants.dart';
 import '../../helpers/styles.dart';
 
 class ItemOrganizerPostReaction extends StatelessWidget {
-  const ItemOrganizerPostReaction({Key? key}) : super(key: key);
+  ItemOrganizerPostReaction({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ItemOrganizerPostReaction extends StatelessWidget {
           child: Container(
             height: 10.h,
             width: 15.w,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 color: Colors.black,
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -45,7 +45,7 @@ class ItemOrganizerPostReaction extends StatelessWidget {
           "Mubashar Hussain",
           style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
-        trailing: const Text(
+        trailing: Text(
           "1 h",
           style: TextStyle(color: Colors.grey),
         ),

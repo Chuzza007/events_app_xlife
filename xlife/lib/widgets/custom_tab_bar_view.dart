@@ -41,7 +41,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
             unselectedLabelColor: Colors.grey,
             isScrollable: widget.isScrollable ?? false,
             labelColor: Colors.white,
-            labelStyle: const TextStyle(
+            labelStyle: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 17,
                 fontFamily: "Outfit"),
@@ -49,7 +49,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
               borderRadius: BorderRadius.circular(30),
               color: appPrimaryColor
             ),
-            physics: const BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             tabs: getTabBarTitlesToTabs(widget.tabs_titles_list),
           ),
           decoration: BoxDecoration(
@@ -58,7 +58,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
             boxShadow: (widget.showTopShadow == null ||
                     widget.showTopShadow == true)
                 ? [
-                    const BoxShadow(
+                    BoxShadow(
                         blurRadius: 10, color: Color(0x414D5678))
                   ]
                 : null,
@@ -69,7 +69,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
             padding: (widget.removePadding != null &&
                     widget.removePadding == true)
                 ? EdgeInsets.zero
-                : const EdgeInsets.all(8),
+                : EdgeInsets.all(8),
             child: TabBarView(
               controller: widget.tabController,
               children: widget.tab_children_layouts,

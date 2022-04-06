@@ -62,7 +62,7 @@ dependencies:
   firebase_storage: ^10.2.10
   firebase_messaging: ^11.2.12
   flutter_firebase_app: any
-  google_places_picker_advance: ^0.0.15
+  google_places_picker_advance: ^0.0.1
 
 #  flutter_google_places: ^0.3.0
 

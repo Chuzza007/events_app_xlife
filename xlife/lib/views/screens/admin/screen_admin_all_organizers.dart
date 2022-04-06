@@ -10,7 +10,7 @@ import '../../../models/user.dart';
 import '../../layouts/item_admin_approved_organizer.dart';
 
 class ScreenAdminAllOrganizers extends StatefulWidget {
-  const ScreenAdminAllOrganizers({Key? key}) : super(key: key);
+  ScreenAdminAllOrganizers({Key? key}) : super(key: key);
 
   @override
   _ScreenAdminAllOrganizersState createState() => _ScreenAdminAllOrganizersState();
@@ -36,9 +36,9 @@ class _ScreenAdminAllOrganizersState extends State<ScreenAdminAllOrganizers> wit
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(const ScreenAdminAddOrganizer());
+          Get.to(ScreenAdminAddOrganizer());
         },
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
       body: StreamBuilder(
         stream: organizersStream,

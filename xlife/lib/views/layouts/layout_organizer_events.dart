@@ -11,7 +11,7 @@ import '../../models/event.dart';
 import '../../widgets/not_found.dart';
 
 class LayoutOrganizerEvents extends StatefulWidget {
-  const LayoutOrganizerEvents({Key? key}) : super(key: key);
+  LayoutOrganizerEvents({Key? key}) : super(key: key);
 
   @override
   _LayoutOrganizerEventsState createState() => _LayoutOrganizerEventsState();
@@ -27,8 +27,8 @@ class _LayoutOrganizerEventsState extends State<LayoutOrganizerEvents> {
         onPressed: () {
           Get.to(ScreenOrganizerNewEvent());
         },
-        label: const Text("Event"),
-        icon: const Icon(Icons.add),
+        label: Text("Event"),
+        icon: Icon(Icons.add),
         tooltip: "Add new Event",
       ),
       body: StreamBuilder<QuerySnapshot>(

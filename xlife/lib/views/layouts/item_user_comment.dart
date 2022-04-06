@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 import '../../helpers/styles.dart';
 
 class ItemUserComment extends StatefulWidget {
-  const ItemUserComment({Key? key}) : super(key: key);
+  ItemUserComment({Key? key}) : super(key: key);
 
   @override
   _ItemUserCommentState createState() => _ItemUserCommentState();
@@ -26,7 +26,7 @@ class _ItemUserCommentState extends State<ItemUserComment> {
         leading: Container(
           height: 10.h,
           width: 15.w,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               color: Colors.black,
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -41,7 +41,7 @@ class _ItemUserCommentState extends State<ItemUserComment> {
           "This is the user comment",
           style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
         ),
-        trailing: const Text(
+        trailing: Text(
           "1 h",
           style: TextStyle(color: Colors.grey),
         ),

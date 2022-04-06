@@ -12,7 +12,7 @@ import 'package:xlife/widgets/custom_button.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 
 class ScreenUserEventDetails extends StatefulWidget {
-  const ScreenUserEventDetails({Key? key}) : super(key: key);
+  ScreenUserEventDetails({Key? key}) : super(key: key);
 
   @override
   _ScreenUserEventDetailsState createState() =>
@@ -26,11 +26,11 @@ class _ScreenUserEventDetailsState
   final Completer<GoogleMapController> _controller = Completer();
 
   LatLng initPosition =
-      const LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = const LatLng(0.0,
+      LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = LatLng(0.0,
       0.0); //initial currentPosition values cannot assign null values
   //initial permission status
-  static const CameraPosition _kGooglePlex = CameraPosition(
+  static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
@@ -57,7 +57,7 @@ class _ScreenUserEventDetailsState
     return Scaffold(
       body: SafeArea(
         child: DraggableHome(
-          title: const Text("Event Title"),
+          title: Text("Event Title"),
           headerWidget: Stack(
             children: [
               PageView(
@@ -102,7 +102,7 @@ class _ScreenUserEventDetailsState
                   right: 1.w,
                   bottom: 5.h,
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       color: Colors.grey[600],
                       borderRadius: BorderRadius.circular(20),
@@ -137,36 +137,36 @@ class _ScreenUserEventDetailsState
                 "Distance",
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("22 Km"),
               ),
-              leading: const Icon(Icons.location_on),
+              leading: Icon(Icons.location_on),
             ),
             ListTile(
               title: Text(
                 "Organized By",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("#####"),
               ),
-              leading: const Icon(Icons.info),
+              leading: Icon(Icons.info),
             ),
             ListTile(
               title: Text(
                 "Description",
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
-              subtitle: const Padding(
+              subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text("#####"),
               ),
-              leading: const Icon(Icons.event),
+              leading: Icon(Icons.event),
             ),
             CustomChips(
-              chipNames: const [
+              chipNames: [
                 "Birthday Party",
                 "Drinks",
                 "Dance",
@@ -180,7 +180,7 @@ class _ScreenUserEventDetailsState
               height: 40.h,
               margin: EdgeInsets.all(20.sp),
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20),

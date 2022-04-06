@@ -10,7 +10,7 @@ import '../../widgets/custom_header_container_design.dart';
 import '../../widgets/custom_input_field.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
+  ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
@@ -25,7 +25,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return CustomHeaderContainerDesign(
       title: Text(LocaleKeys.ForgotPassword.tr),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -48,7 +48,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             CustomButton(text: LocaleKeys.Submit.tr, onPressed: () {
               if (enteredValue.isEmail){
-                Get.to(const EmailVerificationDoneScreen());
+                Get.to(EmailVerificationDoneScreen());
               } else {
                 Get.snackbar("Alert", "Invalid Email");
               }

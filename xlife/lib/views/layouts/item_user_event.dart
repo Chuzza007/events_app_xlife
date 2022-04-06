@@ -19,7 +19,7 @@ class _ItemUserEventState extends State<ItemUserEvent> {
       decoration: BoxDecoration(
         color: Colors.red,
         borderRadius: BorderRadius.circular(20),
-        image: const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(
             "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
@@ -36,11 +36,11 @@ class _ItemUserEventState extends State<ItemUserEvent> {
               decoration: BoxDecoration(
                   color: Colors.white38,
                   borderRadius: BorderRadius.circular(10)),
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.location_on,
                     color: Colors.white,
                   ),
@@ -61,16 +61,16 @@ class _ItemUserEventState extends State<ItemUserEvent> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.black54,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                     )),
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.watch_later_outlined,
                       color: Colors.white,
                     ),
@@ -86,8 +86,8 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
                     color: Colors.black54,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),

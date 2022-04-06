@@ -10,7 +10,7 @@ import '../../../helpers/styles.dart';
 import '../../../widgets/custom_input_field.dart';
 
 class ScreenOrganizerNewPost extends StatelessWidget {
-  const ScreenOrganizerNewPost({Key? key}) : super(key: key);
+  ScreenOrganizerNewPost({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,15 @@ class ScreenOrganizerNewPost extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create new post"),
+        title: Text("Create new post"),
         leading: IconButton(
             onPressed: () {
               Get.back();
             },
-            icon: const Icon(Icons.close)),
+            icon: Icon(Icons.close)),
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15),
+        margin: EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -46,9 +46,9 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                 return GestureDetector(
                   child: Container(
                     width: Get.width * .3,
-                    margin: const EdgeInsets.all(5),
+                    margin: EdgeInsets.all(5),
                     height: Get.height * 0.1,
-                    child: controller.postImage.value.path != "" ? Container() : const Icon(Icons.add),
+                    child: controller.postImage.value.path != "" ? Container() : Icon(Icons.add),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
@@ -60,7 +60,7 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                               fit: BoxFit.cover,
                             )
                           : null,
-                      boxShadow: const [BoxShadow(blurRadius: 2, offset: Offset(0, 1))],
+                      boxShadow: [BoxShadow(blurRadius: 2, offset: Offset(0, 1))],
                     ),
                   ),
                   onTap: () {
@@ -83,14 +83,14 @@ class ScreenOrganizerNewPost extends StatelessWidget {
 
   Widget _buildHeading(String title, bool optional) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
       child: Row(
         children: [
           Text(
             title,
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
-          const SizedBox(
+          SizedBox(
             width: 5,
           ),
           Text(

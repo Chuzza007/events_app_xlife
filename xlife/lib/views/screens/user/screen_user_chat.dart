@@ -13,7 +13,7 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_input_field.dart';
 
 class ScreenUserChat extends StatefulWidget {
-  const ScreenUserChat({Key? key}) : super(key: key);
+  ScreenUserChat({Key? key}) : super(key: key);
 
   @override
   _ScreenUserChatState createState() => _ScreenUserChatState();
@@ -47,7 +47,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       text: message.text,
-      previewData: const types.PreviewData(),
+      previewData: types.PreviewData(),
       type: types.MessageType.text,
     );
 
@@ -98,17 +98,17 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
         ),
         leadingWidth: Get.width * 0.25,
         leading: Container(
-          margin: const EdgeInsets.only(left: 5),
+          margin: EdgeInsets.only(left: 5),
           child: InkWell(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Icon(Icons.arrow_back),
+                Icon(Icons.arrow_back),
                 Container(
                   width: Get.width * 0.1,
                   height: Get.height * 0.1,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -133,11 +133,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                   ),
                   options: [
-                    const ListTile(
+                    ListTile(
                       title: Text("Block User"),
                       leading: Icon(Icons.block),
                     ),
-                    const ListTile(
+                    ListTile(
                       title: Text("Delete Chat"),
                       leading: Icon(Icons.delete),
                     ),
@@ -148,7 +148,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                       case 3:
                         Get.defaultDialog(
                           contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 20),
+                              EdgeInsets.symmetric(horizontal: 20),
                           content: Column(
                             mainAxisAlignment:
                                 MainAxisAlignment.center,
@@ -157,7 +157,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                                 "assets/images/block.png",
                                 height: Get.height * 0.05,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 height: 10,
                               ),
                               Text(
@@ -197,7 +197,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                   },
                 );
               },
-              icon: const Icon(Icons.more_vert_rounded))
+              icon: Icon(Icons.more_vert_rounded))
         ],
       ),
       body: SafeArea(
@@ -209,10 +209,10 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
             usePreviewData: true,
             customBottomWidget: Container(
               width: Get.width,
-              padding: const EdgeInsets.only(bottom: 10),
+              padding: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20.0),
                     topLeft: Radius.circular(20.0),
                   ),
@@ -228,11 +228,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         isDense: true,
                         maxLines: 7,
                         minLines: 1,
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        margin: EdgeInsets.symmetric(horizontal: 10),
                         keyboardType: TextInputType.multiline),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(right: 15),
+                    padding: EdgeInsets.only(right: 15),
                     alignment: Alignment.centerRight,
                     child: IconButton(
                       onPressed: () {
@@ -253,7 +253,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         }
                       },
                       icon: ImageIcon(
-                        const AssetImage("assets/images/icon_send.png"),
+                        AssetImage("assets/images/icon_send.png"),
                         color: appPrimaryColor,
                       ),
                     ),
@@ -315,10 +315,10 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
       ),
       options: [
-        const ListTile(
+        ListTile(
           title: Text("Insert Images"),
         ),
-        const ListTile(
+        ListTile(
           title: Text("Choose file"),
         ),
       ],
@@ -346,7 +346,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     //                 Navigator.pop(context);
     //                 _handleImageSelection();
     //               },
-    //               child: const Align(
+    //               child: Align(
     //                 alignment: Alignment.centerLeft,
     //                 child: Text('Photo'),
     //               ),
@@ -356,14 +356,14 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     //                 Navigator.pop(context);
     //                 _handleFileSelection();
     //               },
-    //               child: const Align(
+    //               child: Align(
     //                 alignment: Alignment.centerLeft,
     //                 child: Text('File'),
     //               ),
     //             ),
     //             TextButton(
     //               onPressed: () => Navigator.pop(context),
-    //               child: const Align(
+    //               child: Align(
     //                 alignment: Alignment.centerLeft,
     //                 child: Text('Cancel'),
     //               ),
@@ -480,12 +480,12 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
           borderRadius: BorderRadius.circular(20)),
       builder: (builder) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Container(
                     alignment: Alignment.center,
                     height: Get.height * 0.15,
@@ -498,19 +498,19 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                             ))),
                   ),
                 ),
-                const ListTile(
+                ListTile(
                   title: Text("Which City"),
                   leading: Icon(Icons.home),
                 ),
-                const ListTile(
+                ListTile(
                   title: Text("user@test.com"),
                   leading: Icon(Icons.alternate_email),
                 ),
-                const ListTile(
+                ListTile(
                   title: Text("+923086765898"),
                   leading: Icon(Icons.phone),
                 ),
-                const ListTile(
+                ListTile(
                   title: Text("2 km away"),
                   leading: Icon(Icons.location_on),
                 ),

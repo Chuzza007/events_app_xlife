@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xlife/views/layouts/item_admin_news_feed.dart';
 
 class ScreenAdminAllPosts extends StatefulWidget {
-  const ScreenAdminAllPosts({Key? key}) : super(key: key);
+  ScreenAdminAllPosts({Key? key}) : super(key: key);
 
   @override
   _ScreenAdminAllPostsState createState() =>
@@ -14,12 +14,12 @@ class _ScreenAdminAllPostsState extends State<ScreenAdminAllPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All Posts"),
+        title: Text("All Posts"),
       ),
       body: ListView.builder(
           itemCount: 20,
           itemBuilder: (context, index){
-        return const ItemAdminNewsFeed();
+        return ItemAdminNewsFeed();
       }),
     );
   }

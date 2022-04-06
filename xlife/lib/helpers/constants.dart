@@ -13,7 +13,7 @@ import '../generated/locales.g.dart';
 import '../interfaces/listener_organizer_events_posts.dart';
 import '../widgets/custom_button.dart';
 
-MaterialColor appPrimaryColor = const MaterialColor(
+MaterialColor appPrimaryColor = MaterialColor(
   0xFFA033FF,
   <int, Color>{
     50: Color(0xFFA033FF),
@@ -29,8 +29,8 @@ MaterialColor appPrimaryColor = const MaterialColor(
   },
 );
 String appName = LocaleKeys.AppName.tr;
-Color hintColor = const Color(0xFFA0A2A8);
-Color buttonColor = const Color(0xFFF13B2D);
+Color hintColor = Color(0xFFA0A2A8);
+Color buttonColor = Color(0xFFF13B2D);
 String googleAPIKey = "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY";
 CollectionReference usersRef = FirebaseFirestore.instance.collection("users");
 CollectionReference organizersRef = FirebaseFirestore.instance.collection("organizers");
@@ -50,7 +50,7 @@ void showOptionsBottomSheet({
 }) {
   showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.0),
           topRight: Radius.circular(30.0),
@@ -59,14 +59,14 @@ void showOptionsBottomSheet({
       isScrollControlled: true,
       builder: (context) {
         return Container(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
                   child: Align(alignment: Alignment.centerLeft, child: title),
                 ),
                 Container(
@@ -76,7 +76,7 @@ void showOptionsBottomSheet({
                     context: context,
                     child: ListView(
                       shrinkWrap: true,
-                      physics: const ScrollPhysics(),
+                      physics: ScrollPhysics(),
                       padding: EdgeInsets.zero,
                       children: options.map((e) {
                         int index = options.indexOf(e);
@@ -94,7 +94,7 @@ void showOptionsBottomSheet({
                 Visibility(
                   visible: showSkipButton ?? false,
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 10),
                     child: CustomButton(
                         text: skipButtonText ?? "Cancel",
                         onPressed: onSkipPressed ??

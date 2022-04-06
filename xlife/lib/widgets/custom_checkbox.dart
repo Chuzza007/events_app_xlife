@@ -42,7 +42,7 @@ class _CustomCheckboxListTileState extends State<CustomCheckboxListTile> {
           ? Transform.scale(
               scale: 1.2,
               child: Checkbox(
-                side: const BorderSide(color: Colors.red, width: 2),
+                side: BorderSide(color: Colors.red, width: 2),
                 value: widget.value,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),

@@ -11,7 +11,7 @@ import '../../widgets/not_found.dart';
 import 'item_organizer_news_feed.dart';
 
 class LayoutOrganizerNewsFeed extends StatefulWidget {
-  const LayoutOrganizerNewsFeed({Key? key}) : super(key: key);
+  LayoutOrganizerNewsFeed({Key? key}) : super(key: key);
 
   @override
   _LayoutOrganizerNewsFeedState createState() =>
@@ -28,10 +28,10 @@ class _LayoutOrganizerNewsFeedState
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.to(const ScreenOrganizerNewPost());
+          Get.to(ScreenOrganizerNewPost());
         },
-        label: const Text("Post"),
-        icon: const Icon(Icons.add),
+        label: Text("Post"),
+        icon: Icon(Icons.add),
         tooltip: "Add new Post",
       ),
 

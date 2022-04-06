@@ -8,7 +8,7 @@ import 'package:xlife/views/screens/user/screen_user_post_comments.dart';
 import '../../helpers/styles.dart';
 
 class ItemUserNewsFeed extends StatefulWidget {
-  const ItemUserNewsFeed({Key? key}) : super(key: key);
+  ItemUserNewsFeed({Key? key}) : super(key: key);
 
   @override
   State<ItemUserNewsFeed> createState() => _ItemUserNewsFeedState();
@@ -22,22 +22,22 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
     reactions = [
       Reaction(
           title: _buildReactionTitle("None"),
-          previewIcon: const Icon(Icons.thumb_up_alt_outlined),
+          previewIcon: Icon(Icons.thumb_up_alt_outlined),
           icon: _buildIcon(Icons.thumb_up_alt_outlined, "None"),
           value: "none"),
       Reaction(
           title: _buildReactionTitle("Like"),
-          previewIcon: const Icon(Icons.thumb_up),
+          previewIcon: Icon(Icons.thumb_up),
           icon: _buildIcon(Icons.thumb_up, "Like"),
           value: "like"),
       Reaction(
           title: _buildReactionTitle("Love"),
-          previewIcon: const Icon(Icons.favorite),
+          previewIcon: Icon(Icons.favorite),
           icon: _buildIcon(Icons.favorite, "Love"),
           value: "love"),
       Reaction(
           title: _buildReactionTitle("Dislike"),
-          previewIcon: const Icon(Icons.thumb_down),
+          previewIcon: Icon(Icons.thumb_down),
           icon: _buildIcon(Icons.thumb_down, "Dislike"),
           value: "dislike"),
     ];
@@ -59,12 +59,12 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
+            margin: EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               leading: Container(
                 height: 10.h,
                 width: 15.w,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -75,11 +75,11 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
                 "Mubashar Hussain",
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: const Text("1 h"),
+              subtitle: Text("1 h"),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
               "post text will be here",
               style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -89,7 +89,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
           ),
           Container(
             height: 20.h,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
@@ -98,7 +98,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -120,20 +120,21 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
                   reactions: reactions,
                   boxPosition: Position.BOTTOM,
                   boxElevation: 10,
-                  boxPadding: const EdgeInsets.all(10),
-                  boxDuration: const Duration(milliseconds: 500),
+                  boxPadding: EdgeInsets.all(10),
+                  boxDuration: Duration(milliseconds: 500),
                   itemScaleDuration:
-                      const Duration(milliseconds: 200),
+                      Duration(milliseconds: 200),
+                  initialReaction: getReaction('like'),
                 ),
                 InkWell(
                   onTap: (){
-                    Get.to(const ScreenUserPostComments());
+                    Get.to(ScreenUserPostComments());
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.comment),
+                      Icon(Icons.comment),
                       SizedBox(
                         width: 5.sp,
                       ),
@@ -155,7 +156,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
 
   Widget _buildReactionTitle(String title) {
     return Container(
-      padding: const EdgeInsets.all(5),
+      padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: appPrimaryColor,
         borderRadius: BorderRadius.circular(50),
@@ -183,5 +184,15 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> {
         )
       ],
     );
+  }
+
+  Reaction<String>? getReaction(String value){
+    Reaction<String>? reaction = null;
+    reactions.forEach((element) {
+      if (element.value == value){
+        reaction = element;
+      }
+    });
+    return reaction;
   }
 }

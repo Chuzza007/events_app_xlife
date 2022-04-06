@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'constants.dart';
 
-Color listFillColor = const Color(0xF0F6F6F6);
-Color opacityGrey = const Color(0xC1707070);
+Color listFillColor = Color(0xF0F6F6F6);
+Color opacityGrey = Color(0xC1707070);
 Color appSecondaryColor = /*Color(0xFF244B71)*/ Colors.orange;
 Color appSecondaryColorDark = /*Color(0xFF152C42)*/ Colors.deepOrangeAccent;
-Color appTextColor = const Color(0xFF242C43);
-Color ratingColor = const Color(0xFFFBB957);
+Color appTextColor = Color(0xFF242C43);
+Color ratingColor = Color(0xFFFBB957);
 // Color appSecondaryColorOpacity = Color(0xFF7154AAFF);
 
 ButtonStyle disabledButtonStyle = ElevatedButton.styleFrom(
@@ -17,7 +17,7 @@ ButtonStyle disabledButtonStyle = ElevatedButton.styleFrom(
   padding: EdgeInsets.all(10.sp),
   elevation: 3.sp,
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0.sp)),
-  minimumSize: const Size(100, 40),
+  minimumSize: Size(100, 40),
 );
 TextStyle headingStyle = TextStyle(
   fontSize: 18.sp,
@@ -54,10 +54,10 @@ TextStyle grey_h1Style_bold = TextStyle(color: opacityGrey, fontSize: 16.sp, fon
 TextStyle grey_h2Style_bold = TextStyle(color: opacityGrey, fontSize: 14.sp, fontWeight: FontWeight.bold);
 TextStyle grey_h3Style_bold = TextStyle(color: opacityGrey, fontSize: 12.sp, fontWeight: FontWeight.bold);
 
-TextStyle heading1_style_web = const TextStyle(fontSize: (26 + 2), fontWeight: FontWeight.bold);
-TextStyle heading2_style_web = const TextStyle(fontSize: (23 + 2), fontWeight: FontWeight.bold);
-TextStyle heading3_style_web = const TextStyle(fontSize: (19 + 2), fontWeight: FontWeight.bold);
-TextStyle heading4_style_web = const TextStyle(fontSize: (16 + 2), fontWeight: FontWeight.bold);
+TextStyle heading1_style_web = TextStyle(fontSize: (26 + 2), fontWeight: FontWeight.bold);
+TextStyle heading2_style_web = TextStyle(fontSize: (23 + 2), fontWeight: FontWeight.bold);
+TextStyle heading3_style_web = TextStyle(fontSize: (19 + 2), fontWeight: FontWeight.bold);
+TextStyle heading4_style_web = TextStyle(fontSize: (16 + 2), fontWeight: FontWeight.bold);
 
 TextStyle normal_h1Style_web = TextStyle(color: appTextColor, fontSize: (2 + 16));
 TextStyle normal_h2Style_web = TextStyle(color: appTextColor, fontSize: (2 + 14));
@@ -87,4 +87,4 @@ BoxDecoration roundDecoration = BoxDecoration(
   borderRadius: BorderRadius.circular(10.sp),
 );
 
-List<BoxShadow> appBoxShadow = [BoxShadow(blurRadius: 5.sp, color: const Color(0x414D5678))];
+List<BoxShadow> appBoxShadow = [BoxShadow(blurRadius: 5.sp, color: Color(0x414D5678))];

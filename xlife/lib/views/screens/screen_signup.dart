@@ -29,7 +29,7 @@ class SignupScreen extends StatelessWidget {
           return CustomProgressWidget(
             loading: controller.isLoading.value,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: 20),
               child: Form(
                 key: controller.signupFormKey,
                 child: SingleChildScrollView(
@@ -93,7 +93,7 @@ class SignupScreen extends StatelessWidget {
                           },
                           keyboardType: TextInputType.visiblePassword),
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Text(
                           "Select Gender",
                           style: TextStyle(color: hintColor),
@@ -107,7 +107,7 @@ class SignupScreen extends StatelessWidget {
                               scale: 1.1,
                               child: RadioListTile(
                                 dense: true,
-                                visualDensity: const VisualDensity(
+                                visualDensity: VisualDensity(
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
@@ -126,7 +126,7 @@ class SignupScreen extends StatelessWidget {
                               scale: 1.1,
                               child: RadioListTile(
                                 dense: true,
-                                visualDensity: const VisualDensity(
+                                visualDensity: VisualDensity(
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
@@ -143,7 +143,7 @@ class SignupScreen extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: CheckboxListTile(
                             contentPadding: EdgeInsets.zero,
                             controlAffinity: ListTileControlAffinity.leading,
@@ -158,7 +158,7 @@ class SignupScreen extends StatelessWidget {
                             }),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: CheckboxListTile(
                             contentPadding: EdgeInsets.zero,
                             controlAffinity: ListTileControlAffinity.leading,
@@ -173,7 +173,7 @@ class SignupScreen extends StatelessWidget {
                             }),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: CheckboxListTile(
                             contentPadding: EdgeInsets.zero,
                             controlAffinity: ListTileControlAffinity.leading,
@@ -192,12 +192,12 @@ class SignupScreen extends StatelessWidget {
                         onPressed: () async {
                           String response = await controller.signUp();
                           if (response == "success") {
-                            Get.offAll(const ScreenUserHomepage());
+                            Get.offAll(ScreenUserHomepage());
                           }
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -232,7 +232,7 @@ class SignupScreen extends StatelessWidget {
                                   )
                                 );
                               },
-                              child: const Text(
+                              child: Text(
                                 "Apply as Organizer",
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.visible,
@@ -241,7 +241,7 @@ class SignupScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 20,
                       )
                     ],

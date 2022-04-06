@@ -6,7 +6,7 @@ import 'package:xlife/views/screens/admin/screen_admin_event_details.dart';
 import '../../helpers/styles.dart';
 
 class ItemAdminEvent extends StatelessWidget {
-  const ItemAdminEvent({Key? key}) : super(key: key);
+  ItemAdminEvent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,10 @@ class ItemAdminEvent extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
-            BoxShadow(blurRadius: 5.sp, color: const Color(0x414D5678))
+            BoxShadow(blurRadius: 5.sp, color: Color(0x414D5678))
           ],
         ),
-        margin: const EdgeInsets.symmetric(vertical: 5),
+        margin: EdgeInsets.symmetric(vertical: 5),
         child: IntrinsicHeight(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,7 +28,7 @@ class ItemAdminEvent extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     bottomLeft: Radius.circular(20),
                   ),
@@ -50,7 +50,7 @@ class ItemAdminEvent extends StatelessWidget {
                         style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                       ),
                       dense: true,
-                      leading: const Icon(Icons.event),
+                      leading: Icon(Icons.event),
                       trailing: IconButton(
                         onPressed: () {
                           Get.defaultDialog(
@@ -62,7 +62,7 @@ class ItemAdminEvent extends StatelessWidget {
                               textConfirm: "Delete",
                               textCancel: "Cancel");
                         },
-                        icon: const Icon(Icons.delete),
+                        icon: Icon(Icons.delete),
                       ),
                     ),
                     ListTile(
@@ -71,11 +71,11 @@ class ItemAdminEvent extends StatelessWidget {
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,
-                      leading: const ImageIcon(
+                      leading: ImageIcon(
                         AssetImage("assets/images/heart_true.png"),
                         color: Colors.red,
                       ),
-                      subtitle: const Text("Organized by ####"),
+                      subtitle: Text("Organized by ####"),
                     ),
                   ],
                 ),
@@ -85,7 +85,7 @@ class ItemAdminEvent extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Get.to(const ScreenAdminEventDetails());
+        Get.to(ScreenAdminEventDetails());
       },
     );
   }

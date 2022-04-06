@@ -16,7 +16,7 @@ import '../../../models/user.dart' as model;
 import '../../../widgets/custom_button.dart';
 
 class ScreenOrganizerEditProfile extends StatefulWidget {
-  const ScreenOrganizerEditProfile({Key? key}) : super(key: key);
+  ScreenOrganizerEditProfile({Key? key}) : super(key: key);
 
   @override
   _ScreenOrganizerEditProfileState createState() => _ScreenOrganizerEditProfileState();
@@ -42,7 +42,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Organizer profile"),
+        title: Text("Organizer profile"),
       ),
       body: Center(
         child: loading
@@ -75,11 +75,11 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                               child: Container(
                                 height: Get.height * 0.04,
                                 width: Get.height * 0.04,
-                                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                                child: const Icon(Icons.edit),
+                                decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                child: Icon(Icons.edit),
                               ),
                             ),
-                            const Positioned(
+                            Positioned(
                               child: Visibility(
                                 visible: false,
                                 child: CircularProgressIndicator.adaptive(
@@ -96,8 +96,8 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                     child: Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: const BoxDecoration(
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                          decoration: BoxDecoration(
                               color: Colors.white38,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30),
@@ -110,9 +110,9 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                             alignment: Alignment.topCenter,
                             height: double.infinity,
                             width: double.infinity,
-                            margin: const EdgeInsets.only(top: 10),
+                            margin: EdgeInsets.only(top: 10),
                             padding: EdgeInsets.zero,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: CupertinoColors.white,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30),
@@ -123,12 +123,12 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                               context: context,
                               removeTop: true,
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
+                                padding: EdgeInsets.only(top: 8.0),
                                 child: Scaffold(
                                   backgroundColor: Colors.transparent,
                                   resizeToAvoidBottomInset: false,
                                   body: Container(
-                                    margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                                    margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                                     child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -138,8 +138,8 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                            padding: const EdgeInsets.all(10),
+                                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                            padding: EdgeInsets.all(10),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.black12,
@@ -156,7 +156,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                                                   ),
                                                   trailing: IconButton(
-                                                    icon: const Icon(Icons.edit),
+                                                    icon: Icon(Icons.edit),
                                                     onPressed: () {},
                                                   ),
                                                 ),
@@ -176,7 +176,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   trailing: IconButton(
-                                                    icon: const Icon(Icons.navigate_next),
+                                                    icon: Icon(Icons.navigate_next),
                                                     onPressed: () {},
                                                   ),
                                                   onTap: () {
@@ -250,10 +250,10 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   trailing: IconButton(
-                                                    icon: const Icon(Icons.navigate_next),
+                                                    icon: Icon(Icons.navigate_next),
                                                     onPressed: () {},
                                                   ),
-                                                  leading: const Icon(Icons.qr_code),
+                                                  leading: Icon(Icons.qr_code),
                                                 ),
                                               ],
                                             ),
@@ -263,8 +263,8 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                            padding: const EdgeInsets.all(10),
+                                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                            padding: EdgeInsets.all(10),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.black12,
@@ -312,8 +312,8 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                            padding: const EdgeInsets.all(10),
+                                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                            padding: EdgeInsets.all(10),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.black12,
@@ -369,7 +369,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             ),
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                                            margin: EdgeInsets.symmetric(horizontal: 20),
                                             child: CustomButton(
                                               text: LocaleKeys.Logout.tr,
                                               onPressed: () {},

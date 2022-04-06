@@ -16,7 +16,7 @@ import '../../../widgets/custom_input_field.dart';
 import '../../../widgets/pick_location_screen.dart';
 
 class ScreenOrganizerUpdateEvent extends StatefulWidget {
-  const ScreenOrganizerUpdateEvent({Key? key}) : super(key: key);
+  ScreenOrganizerUpdateEvent({Key? key}) : super(key: key);
 
   @override
   _ScreenOrganizerUpdateEventState createState() =>
@@ -28,11 +28,11 @@ class _ScreenOrganizerUpdateEventState
   final Completer<GoogleMapController> _controller = Completer();
 
   LatLng initPosition =
-  const LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = const LatLng(0.0,
+  LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = LatLng(0.0,
       0.0); //initial currentPosition values cannot assign null values
   //initial permission status
-  static const CameraPosition _kGooglePlex = CameraPosition(
+  static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
@@ -44,12 +44,12 @@ class _ScreenOrganizerUpdateEventState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Update Event"),
+        title: Text("Update Event"),
       ),
       body: Obx(() {
         return SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
+            margin: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,11 +73,11 @@ class _ScreenOrganizerUpdateEventState
                     Expanded(
                       child: GestureDetector(
                         child: Container(
-                          margin: const EdgeInsets.all(5),
+                          margin: EdgeInsets.all(5),
                           height: Get.height * 0.1,
                           child: controller.images[0].path != ""
                               ? Container()
-                              : const Icon(Icons.add),
+                              : Icon(Icons.add),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
@@ -88,7 +88,7 @@ class _ScreenOrganizerUpdateEventState
                                 fit: BoxFit.cover,
                               )
                                   : null,
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
                                     blurRadius: 2,
                                     offset: Offset(0, 1))
@@ -102,11 +102,11 @@ class _ScreenOrganizerUpdateEventState
                     Expanded(
                       child: GestureDetector(
                         child: Container(
-                          margin: const EdgeInsets.all(5),
+                          margin: EdgeInsets.all(5),
                           height: Get.height * 0.1,
                           child: controller.images[1].path != ""
                               ? Container()
-                              : const Icon(Icons.add),
+                              : Icon(Icons.add),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
@@ -117,7 +117,7 @@ class _ScreenOrganizerUpdateEventState
                                 fit: BoxFit.cover,
                               )
                                   : null,
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
                                     blurRadius: 2,
                                     offset: Offset(0, 1))
@@ -131,11 +131,11 @@ class _ScreenOrganizerUpdateEventState
                     Expanded(
                       child: GestureDetector(
                         child: Container(
-                          margin: const EdgeInsets.all(5),
+                          margin: EdgeInsets.all(5),
                           height: Get.height * 0.1,
                           child: controller.images[2].path != ""
                               ? Container()
-                              : const Icon(Icons.add),
+                              : Icon(Icons.add),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
@@ -146,7 +146,7 @@ class _ScreenOrganizerUpdateEventState
                                 fit: BoxFit.cover,
                               )
                                   : null,
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
                                     blurRadius: 2,
                                     offset: Offset(0, 1))
@@ -166,7 +166,7 @@ class _ScreenOrganizerUpdateEventState
                       height: 40.h,
                       margin: EdgeInsets.all(20.sp),
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                           bottomRight: Radius.circular(20),
@@ -215,7 +215,7 @@ class _ScreenOrganizerUpdateEventState
                               color: Colors.white,
                               boxShadow: appBoxShadow,
                               shape: BoxShape.circle),
-                          child: const Icon(Icons.edit),
+                          child: Icon(Icons.edit),
                         ),
                         onTap: () async {
                           var pickedData = await Get.to(LayoutPickLocation());
@@ -227,7 +227,7 @@ class _ScreenOrganizerUpdateEventState
                 ),
                 _buildHeading("Timings", false),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: ListTile(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -242,24 +242,24 @@ class _ScreenOrganizerUpdateEventState
                     },
                     title: RichText(
                         text: TextSpan(
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18.0,
                               color: Colors.black,
                             ),
                             children: [
-                              const TextSpan(text: "Starting from "),
+                              TextSpan(text: "Starting from "),
                               TextSpan(
                                   text: timestampToDateFormat(
                                       controller.startTimestamp.value,
                                       "dd MMM, yyyy"),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.bold)),
                             ])),
-                    leading: const Icon(Icons.access_time),
+                    leading: Icon(Icons.access_time),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: ListTile(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -279,20 +279,20 @@ class _ScreenOrganizerUpdateEventState
                     },
                     title: RichText(
                         text: TextSpan(
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18.0,
                               color: Colors.black,
                             ),
                             children: [
-                              const TextSpan(text: "Ending at "),
+                              TextSpan(text: "Ending at "),
                               TextSpan(
                                   text: timestampToDateFormat(
                                       controller.endTimestamp.value,
                                       "dd MMM, yyyy"),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.bold)),
                             ])),
-                    leading: const Icon(Icons.access_time),
+                    leading: Icon(Icons.access_time),
                   ),
                 ),
                 _buildHeading("Add tags", false),
@@ -322,14 +322,14 @@ class _ScreenOrganizerUpdateEventState
 
   Widget _buildHeading(String title, bool optional) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
       child: Row(
         children: [
           Text(
             title,
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
           ),
-          const SizedBox(
+          SizedBox(
             width: 5,
           ),
           Text(

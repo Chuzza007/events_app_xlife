@@ -25,7 +25,7 @@ class ControllerOrganizerNewEvent extends GetxController {
   final description_controller = TextEditingController().obs;
   final tags_controller = TextEditingController().obs;
   final fee_controller = TextEditingController().obs;
-  Rx<SelectedLocation> pickedLocation = SelectedLocation(name: "name", latitude: 0, longitude: 0).obs;
+  Rx<SelectedLocation> pickedLocation = SelectedLocation(name: "", latitude: 0, longitude: 0).obs;
 
   Future<void> pickImage({required int index}) async {
     XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
@@ -71,8 +71,6 @@ class ControllerOrganizerNewEvent extends GetxController {
   }
 
   Future<String> addNewEvent() async {
-
-    showLoading.value = true;
     String response = "";
     String title = title_controller.value.text;
     String description = description_controller.value.text;
@@ -87,6 +85,7 @@ class ControllerOrganizerNewEvent extends GetxController {
         .now()
         .millisecondsSinceEpoch
         .toString();
+    showLoading.value = true;
 
     String image1 = await _uploadImage(id, 0);
     String image2 = await _uploadImage(id, 1);

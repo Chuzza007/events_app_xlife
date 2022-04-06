@@ -44,8 +44,8 @@ class _CustomHeaderContainerDesignState
             child: Stack(
               children: [
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: const BoxDecoration(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
                       color: Colors.white38,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -58,9 +58,9 @@ class _CustomHeaderContainerDesignState
                     alignment: Alignment.topCenter,
                     height: double.infinity,
                     width: double.infinity,
-                    margin: const EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(top: 10),
                     padding: EdgeInsets.zero,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: CupertinoColors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -71,7 +71,7 @@ class _CustomHeaderContainerDesignState
                         context: context,
                         removeTop: true,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding: EdgeInsets.only(top: 8.0),
                           child: Scaffold(
                             backgroundColor: Colors.transparent,
                             resizeToAvoidBottomInset: false,
@@ -81,7 +81,7 @@ class _CustomHeaderContainerDesignState
                               title: widget.title,
                               elevation: 0,
                               titleSpacing: 0,
-                              titleTextStyle: const TextStyle(
+                              titleTextStyle: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -94,7 +94,7 @@ class _CustomHeaderContainerDesignState
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      icon: const Icon(Icons.arrow_back_outlined),
+                                      icon: Icon(Icons.arrow_back_outlined),
                                     )
                                   : null,
                             ),

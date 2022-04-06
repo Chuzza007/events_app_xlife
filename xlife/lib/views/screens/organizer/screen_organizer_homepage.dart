@@ -9,14 +9,14 @@ import 'package:xlife/widgets/custom_tab_bar_view.dart';
 import '../../../interfaces/listener_profile_info.dart';
 
 class ScreenOrganizerHomepage extends StatefulWidget {
-  const ScreenOrganizerHomepage({Key? key}) : super(key: key);
+  ScreenOrganizerHomepage({Key? key}) : super(key: key);
 
   @override
   _ScreenOrganizerHomepageState createState() => _ScreenOrganizerHomepageState();
 }
 
 class _ScreenOrganizerHomepageState extends State<ScreenOrganizerHomepage> with TickerProviderStateMixin implements ListenerProfileInfo {
-  List<Widget> organizer_layouts = [const LayoutOrganizerEvents(), const LayoutOrganizerNewsFeed()];
+  List<Widget> organizer_layouts = [LayoutOrganizerEvents(), LayoutOrganizerNewsFeed()];
   int selectedIndex = 0;
   String imageUrl = "";
 
@@ -34,7 +34,7 @@ class _ScreenOrganizerHomepageState extends State<ScreenOrganizerHomepage> with 
       child: CustomTabBarView(
           tabs_length: 2,
           borderRadius: BorderRadius.circular(30),
-          tabs_titles_list: const ["My Events", "News Feed"],
+          tabs_titles_list: ["My Events", "News Feed"],
           tabController: TabController(length: 2, vsync: this),
           tab_children_layouts: organizer_layouts),
     );

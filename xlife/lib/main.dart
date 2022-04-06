@@ -14,7 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (GetPlatform.isWeb) {
     await Firebase.initializeApp(
-      options: const FirebaseOptions(
+      options: FirebaseOptions(
           apiKey: "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY",
           authDomain: "fenua-xlife.firebaseapp.com",
           projectId: "fenua-xlife",
@@ -26,17 +26,17 @@ Future<void> main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, device) {
       return GetMaterialApp(
-        locale: const Locale('en', 'US'),
+        locale: Locale('en', 'US'),
         debugShowCheckedModeBanner: false,
         title: LocaleKeys.AppName.tr,
         theme: ThemeData(
@@ -48,9 +48,9 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
-            side: const BorderSide(color: Color(0xff585858), width: 1),
+            side: BorderSide(color: Color(0xff585858), width: 1),
           ),
-          appBarTheme: const AppBarTheme(
+          appBarTheme: AppBarTheme(
             color: Colors.white,
             elevation: 0,
             titleTextStyle: TextStyle(
@@ -61,13 +61,13 @@ class MyApp extends StatelessWidget {
             centerTitle: false,
             iconTheme: IconThemeData(color: Colors.black),
           ),
-          scaffoldBackgroundColor: const Color(0xFFFAFBFF),
-          backgroundColor: const Color(0xFFFAFBFF),
+          scaffoldBackgroundColor: Color(0xFFFAFBFF),
+          backgroundColor: Color(0xFFFAFBFF),
         ),
         defaultTransition: Transition.downToUp,
         builder: (context, widget) {
           return ScrollConfiguration(
-              behavior: const ScrollBehaviorModified(), child: widget!);
+              behavior: ScrollBehaviorModified(), child: widget!);
         },
         translationsKeys: AppTranslation.translations,
         home: AnimatedSplashScreen(
@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
 }
 
 class ScrollBehaviorModified extends ScrollBehavior {
-  const ScrollBehaviorModified();
+  ScrollBehaviorModified();
 
   @override
   ScrollPhysics getScrollPhysics(BuildContext context) {
@@ -94,11 +94,11 @@ class ScrollBehaviorModified extends ScrollBehavior {
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
       case TargetPlatform.android:
-        return const BouncingScrollPhysics();
+        return BouncingScrollPhysics();
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
-        return const ClampingScrollPhysics();
+        return ClampingScrollPhysics();
     }
   }
 }

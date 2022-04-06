@@ -47,7 +47,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.event,
                       color: Colors.grey,
                     ),
@@ -78,7 +78,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
             //   icon: Icon(Icons.block),
             //   onPressed: (){},
             // ),
-            leading: const Icon(
+            leading: Icon(
               Icons.check_circle_rounded,
               color: Colors.green,
             ),

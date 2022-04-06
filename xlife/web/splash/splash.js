@@ -1,5 +1,5 @@
 function removeSplashFromWeb() {
-  const elem = document.getElementById("splash");
+  elem = document.getElementById("splash");
   if (elem) {
     elem.remove();
   }
