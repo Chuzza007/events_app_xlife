@@ -48,18 +48,19 @@ class ControllerAdminNewOrganizer extends GetxController {
       String image_url = postImage.path == "" ? "" : await _uploadImage(uid);
 
       response = await _setDatabase(model.User(
-        id: uid,
-        full_name: name,
-        address: "",
-        nick_name: "",
-        gender: "",
-        phone: "",
-        type: "organizer",
-        email: email,
-        image_url: image_url,
-        password: password,
-      ));
-    }).catchError((error){
+          id: uid,
+          full_name: name,
+          address: "",
+          nick_name: "",
+          gender: "",
+          phone: "",
+          type: "organizer",
+          email: email,
+          notificationToken: "",
+          image_url: image_url,
+          password: password,
+          last_seen: 0));
+    }).catchError((error) {
       Get.snackbar("Error", error.toString());
     });
     showLoading = false;
@@ -95,7 +96,7 @@ class ControllerAdminNewOrganizer extends GetxController {
     print(email);
 
     final emailUsers = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
-    if (emailUsers.isNotEmpty){
+    if (emailUsers.isNotEmpty) {
       return true;
     }
 
@@ -112,7 +113,7 @@ class ControllerAdminNewOrganizer extends GetxController {
     String response = "";
     await organizersRef.doc(organizer.id).set(organizer.toMap()).then((value) {
       response = "success";
-    }).catchError((error){
+    }).catchError((error) {
       response = error.toString();
     });
     return response;
@@ -122,8 +123,7 @@ class ControllerAdminNewOrganizer extends GetxController {
     Reference storageReference = FirebaseStorage.instance.ref().child("organizers/${id}.png");
     final UploadTask uploadTask = storageReference.putFile(File(postImage.path));
 
-    uploadTask.snapshotEvents.listen((event) {
-    }).onError((error) {
+    uploadTask.snapshotEvents.listen((event) {}).onError((error) {
       // do something to handle error
       Get.snackbar("Error", error.toString());
     });

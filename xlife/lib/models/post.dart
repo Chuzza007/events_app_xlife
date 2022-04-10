@@ -2,6 +2,7 @@ class Post {
   String title;
   int timestamp;
   String image, userType, user_id;
+  String id;
 
   Post({
     required this.title,
@@ -9,6 +10,7 @@ class Post {
     required this.image,
     required this.userType,
     required this.user_id,
+    required this.id,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,6 +20,7 @@ class Post {
       'image': this.image,
       'userType': this.userType,
       'user_id': this.user_id,
+      'id': this.id,
     };
   }
 
@@ -28,6 +31,7 @@ class Post {
       image: map['image'] as String,
       userType: map['userType'] as String,
       user_id: map['user_id'] as String,
+      id: map['id'] as String,
     );
   }
 }

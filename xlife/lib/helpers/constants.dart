@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/interfaces/listener_post_details.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/event.dart';
 import 'package:xlife/models/post.dart';
-import 'package:xlife/models/user.dart';
+import 'package:xlife/models/reaction.dart';
+import 'package:xlife/models/user.dart' as model;
 
 import '../generated/locales.g.dart';
 import '../interfaces/listener_organizer_events_posts.dart';
+import '../models/comment.dart';
 import '../widgets/custom_button.dart';
 
 MaterialColor appPrimaryColor = MaterialColor(
@@ -37,7 +40,6 @@ CollectionReference organizersRef = FirebaseFirestore.instance.collection("organ
 CollectionReference eventsRef = FirebaseFirestore.instance.collection("events");
 CollectionReference postsRef = FirebaseFirestore.instance.collection("posts");
 String userPlaceholder = "https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png";
-
 
 void showOptionsBottomSheet({
   required BuildContext context,
@@ -110,9 +112,7 @@ void showOptionsBottomSheet({
       });
 }
 
-
-void showModalBottomSheetMenu(
-    {required BuildContext context, required Widget content, double? height}) {
+void showModalBottomSheetMenu({required BuildContext context, required Widget content, double? height}) {
   showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       context: context,
@@ -120,13 +120,11 @@ void showModalBottomSheetMenu(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
       ),
       builder: (context) {
-        return SafeArea(child: Container(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: SingleChildScrollView(child: content)));
+        return SafeArea(
+            child:
+                Container(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom), child: SingleChildScrollView(child: content)));
       });
 }
-
 
 Widget flightShuttleBuilder(
   BuildContext flightContext,
@@ -255,7 +253,32 @@ Future<void> getProfileInfo(String id, ListenerProfileInfo listener, String prof
   await FirebaseFirestore.instance.collection("${profileType}s").where("id", isEqualTo: id).limit(1).snapshots().listen((event) {
     var data = event.docs[0].data();
     print(data);
-    User user = User.fromMap(data);
+    model.User user = model.User.fromMap(data);
     listener.onProfileInfo(user);
+  });
+}
+
+void getPostDetails(Post post, ListenerPostDetails listener) async {
+
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  postsRef.doc(post.id).collection("comments").snapshots().listen((event) {
+    List<Comment> comments = [];
+    comments = event.docs.map((e) => Comment.fromMap(e.data())).toList();
+    listener.onComments(comments);
+  });
+  postsRef.doc(post.id).collection("reactions").snapshots().listen((event) {
+    List<Reaction> reactions = [];
+    listener.onMyReaction(null);
+    reactions = event.docs.map((e) => Reaction.fromMap(e.data())).toList();
+    listener.onReactions(reactions);
+    reactions.forEach((element) {
+      if (element.user_id == uid){
+        listener.onMyReaction(element.value);
+      }
+    });
+  });
+  FirebaseFirestore.instance.collection("${post.userType}s").doc(post.user_id).snapshots().listen((event) {
+    listener.onUserListener(model.User.fromMap(event.data() as Map<String, dynamic>));
   });
 }

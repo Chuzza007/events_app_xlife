@@ -26,7 +26,6 @@ class ControllerUserRegistration extends GetxController {
   final selectedRole = "users".obs;
   final stayConnected = true.obs;
 
-
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
       return "Provide valid Email";
@@ -106,16 +105,17 @@ class ControllerUserRegistration extends GetxController {
 
     await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) async {
       status = await _setDatabase(model.User(
-        id: value.user!.uid,
+          id: value.user!.uid,
           full_name: fullName,
           nick_name: nickname,
           email: email,
           phone: phone,
           address: address,
           password: password,
+          notificationToken: "",
           type: "user",
           gender: gender,
-      ));
+          last_seen: DateTime.now().millisecondsSinceEpoch));
     }).catchError((error) {
       Get.snackbar("Error", error.toString());
     });
@@ -149,19 +149,19 @@ class ControllerUserRegistration extends GetxController {
     print(response);
     return response;
   }
-  
+
   @override
   void onInit() async {
     var _user = FirebaseAuth.instance.currentUser;
-    if (_user != null){
+    if (_user != null) {
       selectedRole.value = "users";
       bool userExists = await checkIfEmailExists(_user.email!);
-      if (userExists){
+      if (userExists) {
         Get.offAll(ScreenUserHomepage());
-      } else{
+      } else {
         selectedRole.value = "organizers";
         bool organizerExists = await checkIfEmailExists(_user.email!);
-        if (organizerExists){
+        if (organizerExists) {
           Get.offAll(ScreenOrganizerHomepage());
         }
       }

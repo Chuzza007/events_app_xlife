@@ -17,11 +17,15 @@ class _ScreenUserPostCommentsState
       appBar: AppBar(
         title: Text("97 comments"),
       ),
-      body: ListView.builder(
-        itemCount: 30,
-        itemBuilder: (_, index) {
-          return ItemUserComment();
-        },
+      body: Column(
+        children: [
+          ListView.builder(
+            itemCount: 30,
+            itemBuilder: (_, index) {
+              return ItemUserComment();
+            },
+          ),
+        ],
       ),
     );
   }

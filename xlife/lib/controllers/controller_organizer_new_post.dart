@@ -67,6 +67,7 @@ class ControllerOrganizerNewPost extends GetxController {
         timestamp: int.parse(id),
         image: url,
         userType: "organizer",
+        id: id,
         user_id: uid).toMap()).then((value) {
           response = "success";
     });

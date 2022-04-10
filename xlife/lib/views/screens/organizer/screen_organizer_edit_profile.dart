@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/views/screens/screen_signup.dart';
 import 'package:xlife/widgets/custom_input_field.dart';
 
 import '../../../generated/locales.g.dart';
@@ -206,29 +207,31 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                                     controller: new_pass_controller,
                                                                     keyboardType: TextInputType.visiblePassword,
                                                                   ),
-                                                                  CustomButton(text: "Change", onPressed: () async {
+                                                                  CustomButton(
+                                                                      text: "Change",
+                                                                      onPressed: () async {
+                                                                        String oldPassword = old_pass_controller.text;
+                                                                        String newPassword = new_pass_controller.text;
 
-                                                                    String oldPassword = old_pass_controller.text;
-                                                                    String newPassword = new_pass_controller.text;
-
-                                                                    if (oldPassword.isEmpty || newPassword.isEmpty){
-                                                                      Get.back();
-                                                                      return;
-                                                                    }
-                                                                    setState(() {
-                                                                      passwordLoading = true;
-                                                                    });
-                                                                    await Future.delayed(Duration(seconds: 1));
-                                                                    String response = await changePassword(oldPassword, newPassword);
-                                                                    print(response);
-                                                                    if (response == "success"){
-                                                                      Get.back();
-                                                                      Get.snackbar("Success", "Password changed successfully", colorText: Colors.white, backgroundColor: Colors.green);
-                                                                    }
-                                                                    setState((){
-                                                                      passwordLoading = false;
-                                                                    });
-                                                                  }),
+                                                                        if (oldPassword.isEmpty || newPassword.isEmpty) {
+                                                                          Get.back();
+                                                                          return;
+                                                                        }
+                                                                        setState(() {
+                                                                          passwordLoading = true;
+                                                                        });
+                                                                        await Future.delayed(Duration(seconds: 1));
+                                                                        String response = await changePassword(oldPassword, newPassword);
+                                                                        print(response);
+                                                                        if (response == "success") {
+                                                                          Get.back();
+                                                                          Get.snackbar("Success", "Password changed successfully",
+                                                                              colorText: Colors.white, backgroundColor: Colors.green);
+                                                                        }
+                                                                        setState(() {
+                                                                          passwordLoading = false;
+                                                                        });
+                                                                      }),
                                                                 ],
                                                               ),
                                                               secondChild: Text(
@@ -372,7 +375,22 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             margin: EdgeInsets.symmetric(horizontal: 20),
                                             child: CustomButton(
                                               text: LocaleKeys.Logout.tr,
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                showIosDialog(
+                                                  title: "Logout",
+                                                  message: "Are you sure to logout?",
+                                                  confirmText: "Logout",
+                                                  cancelText: "Cancel",
+                                                  onConfirm: () async {
+                                                    await FirebaseAuth.instance.signOut();
+                                                    Get.offAll(SignupScreen());
+                                                  },
+                                                  onCancel: () {
+                                                    Get.back();
+                                                  },
+                                                  context: context,
+                                                );
+                                              },
                                             ),
                                           )
                                         ],
@@ -405,8 +423,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
 
   Future<String> changePassword(String oldPassword, String newPassword) async {
     final user = await FirebaseAuth.instance.currentUser;
-    final cred = EmailAuthProvider.credential(
-        email: user!.email!, password: oldPassword);
+    final cred = EmailAuthProvider.credential(email: user!.email!, password: oldPassword);
 
     String response = "";
 

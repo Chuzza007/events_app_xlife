@@ -20,7 +20,9 @@ class _ScreenFullImageState extends State<ScreenFullImage> {
         child: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(widget.image_url))),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  image: DecorationImage(fit: BoxFit.contain, image: NetworkImage(widget.image_url))),
             ),
             Positioned(
               left: Get.width * 0.05,
