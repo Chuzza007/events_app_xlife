@@ -116,9 +116,9 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
                 ),
               ),
             ),
-            onTap: (){
-              Get.to(ScreenFullImage(image_url: widget.post.image,
-
+            onTap: () {
+              Get.to(ScreenFullImage(
+                image_url: widget.post.image,
               ));
             },
           ),
@@ -158,7 +158,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(ScreenUserPostComments());
+                    Get.to(ScreenUserPostComments(post: widget.post));
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -264,9 +264,14 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
   }
 
   void updateReaction(String value) {
+    if (value == "none") {
+      postsRef.doc(widget.post.id).collection("reactions").doc(uid).delete();
+      return;
+    }
     postsRef
         .doc(widget.post.id)
         .collection("reactions")
-        .doc(uid).set(model.Reaction(user_id: uid, timestamp: DateTime.now().millisecondsSinceEpoch, value: value).toMap());
+        .doc(uid)
+        .set(model.Reaction(user_id: uid, timestamp: DateTime.now().millisecondsSinceEpoch, value: value).toMap());
   }
 }

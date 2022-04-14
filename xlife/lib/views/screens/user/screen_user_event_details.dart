@@ -8,44 +8,72 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/models/event.dart';
+import 'package:xlife/models/user.dart';
 import 'package:xlife/widgets/custom_button.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 
 class ScreenUserEventDetails extends StatefulWidget {
-  ScreenUserEventDetails({Key? key}) : super(key: key);
+
+  Event event;
+
 
   @override
-  _ScreenUserEventDetailsState createState() =>
-      _ScreenUserEventDetailsState();
+  _ScreenUserEventDetailsState createState() => _ScreenUserEventDetailsState();
+
+  ScreenUserEventDetails({
+    required this.event,
+  });
 }
 
-class _ScreenUserEventDetailsState
-    extends State<ScreenUserEventDetails> {
+class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> implements ListenerProfileInfo {
   bool favorite = false;
 
   final Completer<GoogleMapController> _controller = Completer();
 
-  LatLng initPosition =
-      LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = LatLng(0.0,
-      0.0); //initial currentPosition values cannot assign null values
+  LatLng initPosition = LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = LatLng(0.0, 0.0); //initial currentPosition values cannot assign null values
   //initial permission status
-  static CameraPosition _kGooglePlex = CameraPosition(
+  CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
 
-  List<String> images = [
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-  ];
+  List<String> images = [];
+  User? organizer;
+  String distance = "unknown";
+
+  List<Marker> _markers = [];
 
   @override
   void initState() {
     _checkLocationPermissions();
+    getDistance();
+    var _latlng = LatLng(widget.event.latitude, widget.event.longitude);
+    _markers.add(Marker(markerId: MarkerId("value"),
+      position:  _latlng,
+      infoWindow: InfoWindow(
+        title: widget.event.title,
+        snippet: widget.event.description
+      )
+    ));
+    setState(() {
+      _kGooglePlex = CameraPosition(target: _latlng,
+        zoom: 14.4746,);
+    });
+
+    if (widget.event.image1.isNotEmpty){
+      images.add(widget.event.image1);
+    }
+    if (widget.event.image2.isNotEmpty){
+      images.add(widget.event.image2);
+    }
+    if (widget.event.image3.isNotEmpty){
+      images.add(widget.event.image3);
+    }
+
+    getProfileInfo(widget.event.organizer_id, this, "organizer");
 
     super.initState();
   }
@@ -57,7 +85,7 @@ class _ScreenUserEventDetailsState
     return Scaffold(
       body: SafeArea(
         child: DraggableHome(
-          title: Text("Event Title"),
+          title: Text(widget.event.title),
           headerWidget: Stack(
             children: [
               PageView(
@@ -78,9 +106,8 @@ class _ScreenUserEventDetailsState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Event Title",
-                        style: (GetPlatform.isWeb ? heading3_style_web : heading3_style).copyWith(
-                            color: Colors.white),
+                        widget.event.title,
+                        style: (GetPlatform.isWeb ? heading3_style_web : heading3_style).copyWith(color: Colors.white),
                       ),
                       IconButton(
                         onPressed: () {
@@ -89,8 +116,7 @@ class _ScreenUserEventDetailsState
                           });
                         },
                         icon: ImageIcon(
-                          AssetImage(
-                              "assets/images/heart_$favorite.png"),
+                          AssetImage("assets/images/heart_$favorite.png"),
                           color: Colors.white,
                         ),
                       )
@@ -109,9 +135,7 @@ class _ScreenUserEventDetailsState
                     ),
                     child: Text(
                       "${imageIndex + 1} / ${images.length}",
-                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(
-                        color: Colors.white
-                      ),
+                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(color: Colors.white),
                     ),
                   ))
             ],
@@ -127,8 +151,7 @@ class _ScreenUserEventDetailsState
                   favorite = !favorite;
                 });
               },
-              icon: ImageIcon(
-                  AssetImage("assets/images/heart_$favorite.png")),
+              icon: ImageIcon(AssetImage("assets/images/heart_$favorite.png")),
             )
           ],
           body: [
@@ -139,7 +162,7 @@ class _ScreenUserEventDetailsState
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("22 Km"),
+                child: Text(distance),
               ),
               leading: Icon(Icons.location_on),
             ),
@@ -150,7 +173,7 @@ class _ScreenUserEventDetailsState
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("#####"),
+                child: Text(organizer != null ? organizer!.full_name.toString() : "unknown"),
               ),
               leading: Icon(Icons.info),
             ),
@@ -161,17 +184,12 @@ class _ScreenUserEventDetailsState
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("#####"),
+                child: Text(widget.event.description),
               ),
               leading: Icon(Icons.event),
             ),
             CustomChips(
-              chipNames: [
-                "Birthday Party",
-                "Drinks",
-                "Dance",
-                "Shows",
-              ],
+              chipNames: widget.event.tags,
               unselectedColor: appPrimaryColor,
               textColor: Colors.white,
               selectable: false,
@@ -193,33 +211,29 @@ class _ScreenUserEventDetailsState
                   widthFactor: 2.5,
                   child: GoogleMap(
                     mapType: MapType.normal,
-                    myLocationButtonEnabled: true,
-                    myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
+                    myLocationEnabled: false,
                     zoomControlsEnabled: false,
+                    compassEnabled: true,
+                    mapToolbarEnabled: true,
                     initialCameraPosition: _kGooglePlex,
-                    onMapCreated:
-                        (GoogleMapController mapController) async {
+                    markers: Set<Marker>.of(_markers),
+                    onMapCreated: (GoogleMapController mapController) async {
                       _controller.complete(mapController);
-                      final position =
-                          await Geolocator.getCurrentPosition(
-                              forceAndroidLocationManager: true,
-                              desiredAccuracy: LocationAccuracy.high);
 
-                      print(position);
-                      mapController.animateCamera(
-                        CameraUpdate.newLatLngZoom(
-                            LatLng(position.latitude,
-                                position.longitude),
-                            19),
-                      );
+                      // final position = await Geolocator.getCurrentPosition(forceAndroidLocationManager: true, desiredAccuracy: LocationAccuracy.high);
+                      //
+                      // print(position);
+                      // mapController.animateCamera(
+                      //   CameraUpdate.newLatLngZoom(LatLng(position.latitude, position.longitude), 19),
+                      // );
                     },
                   ),
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(
-                  top: 10.h, left: 10.sp, right: 10.sp),
+              margin: EdgeInsets.only(top: 10.h, left: 10.sp, right: 10.sp),
               child: CustomButton(
                   text: "Favorite",
                   color: favorite ? Colors.green : hintColor,
@@ -236,9 +250,7 @@ class _ScreenUserEventDetailsState
   }
 
   void _getCurrentLocation() async {
-    final pos = await Geolocator.getCurrentPosition(
-        forceAndroidLocationManager: true,
-        desiredAccuracy: LocationAccuracy.high);
+    final pos = await Geolocator.getCurrentPosition(forceAndroidLocationManager: true, desiredAccuracy: LocationAccuracy.high);
   }
 
   Future<void> _checkLocationPermissions() async {
@@ -256,10 +268,8 @@ class _ScreenUserEventDetailsState
       return;
     }
 
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      bool serviceEnabled =
-          await Geolocator.isLocationServiceEnabled();
+    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
       if (!serviceEnabled) {
         await Geolocator.openLocationSettings();
@@ -282,5 +292,26 @@ class _ScreenUserEventDetailsState
               ),
             ))
         .toList();
+  }
+
+  void getDistance() {
+    if (currentPosition == null) {
+      distance = "unknown";
+      return;
+    }
+    setState(() {
+        distance =
+            "${roundDouble((Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.event.latitude, widget.event.longitude) / 1000), 2)} km";
+      });
+
+  }
+
+  @override
+  void onProfileInfo(User user) {
+    if (mounted){
+      setState(() {
+        organizer = user;
+      });
+    }
   }
 }

@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:xlife/interfaces/listener_events.dart';
@@ -35,6 +38,8 @@ MaterialColor appPrimaryColor = MaterialColor(
 String appName = LocaleKeys.AppName.tr;
 Color hintColor = Color(0xFFA0A2A8);
 Color buttonColor = Color(0xFFF13B2D);
+List<String> allEventTags = [];
+Position? currentPosition;
 String googleAPIKey = "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY";
 CollectionReference usersRef = FirebaseFirestore.instance.collection("users");
 CollectionReference organizersRef = FirebaseFirestore.instance.collection("organizers");
@@ -336,4 +341,17 @@ String convertTimeToText2(
   }
 
   return convTime;
+}
+void fetchAllTags(){
+  eventsRef.snapshots().listen((response) {
+    response.docs.forEach((element) {
+      allEventTags.addAll(Event.fromMap(element.data() as Map<String, dynamic>).tags.map((e) => e.toString().trim()));
+    });
+    allEventTags = allEventTags.toSet().toList();
+    print (allEventTags);
+  });
+}
+double roundDouble(double value, int places){
+  num mod = pow(10.0, places);
+  return ((value * mod).round().toDouble() / mod);
 }

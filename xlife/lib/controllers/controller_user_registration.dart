@@ -152,6 +152,7 @@ class ControllerUserRegistration extends GetxController {
 
   @override
   void onInit() async {
+    fetchAllTags();
     var _user = FirebaseAuth.instance.currentUser;
     if (_user != null) {
       selectedRole.value = "users";

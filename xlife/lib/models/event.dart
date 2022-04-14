@@ -2,7 +2,7 @@ class Event {
   String title, description, organizer_id, image1, image2, image3;
   double latitude, longitude;
   int startTime, endTime;
-  List<dynamic> tags;
+  List<String> tags;
   double? entryFee;
 
   Event({
@@ -49,7 +49,7 @@ class Event {
       longitude: map['longitude'] as double,
       startTime: map['startTime'] as int,
       endTime: map['endTime'] as int,
-      tags: (map['tags'] as List<dynamic>),
+      tags: (map['tags'] as List<dynamic>).map((e) => e.toString().trim()).toList(),
       entryFee: map['entryFee'] as double,
     );
   }

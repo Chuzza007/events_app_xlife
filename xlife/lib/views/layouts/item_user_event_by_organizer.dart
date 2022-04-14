@@ -22,7 +22,7 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(ScreenUserEventDetails());
+        // Get.to(ScreenUserEventDetails());
       },
       child: Container(
         decoration: BoxDecoration(

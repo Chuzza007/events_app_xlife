@@ -14,7 +14,6 @@ import '../../widgets/custom_header_container_design.dart';
 import '../../widgets/custom_input_field.dart';
 
 class SignupScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return CustomHeaderContainerDesign(

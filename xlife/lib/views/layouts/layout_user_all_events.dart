@@ -45,9 +45,6 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> implements Li
                 selectedIndex = index;
               });
             },
-            onTap: (index) {
-              Get.to(ScreenUserEventDetails());
-            },
             itemHeight: Get.height * 0.7,
             itemWidth: Get.width * 0.9,
             itemCount: events.length,
