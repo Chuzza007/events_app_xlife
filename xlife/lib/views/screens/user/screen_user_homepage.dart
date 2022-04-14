@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/helpers/fcm.dart';
 import 'package:xlife/views/layouts/layout_user_all_events.dart';
 import 'package:xlife/views/layouts/layout_user_favorite_events.dart';
 import 'package:xlife/views/layouts/layout_user_news_feed.dart';
@@ -22,6 +26,13 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
     LayoutUserFavoriteEvents(),
     LayoutUserNewsFeed(),
   ];
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  @override
+  void initState() {
+    updateLastSeenAndToken();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,5 +77,15 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
         ), type: HomePageType.user,
       ),
     );
+  }
+
+  Future<void> updateLastSeenAndToken() async {
+    int last_seen = DateTime.now().millisecondsSinceEpoch;
+    String? token = await FCM.generateToken();
+    usersRef.doc(uid).update({"last_seen":last_seen, "notificationToken":token});
+    Timer.periodic(const Duration(minutes: 10), (timer) async {
+      int last_seen = DateTime.now().millisecondsSinceEpoch;
+      usersRef.doc(uid).update({"last_seen":last_seen});
+    });
   }
 }

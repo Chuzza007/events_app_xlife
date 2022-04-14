@@ -3,9 +3,17 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/styles.dart';
 
+import '../../helpers/constants.dart';
+import '../../models/event.dart';
+
 class ItemUserEvent extends StatefulWidget {
   @override
   State<ItemUserEvent> createState() => _ItemUserEventState();
+  Event event;
+
+  ItemUserEvent({
+    required this.event,
+  });
 }
 
 class _ItemUserEventState extends State<ItemUserEvent> {
@@ -17,12 +25,12 @@ class _ItemUserEventState extends State<ItemUserEvent> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Colors.grey,
         borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(
-            "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
+            widget.event.image1,
           ),
         ),
       ),
@@ -78,7 +86,7 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                       width: 5.sp,
                     ),
                     Text(
-                      "2 days left",
+                      convertTimeToText(widget.event.startTime, "left"),
                       style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold).copyWith(
                           color: Colors.white),
                     ),
@@ -100,22 +108,35 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      "Event Title",
+                      widget.event.title,
                       style: (GetPlatform.isWeb ? heading2_style_web : heading2_style).copyWith(
                           color: Colors.white),
                     ),
                     ListTile(
                       title: Text(
-                        "This is the event description This is the event description This is the event description This is the event description This is the event description This is the event description ",
+                        widget.event.description,
                         style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style).copyWith(
                             color: Colors.white),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      subtitle: Text(
-                        "Organized by #####",
-                        style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(
-                            color: Colors.white),
+                      isThreeLine: true,
+                      subtitle: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Organized by ", style: normal_h4Style_bold.copyWith(
+                            color: Colors.white
+                          ),),
+                          Expanded(
+                            child: Text(
+                              "${widget.event.organizer_id}",
+                              overflow: TextOverflow.ellipsis,
+                              style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ],
                       ),
                       trailing: IconButton(
                         onPressed: () {

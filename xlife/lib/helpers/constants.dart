@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:xlife/interfaces/listener_events.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/event.dart';
@@ -250,11 +251,16 @@ Future<void> getOrganizerEventsPosts(String id, ListenerOrganizerEventsPosts lis
 }
 
 Future<void> getProfileInfo(String id, ListenerProfileInfo listener, String profileType) async {
-  await FirebaseFirestore.instance.collection("${profileType}s").where("id", isEqualTo: id).limit(1).snapshots().listen((event) {
-    var data = event.docs[0].data();
-    print(data);
-    model.User user = model.User.fromMap(data);
-    listener.onProfileInfo(user);
+  await FirebaseFirestore.instance.collection("${profileType}s").where("id", isEqualTo: id).snapshots().listen((event) {
+
+    // print(event.docs);
+
+    if (event.docs.length > 0){
+      var data = event.docs[0].data();
+      // print(data);
+      model.User user = model.User.fromMap(data);
+      listener.onProfileInfo(user);
+    }
   });
 }
 
@@ -281,4 +287,53 @@ void getPostDetails(Post post, ListenerPostDetails listener) async {
   FirebaseFirestore.instance.collection("${post.userType}s").doc(post.user_id).snapshots().listen((event) {
     listener.onUserListener(model.User.fromMap(event.data() as Map<String, dynamic>));
   });
+}
+
+void getAllEvents(ListenerEvents listenerEvents){
+  eventsRef.snapshots().listen((event) {
+    List<Event> events = [];
+    if (event.docs.isNotEmpty){
+      events = event.docs.map((e) => Event.fromMap(e.data() as Map<String, dynamic>)).toList();
+    }
+    listenerEvents.onEventAdded(events);
+  });
+}
+
+String convertTimeToText2(
+    String prefix, int timestamp, String suffix) {
+  String convTime = "";
+
+  try {
+    DateTime dateTime1 =
+    DateTime.fromMillisecondsSinceEpoch(timestamp);
+    DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(
+        DateTime.now().millisecondsSinceEpoch);
+
+    int second = dateTime1.difference(dateTime2).inSeconds;
+    int minute = dateTime1.difference(dateTime2).inMinutes;
+    int hour = dateTime1.difference(dateTime2).inHours;
+    int day = dateTime1.difference(dateTime2).inDays;
+
+    if (second < 60) {
+      convTime = "$prefix ${second} secs $suffix";
+    } else if (minute < 60) {
+      convTime = "$prefix ${minute} mins $suffix";
+    } else if (hour < 24) {
+      convTime = "$prefix ${hour} hrs $suffix";
+    } else if (day >= 7) {
+      if (day > 360) {
+        convTime = "$prefix ${day ~/ 360} yrs $suffix";
+      } else if (day > 30) {
+        convTime = "$prefix ${day ~/ 30} mons $suffix";
+      } else {
+        convTime = "$prefix ${day ~/ 7} weeks $suffix";
+      }
+    } else if (day < 7) {
+      convTime = "$prefix ${day} days $suffix";
+    }
+  } catch (e) {
+    print(e.toString() + "------");
+  }
+
+  return convTime;
 }

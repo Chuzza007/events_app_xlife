@@ -20,6 +20,9 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Chats"),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
