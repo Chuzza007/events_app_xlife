@@ -16,7 +16,7 @@ class _LayoutUserSuggestionsState
     return ListView.builder(
       itemCount: 20,
       itemBuilder: (_, index) {
-        return ItemUserSuggestion();
+        return ItemUserSuggestion(userId: "",);
       },
     );
   }

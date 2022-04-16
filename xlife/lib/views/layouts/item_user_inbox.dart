@@ -1,18 +1,47 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/models/message_dummy.dart';
+import 'package:xlife/models/user.dart';
 import 'package:xlife/views/screens/user/screen_user_chat.dart';
 import '../../helpers/constants.dart';
 import '../../helpers/styles.dart';
+import '../../interfaces/listener_profile_info.dart';
 
 class ItemUserInbox extends StatefulWidget {
-  ItemUserInbox({Key? key}) : super(key: key);
+
+  MessageDummy messageDummy;
+
 
   @override
   _ItemUserInboxState createState() => _ItemUserInboxState();
+
+  ItemUserInbox({
+    required this.messageDummy,
+  });
 }
 
-class _ItemUserInboxState extends State<ItemUserInbox> {
+class _ItemUserInboxState extends State<ItemUserInbox> implements ListenerProfileInfo {
+
+  @override
+  void initState() {
+    getProfileInfo(widget.messageDummy.receiver_id, this, "user");
+    super.initState();
+  }
+
+  User user = User(full_name: "Unknown",
+      nick_name: 'nick_name',
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
+  bool online = true;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -21,11 +50,11 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
           children: [
             ListTile(
               title: Text(
-                "Sami Khan",
+                user.full_name,
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
               subtitle: Text(
-                "hey john,\n I’m looking for a video editor for my video editing task.",
+                widget.messageDummy.last_message,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -37,6 +66,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                 badgeColor: Colors.green,
                 elevation: 0,
                 toAnimate: false,
+                showBadge: online,
                 animationDuration: Duration(seconds: 1),
                 animationType: BadgeAnimationType.fade,
                 position: BadgePosition.bottomEnd(
@@ -51,7 +81,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          "https://upload.wikimedia.org/wikipedia/commons/3/3a/Elton_John_Cannes_2019.jpg"),
+                          user.image_url ?? userPlaceholder),
                     ),
                   ),
                 ),
@@ -59,7 +89,7 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("3 hr", style: TextStyle(color: hintColor),),
+                  Text(convertTimeToText(widget.messageDummy.timestamp, ""), style: TextStyle(color: hintColor),),
                   Badge(
                     badgeContent: Text(
                       " 1 ",
@@ -71,8 +101,8 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
                   ),
                 ],
               ),
-              onTap: (){
-                Get.to(ScreenUserChat());
+              onTap: () {
+                Get.to(ScreenUserChat(mReceiver: user,));
               },
             ),
             Divider(
@@ -85,5 +115,15 @@ class _ItemUserInboxState extends State<ItemUserInbox> {
         ),
       ),
     );
+  }
+
+  @override
+  void onProfileInfo(User user) {
+    if (mounted){
+      setState(() {
+        this.user = user;
+        online = getLastSeen(user.last_seen) == "Online";
+      });
+    }
   }
 }

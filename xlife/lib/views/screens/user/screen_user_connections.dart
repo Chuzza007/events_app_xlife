@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/models/message_dummy.dart';
 import 'package:xlife/views/layouts/item_user_suggestion.dart';
+import 'package:xlife/widgets/not_found.dart';
 
 import '../../../widgets/custom_listview_builder.dart';
 import '../../layouts/item_user_inbox.dart';
@@ -11,12 +15,20 @@ class ScreenUserConnections extends StatefulWidget {
   ScreenUserConnections({Key? key}) : super(key: key);
 
   @override
-  State<ScreenUserConnections> createState() =>
-      _ScreenUserConnectionsState();
+  State<ScreenUserConnections> createState() => _ScreenUserConnectionsState();
 }
 
-class _ScreenUserConnectionsState extends State<ScreenUserConnections>
-    with TickerProviderStateMixin {
+class _ScreenUserConnectionsState extends State<ScreenUserConnections> with TickerProviderStateMixin {
+  List<String> suggestedUsers = [];
+
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  @override
+  void initState() {
+    getSuggestedUsers();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,32 +42,67 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections>
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 15.0, bottom: 10),
-                child: Text("Suggestions", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
-                  color: appPrimaryColor
-                ),),
+                child: Text(
+                  "Suggestions",
+                  style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: appPrimaryColor),
+                ),
               ),
-              CustomListviewBuilder(itemBuilder: (_, index){
-                return ItemUserSuggestion();
-              },
-                  itemCount: 15,
-                  scrollDirection: CustomDirection.horizontal),
-
+              suggestedUsers.isNotEmpty
+                  ? CustomListviewBuilder(
+                      itemBuilder: (_, index) {
+                        return ItemUserSuggestion(userId: suggestedUsers[index]);
+                      },
+                      itemCount: suggestedUsers.length,
+                      scrollDirection: CustomDirection.horizontal)
+                  : Center(child: Text("No Suggestions")),
               Padding(
                 padding: EdgeInsets.only(top: 10, left: 15.0, bottom: 10),
-                child: Text("Messages", style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
-                    color: appPrimaryColor
-                ),),
+                child: Text(
+                  "Messages",
+                  style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: appPrimaryColor),
+                ),
               ),
-              CustomListviewBuilder(
-                  itemBuilder: (_, index) {
-                    return ItemUserInbox();
-                  },
-                  itemCount: 10,
-                  scrollDirection: CustomDirection.vertical)
+              StreamBuilder<QuerySnapshot>(
+                  stream: usersRef.doc(uid).collection("chats").orderBy('timestamp', descending: true).snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    List<MessageDummy> messageDummies =
+                        snapshot.data!.docs.map((e) => MessageDummy.fromMap(e.data() as Map<String, dynamic>)).toList();
+
+                    return messageDummies.isNotEmpty
+                        ? CustomListviewBuilder(
+                            itemBuilder: (_, index) {
+                              return ItemUserInbox(messageDummy: messageDummies[index]);
+                            },
+                            itemCount: messageDummies.length,
+                            scrollDirection: CustomDirection.vertical)
+                        : NotFound(showImage: false, message: "No messages");
+                  })
             ],
           ),
         ),
       ),
     );
+  }
+
+  void getSuggestedUsers() async {
+    suggestedUsers = await getUserSuggestions();
+    if (suggestedUsers.contains(uid)){
+      suggestedUsers.remove(uid);
+    }
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

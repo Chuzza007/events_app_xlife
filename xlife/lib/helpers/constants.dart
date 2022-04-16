@@ -16,6 +16,7 @@ import 'package:xlife/models/event.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/models/reaction.dart';
 import 'package:xlife/models/user.dart' as model;
+
 import '../generated/locales.g.dart';
 import '../interfaces/listener_organizer_events_posts.dart';
 import '../models/comment.dart';
@@ -203,8 +204,6 @@ String timeStampToDateTime(int timestamp, String pattern) {
   return intl.DateFormat(pattern).format(DateTime.fromMillisecondsSinceEpoch(timestamp));
 }
 
-
-
 String convertTimeToText(int timestamp, String suffix) {
   String convTime = "";
   String prefix = "";
@@ -260,10 +259,9 @@ Future<void> getOrganizerEventsPosts(String id, ListenerOrganizerEventsPosts lis
 
 Future<void> getProfileInfo(String id, ListenerProfileInfo listener, String profileType) async {
   await FirebaseFirestore.instance.collection("${profileType}s").where("id", isEqualTo: id).snapshots().listen((event) {
-
     // print(event.docs);
 
-    if (event.docs.length > 0){
+    if (event.docs.length > 0) {
       var data = event.docs[0].data();
       // print(data);
       model.User user = model.User.fromMap(data);
@@ -273,7 +271,6 @@ Future<void> getProfileInfo(String id, ListenerProfileInfo listener, String prof
 }
 
 void getPostDetails(Post post, ListenerPostDetails listener) async {
-
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
   postsRef.doc(post.id).collection("comments").snapshots().listen((event) {
@@ -287,7 +284,7 @@ void getPostDetails(Post post, ListenerPostDetails listener) async {
     reactions = event.docs.map((e) => Reaction.fromMap(e.data())).toList();
     listener.onReactions(reactions);
     reactions.forEach((element) {
-      if (element.user_id == uid){
+      if (element.user_id == uid) {
         listener.onMyReaction(element.value);
       }
     });
@@ -297,25 +294,22 @@ void getPostDetails(Post post, ListenerPostDetails listener) async {
   });
 }
 
-void getAllEvents(ListenerEvents listenerEvents){
+void getAllEvents(ListenerEvents listenerEvents) {
   eventsRef.snapshots().listen((event) {
     List<Event> events = [];
-    if (event.docs.isNotEmpty){
+    if (event.docs.isNotEmpty) {
       events = event.docs.map((e) => Event.fromMap(e.data() as Map<String, dynamic>)).toList();
     }
     listenerEvents.onEventAdded(events);
   });
 }
 
-String convertTimeToText2(
-    String prefix, int timestamp, String suffix) {
+String convertTimeToText2(String prefix, int timestamp, String suffix) {
   String convTime = "";
 
   try {
-    DateTime dateTime1 =
-    DateTime.fromMillisecondsSinceEpoch(timestamp);
-    DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(
-        DateTime.now().millisecondsSinceEpoch);
+    DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch);
 
     int second = dateTime1.difference(dateTime2).inSeconds;
     int minute = dateTime1.difference(dateTime2).inMinutes;
@@ -346,17 +340,17 @@ String convertTimeToText2(
   return convTime;
 }
 
-
-void fetchAllTags(){
+void fetchAllTags() {
   eventsRef.snapshots().listen((response) {
     response.docs.forEach((element) {
       allEventTags.addAll(Event.fromMap(element.data() as Map<String, dynamic>).tags.map((e) => e.toString().trim()));
     });
     allEventTags = allEventTags.toSet().toList();
-    print (allEventTags);
+    print(allEventTags);
   });
 }
-double roundDouble(double value, int places){
+
+double roundDouble(double value, int places) {
   num mod = pow(10.0, places);
   return ((value * mod).round().toDouble() / mod);
 }
@@ -368,11 +362,18 @@ Future<void> addUserSuggestions(List<String> userIds) async {
   userIds = userIds.toSet().toList();
   await instance.setStringList("nearbyUsers", userIds);
 }
+
 Future<List<String>> getUserSuggestions() async {
   var instance = await SharedPreferences.getInstance();
   return await instance.getStringList("nearbyUsers") ?? [];
 }
-void getEventFavorites (String eventId, ListenerEventFavorites listener){
+
+Future<void> removeUserSuggestions() async {
+  var instance = await SharedPreferences.getInstance();
+  await instance.remove("nearbyUsers");
+}
+
+void getEventFavorites(String eventId, ListenerEventFavorites listener) {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   eventsRef.doc(eventId).collection("favorites").snapshots().listen((response) {
     List<String> favoriteUsers = [];
@@ -381,7 +382,8 @@ void getEventFavorites (String eventId, ListenerEventFavorites listener){
     listener.onMyFavorite(favoriteUsers.contains(uid));
   });
 }
-void getMyFavoriteEvents (ListenerEvents listener){
+
+void getMyFavoriteEvents(ListenerEvents listener) {
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
   eventsRef.snapshots().forEach((element) {
@@ -392,7 +394,7 @@ void getMyFavoriteEvents (ListenerEvents listener){
       String id = event.id;
       eventsRef.doc(id).collection("favorites").snapshots().listen((favorites) {
         favorites.docs.forEach((fav) {
-          if (fav.data()['uid'] == uid){
+          if (fav.data()['uid'] == uid) {
             events.add(event);
           }
         });
@@ -400,4 +402,16 @@ void getMyFavoriteEvents (ListenerEvents listener){
       });
     });
   });
+}
+
+String getLastSeen(int timestamp) {
+  DateTime old = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  DateTime current = DateTime.now();
+  int minutes = current.difference(old).inMinutes;
+  print("Last seen mins: " + minutes.toString());
+  if (minutes <= 4) {
+    return "Online";
+  } else {
+    return convertTimeToText(timestamp, "ago");
+  }
 }

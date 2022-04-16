@@ -318,9 +318,10 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             showIosDialog(
                                                 context: context,
                                                 title: "Logout",
-                                                message: "Are you sure to logout?",
+                                                message: "All user suggestions will be removed. Are you sure to logout?",
                                                 onConfirm: () {
-                                                  FirebaseAuth.instance.signOut().then((value) {
+                                                  FirebaseAuth.instance.signOut().then((value) async {
+                                                    await removeUserSuggestions();
                                                     return Get.offAll(SignupScreen());
                                                   });
                                                 },

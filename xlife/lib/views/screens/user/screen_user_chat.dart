@@ -1,66 +1,124 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/flutter_chat_ui.dart' as widget;
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart' as chat_widget;
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
+import 'package:xlife/models/message.dart' as model;
+import 'package:xlife/models/user.dart';
 
 import '../../../helpers/constants.dart';
 import '../../../helpers/styles.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_input_field.dart';
+import '../../../widgets/not_found.dart';
 
 class ScreenUserChat extends StatefulWidget {
-  ScreenUserChat({Key? key}) : super(key: key);
-
   @override
   _ScreenUserChatState createState() => _ScreenUserChatState();
+
+  User mReceiver;
+
+  ScreenUserChat({
+    required this.mReceiver,
+  });
 }
 
 class _ScreenUserChatState extends State<ScreenUserChat> {
   List<types.Message> messages = [];
   types.User sender = types.User(
-      id: "1234",
-      firstName: "Me",
-      lastSeen: DateTime.now().millisecondsSinceEpoch);
+    id: auth.FirebaseAuth.instance.currentUser!.uid,
+    firstName: "Me",
+    lastName: "",
+    lastSeen: DateTime.now().millisecondsSinceEpoch,
+  );
   types.User receiver = types.User(
-      id: "1235",
-      firstName: "Sami",
-      lastName: "Khan",
-      imageUrl:
-          "https://upload.wikimedia.org/wikipedia/commons/3/3a/Elton_John_Cannes_2019.jpg",
-      lastSeen: DateTime.now().millisecondsSinceEpoch);
+    id: "1235",
+    firstName: "Loading",
+    lastName: "",
+    imageUrl: userPlaceholder,
+    lastSeen: DateTime.now().millisecondsSinceEpoch,
+  );
 
   late TextEditingController controller;
+  bool loading = true;
+
+  String distance = "unknown";
 
   @override
   void initState() {
     controller = TextEditingController();
+    receiver = types.User(
+        id: widget.mReceiver.id,
+        lastName: "",
+        firstName: widget.mReceiver.full_name,
+        imageUrl: widget.mReceiver.image_url ?? userPlaceholder,
+        lastSeen: widget.mReceiver.last_seen);
+
+
     super.initState();
   }
 
   void _handleSendPressed(types.PartialText message) {
-    final sentMessage = types.TextMessage(
-      author: sender,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      text: message.text,
-      previewData: types.PreviewData(),
-      type: types.MessageType.text,
-    );
+    // final sentMessage = types.TextMessage(
+    //   author: sender,
+    //   createdAt: DateTime
+    //       .now()
+    //       .millisecondsSinceEpoch,
+    //   id: DateTime
+    //       .now()
+    //       .millisecondsSinceEpoch
+    //       .toString(),
+    //   text: message.text,
+    //   previewData: types.PreviewData(),
+    //   type: types.MessageType.text,
+    // );
+    //
+    // final receivedMessage = types.TextMessage(
+    //   author: receiver,
+    //   createdAt: DateTime
+    //       .now()
+    //       .millisecondsSinceEpoch,
+    //   id: DateTime
+    //       .now()
+    //       .millisecondsSinceEpoch
+    //       .toString(),
+    //   text: message.text,
+    //   type: types.MessageType.text,
+    // );
 
-    final receivedMessage = types.TextMessage(
-      author: receiver,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      text: message.text,
-      type: types.MessageType.text,
-    );
+    // _addMessage(sentMessage);
+    // _addMessage(receivedMessage);
 
-    _addMessage(sentMessage);
-    _addMessage(receivedMessage);
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    model.Message newMessage =
+        model.Message(id: timestamp.toString(), sender_id: sender.id, receiver_id: receiver.id, text: message.text, timestamp: timestamp);
+
+    usersRef
+        .doc("${sender.id}/chats/${receiver.id}")
+        .set({"timestamp": newMessage.timestamp, "last_message": message.text, "receiver_id": receiver.id}).then((value) {
+      usersRef.doc("${sender.id}/chats/${receiver.id}/messages/$timestamp").set(newMessage.toMap()).then((value) {
+        setState(() {
+          controller.text = "";
+        });
+      });
+
+      usersRef
+          .doc("${receiver.id}/chats/${sender.id}")
+          .set({"timestamp": newMessage.timestamp, "last_message": message.text, "receiver_id": sender.id}).then((value) {
+        usersRef.doc("${receiver.id}/chats/${sender.id}/messages/$timestamp").set(newMessage.toMap());
+      });
+    }).catchError((error, stackTrace) {
+      Get.snackbar("Error", error.toString());
+    });
   }
 
   void _addMessage(types.Message message) {
@@ -82,16 +140,10 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Hero(
-                  tag: "inbox_title",
-                  flightShuttleBuilder: flightShuttleBuilder,
-                  child: Text(
-                      "${receiver.firstName} ${receiver.lastName}")),
+              Hero(tag: "inbox_title", flightShuttleBuilder: flightShuttleBuilder, child: Text("${receiver.firstName} ${receiver.lastName}")),
               Text(
-                "2 km away",
-                style: (GetPlatform.isWeb ? normal_h5Style_web : normal_h5Style).copyWith(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.normal),
+                /*"$distance"*/"${getLastSeen(widget.mReceiver.last_seen)}",
+                style: (GetPlatform.isWeb ? normal_h5Style_web : normal_h5Style).copyWith(color: Colors.grey, fontWeight: FontWeight.normal),
               )
             ],
           ),
@@ -111,9 +163,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              "https://upload.wikimedia.org/wikipedia/commons/3/3a/Elton_John_Cannes_2019.jpg"))),
+                          fit: BoxFit.contain, image: NetworkImage(receiver.imageUrl ?? userPlaceholder))),
                 ),
               ],
             ),
@@ -124,185 +174,240 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
           ),
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                showOptionsBottomSheet(
-                  context: context,
-                  title: Text(
-                    "More Options",
-                    style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
-                  ),
-                  options: [
-                    ListTile(
-                      title: Text("Block User"),
-                      leading: Icon(Icons.block),
-                    ),
-                    ListTile(
-                      title: Text("Delete Chat"),
-                      leading: Icon(Icons.delete),
-                    ),
-                  ],
-                  showSkipButton: true,
-                  onItemSelected: (index) {
-                    switch (index) {
-                      case 3:
-                        Get.defaultDialog(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20),
-                          content: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/images/block.png",
-                                height: Get.height * 0.05,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Confirmation",
-                                style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
-                              ),
-                              Text(
-                                "Are you sure, you want to block this  user?",
-                                style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style),
-                                textAlign: TextAlign.center,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: CustomButton(
-                                    text: "Yes",
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    color: Colors.black54,
-                                    height: Get.height * 0.06,
-                                  )),
-                                  Expanded(
-                                      child: CustomButton(
-                                          text: "No",
-                                          height: Get.height * 0.06,
-                                          onPressed: () {
-                                            Get.back();
-                                          })),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                        break;
-                    }
+          // IconButton(
+          //     onPressed: () {
+          //       // showOptionsBottomSheet(
+          //       //   context: context,
+          //       //   title: Text(
+          //       //     "More Options",
+          //       //     style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
+          //       //   ),
+          //       //   options: [
+          //       //     // ListTile(
+          //       //     //   title: Text("Block User"),
+          //       //     //   leading: Icon(Icons.block),
+          //       //     // ),
+          //       //     ListTile(
+          //       //       title: Text("Delete Chat"),
+          //       //       leading: Icon(Icons.delete),
+          //       //     ),
+          //       //   ],
+          //       //   showSkipButton: true,
+          //       //   onItemSelected: (index) {
+          //       //     switch (index) {
+          //       //       case 3:
+          //       //         Get.defaultDialog(
+          //       //           contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          //       //           content: Column(
+          //       //             mainAxisAlignment: MainAxisAlignment.center,
+          //       //             children: [
+          //       //               Image.asset(
+          //       //                 "assets/images/block.png",
+          //       //                 height: Get.height * 0.05,
+          //       //               ),
+          //       //               SizedBox(
+          //       //                 height: 10,
+          //       //               ),
+          //       //               Text(
+          //       //                 "Confirmation",
+          //       //                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
+          //       //               ),
+          //       //               Text(
+          //       //                 "Are you sure, you want to block this  user?",
+          //       //                 style: (GetPlatform.isWeb ? normal_h2Style_web : normal_h2Style),
+          //       //                 textAlign: TextAlign.center,
+          //       //               ),
+          //       //               Row(
+          //       //                 children: [
+          //       //                   Expanded(
+          //       //                       child: CustomButton(
+          //       //                     text: "Yes",
+          //       //                     onPressed: () {
+          //       //                       Get.back();
+          //       //                     },
+          //       //                     color: Colors.black54,
+          //       //                     height: Get.height * 0.06,
+          //       //                   )),
+          //       //                   Expanded(
+          //       //                       child: CustomButton(
+          //       //                           text: "No",
+          //       //                           height: Get.height * 0.06,
+          //       //                           onPressed: () {
+          //       //                             Get.back();
+          //       //                           })),
+          //       //                 ],
+          //       //               ),
+          //       //             ],
+          //       //           ),
+          //       //         );
+          //       //         break;
+          //       //     }
+          //       //   },
+          //       // );
+          //
+          //     },
+          //     icon: Icon(Icons.more_vert_rounded))
+          PopupMenuButton<String>(
+            onSelected: (value){
+              if (value.toString() == "Clear chat"){
+                Get.defaultDialog(
+                  title: "Clear Chat",
+                  middleText: "This will be removed from your inbox. Are you sure to clear chat with this user?",
+                  textConfirm: "Clear",
+                  textCancel: "Cancel",
+                  onConfirm: () async {
+                    Get.back();
+                    await usersRef.doc(sender.id).collection("chats").doc(receiver.id).delete();
+                    await usersRef.doc(sender.id).collection("chats").doc(receiver.id).collection("messages").get().then((value) {
+                      for (var doc in value.docs){
+                        doc.reference.delete();
+                      }
+                    });
+                    Get.back();
                   },
+                  onCancel: (){
+                    Get.back();
+                  }
                 );
-              },
-              icon: Icon(Icons.more_vert_rounded))
+              }
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            itemBuilder: (BuildContext context) {
+              return {'Clear chat'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: ListTile(
+                      leading: Icon(Icons.delete),
+                      title: Text(choice)),
+                );
+              }).toList();
+            },
+            icon: Icon(Icons.more_vert),
+          ),
         ],
       ),
       body: SafeArea(
         bottom: false,
-        child: widget.Chat(
-            showUserNames: true,
-            showUserAvatars: true,
-            messages: messages,
-            usePreviewData: true,
-            customBottomWidget: Container(
-              width: Get.width,
-              padding: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20.0),
-                    topLeft: Radius.circular(20.0),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: usersRef.doc(sender.id).collection("chats").doc(receiver.id).collection("messages").snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CupertinoActivityIndicator());
+              } else if (snapshot.connectionState == ConnectionState.none) {
+                return NotFound(
+                  message: "No Internet Connection",
+                  assetImage: "assets/images/nothing.png",
+                );
+              }
+              var docs = snapshot.data!.docs;
+
+              messages = docs
+                  .map((e) => model.Message.fromMap(e.data() as Map<String, dynamic>))
+                  .toList()
+                  .map((e) => types.TextMessage(id: e.id, text: e.text, createdAt: e.timestamp, author: e.sender_id == sender.id ? sender : receiver))
+                  .toList()
+                  .reversed
+                  .toList();
+
+              return chat_widget.Chat(
+                  showUserNames: true,
+                  showUserAvatars: true,
+                  messages: messages,
+                  usePreviewData: true,
+                  emojiEnlargementBehavior: EmojiEnlargementBehavior.single,
+                  customBottomWidget: Container(
+                    width: Get.width,
+                    padding: EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20.0),
+                          topLeft: Radius.circular(20.0),
+                        ),
+                        boxShadow: appBoxShadow),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CustomInputField(
+                              hint: "Type a message...",
+                              isPasswordField: false,
+                              controller: controller,
+                              showBorder: false,
+                              isDense: true,
+                              maxLines: 7,
+                              minLines: 1,
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              keyboardType: TextInputType.multiline),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 15),
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            onPressed: () {
+                              if (controller.text.isNotEmpty) {
+                                List<String> links = checkForLinks(controller.text);
+                                _handleSendPressed(
+                                  types.PartialText(text: controller.text, previewData: links.isNotEmpty ? types.PreviewData(link: links[0]) : null),
+                                );
+                                setState(() {
+                                  controller.clear();
+                                });
+                              }
+                            },
+                            icon: ImageIcon(
+                              AssetImage("assets/images/icon_send.png"),
+                              color: appPrimaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  boxShadow: appBoxShadow),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CustomInputField(
-                        hint: "Type a message...",
-                        isPasswordField: false,
-                        controller: controller,
-                        showBorder: false,
-                        isDense: true,
-                        maxLines: 7,
-                        minLines: 1,
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        keyboardType: TextInputType.multiline),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(right: 15),
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      onPressed: () {
-                        if (controller.text.isNotEmpty) {
-                          List<String> links =
-                              checkForLinks(controller.text);
-                          _handleSendPressed(
-                            types.PartialText(
-                                text: controller.text,
-                                previewData: links.isNotEmpty
-                                    ? types.PreviewData(
-                                        link: links[0])
-                                    : null),
-                          );
-                          setState(() {
-                            controller.clear();
-                          });
-                        }
-                      },
-                      icon: ImageIcon(
-                        AssetImage("assets/images/icon_send.png"),
-                        color: appPrimaryColor,
+                  onMessageTap: (_, message) {
+                    _handleMessageTap(message);
+                  },
+                  onPreviewDataFetched: (textMessage, previewData) {
+                    _handlePreviewDataFetched(textMessage, previewData);
+                  },
+                  onAvatarTap: (user) {},
+                  emptyState: Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: Get.height * 0.15,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey,
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                  receiver.imageUrl.toString(),
+                                ))),
+                          ),
+                          Text(
+                            "From ${widget.mReceiver.address}",
+                            style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
+                          ),
+                          Text(
+                            "$distance",
+                            style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
+                          )
+                        ],
                       ),
-                    ),
+                      Container(
+                        color: Colors.white.withOpacity(0.6),
+                      )
+                    ],
                   ),
-                ],
-              ),
-            ),
-            onMessageTap: (_, message) {
-              _handleMessageTap(message);
-            },
-            onPreviewDataFetched: (textMessage, previewData) {
-              _handlePreviewDataFetched(textMessage, previewData);
-            },
-            onAvatarTap: (user) {},
-            emptyState: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: Get.height * 0.15,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey,
-                          image: DecorationImage(
-                              image: NetworkImage(
-                            receiver.imageUrl.toString(),
-                          ))),
-                    ),
-                    Text(
-                      "From Which City",
-                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
-                    ),
-                    Text(
-                      "2 km Away",
-                      style: (GetPlatform.isWeb ? normal_h4Style_web : normal_h4Style),
-                    )
-                  ],
-                ),
-                Container(
-                  color: Colors.white.withOpacity(0.6),
-                )
-              ],
-            ),
-            onSendPressed: (text) {
-              _handleSendPressed(text);
-            },
-            user: sender),
+                  onSendPressed: (text) {
+                    _handleSendPressed(text);
+                  },
+                  user: sender);
+            }),
       ),
     );
   }
@@ -432,10 +537,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     types.TextMessage message,
     types.PreviewData previewData,
   ) {
-    final index =
-        messages.indexWhere((element) => element.id == message.id);
-    final updatedMessage =
-        messages[index].copyWith(previewData: previewData);
+    final index = messages.indexWhere((element) => element.id == message.id);
+    final updatedMessage = messages[index].copyWith(previewData: previewData);
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       setState(() {
@@ -449,8 +552,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
   }
 
   List<String> checkForLinks(String text) {
-    RegExp exp = RegExp(
-        r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+    RegExp exp = RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
     Iterable<RegExpMatch> matches = exp.allMatches(text);
 
     return matches.map((e) => e.toString()).toList();
@@ -476,8 +578,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       builder: (builder) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -494,29 +595,31 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         color: Colors.grey,
                         image: DecorationImage(
                             image: NetworkImage(
-                              receiver.imageUrl.toString(),
-                            ))),
+                          receiver.imageUrl ?? userPlaceholder,
+                        ))),
                   ),
                 ),
                 ListTile(
-                  title: Text("Which City"),
+                  title: Text(widget.mReceiver.address ?? "Unknown"),
                   leading: Icon(Icons.home),
                 ),
                 ListTile(
-                  title: Text("user@test.com"),
+                  title: Text(widget.mReceiver.email),
                   leading: Icon(Icons.alternate_email),
                 ),
                 ListTile(
-                  title: Text("+923086765898"),
+                  title: Text(widget.mReceiver.phone ?? "Unknown"),
                   leading: Icon(Icons.phone),
                 ),
                 ListTile(
-                  title: Text("2 km away"),
+                  title: Text("$distance"),
                   leading: Icon(Icons.location_on),
                 ),
-                CustomButton(text: "Chat", onPressed: (){
-                  Get.back();
-                }),
+                CustomButton(
+                    text: "Chat",
+                    onPressed: () {
+                      Get.back();
+                    }),
               ],
             ),
           ),
@@ -524,4 +627,16 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
       },
     );
   }
+
+  void getDistance() {
+    if (currentPosition == null || widget.mReceiver.latitude == null) {
+      distance = "unknown";
+      return;
+    }
+    setState(() {
+      distance =
+      "${roundDouble((Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.mReceiver.latitude ?? 0, widget.mReceiver.longitude??0) / 1000), 2)} km away";
+    });
+  }
+
 }

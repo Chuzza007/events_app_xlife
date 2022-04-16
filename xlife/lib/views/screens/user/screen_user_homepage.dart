@@ -89,7 +89,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
     int last_seen = DateTime.now().millisecondsSinceEpoch;
     String? token = await FCM.generateToken();
     usersRef.doc(uid).update({"last_seen": last_seen, "notificationToken": token});
-    Timer.periodic(const Duration(minutes: 10), (timer) async {
+    Timer.periodic(const Duration(minutes: 4), (timer) async {
       int last_seen = DateTime.now().millisecondsSinceEpoch;
       usersRef.doc(uid).update({"last_seen": last_seen});
     });

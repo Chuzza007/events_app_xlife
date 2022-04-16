@@ -7,6 +7,7 @@ class NotFound extends StatelessWidget {
   String? assetImage;
   String? networkImageUrl;
   Color? color;
+  bool? showImage;
   double? imageHeight, imageWidth;
 
   @override
@@ -15,15 +16,16 @@ class NotFound extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          networkImageUrl != null
-              ? Image.network(networkImageUrl!)
-              : Image.asset(
-                  assetImage ?? "assets/images/nothing.png",
-                  color: color??appPrimaryColor,
-                  height:
-                      imageHeight ?? MediaQuery.of(context).size.height * 0.1,
-                  width: imageWidth ?? MediaQuery.of(context).size.height * 0.1,
-                ),
+        if (showImage == null || showImage == true)
+            networkImageUrl != null
+                ? Image.network(networkImageUrl!)
+                : Image.asset(
+                    assetImage ?? "assets/images/nothing.png",
+                    color: color??appPrimaryColor,
+                    height:
+                        imageHeight ?? MediaQuery.of(context).size.height * 0.1,
+                    width: imageWidth ?? MediaQuery.of(context).size.height * 0.1,
+                  ),
           Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: Text(
@@ -43,5 +45,6 @@ class NotFound extends StatelessWidget {
     this.color,
     this.imageHeight,
     this.imageWidth,
+    this.showImage
   });
 }
