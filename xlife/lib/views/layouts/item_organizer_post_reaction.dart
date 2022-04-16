@@ -3,11 +3,43 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/models/reaction.dart';
+import 'package:xlife/models/user.dart';
 
 import '../../helpers/styles.dart';
 
-class ItemOrganizerPostReaction extends StatelessWidget {
-  ItemOrganizerPostReaction({Key? key}) : super(key: key);
+class ItemOrganizerPostReaction extends StatefulWidget {
+  Reaction reaction;
+
+  @override
+  State<ItemOrganizerPostReaction> createState() => _ItemOrganizerPostReactionState();
+
+  ItemOrganizerPostReaction({
+    required this.reaction,
+  });
+}
+
+class _ItemOrganizerPostReactionState extends State<ItemOrganizerPostReaction> implements ListenerProfileInfo {
+  @override
+  void initState() {
+    getProfileInfo(widget.reaction.user_id, this, "user");
+    super.initState();
+  }
+
+  User reactionUser = User(
+      full_name: "unknown",
+      nick_name: "nick_name",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      image_url: userPlaceholder,
+      last_seen: 0,
+      notificationToken: "notificationToken");
 
   @override
   Widget build(BuildContext context) {
@@ -25,31 +57,45 @@ class ItemOrganizerPostReaction extends StatelessWidget {
             height: 10.h,
             width: 15.w,
             decoration: BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: NetworkImage(
-                        "https://hireme.ga/images/mubashar.png"))),
+                color: Colors.black, shape: BoxShape.circle, image: DecorationImage(image: NetworkImage(reactionUser.image_url ?? userPlaceholder))),
           ),
           badgeColor: Colors.white,
-          position: BadgePosition.bottomEnd(
-              bottom: -(Get.width * 0.005),
-              end: -(Get.width * 0.005)),
+          position: BadgePosition.bottomEnd(bottom: -(Get.width * 0.005), end: -(Get.width * 0.005)),
           badgeContent: Icon(
-            Icons.thumb_up,
+            getReactionIcon(),
             size: Get.width * 0.025,
             color: appPrimaryColor,
           ),
         ),
         title: Text(
-          "Mubashar Hussain",
+          reactionUser.full_name,
           style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
         ),
         trailing: Text(
-          "1 h",
+          convertTimeToText(widget.reaction.timestamp, ""),
           style: TextStyle(color: Colors.grey),
         ),
       ),
     );
+  }
+
+  @override
+  void onProfileInfo(User user) {
+    if (mounted) {
+      setState(() {
+        this.reactionUser = user;
+      });
+    }
+  }
+
+  IconData getReactionIcon() {
+    switch (widget.reaction.value) {
+      case "dislike":
+        return Icons.thumb_down;
+      case "love":
+        return Icons.favorite;
+      default:
+        return Icons.thumb_up;
+    }
   }
 }

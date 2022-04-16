@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/views/screens/user/screen_user_event_details.dart';
 
 import '../../helpers/constants.dart';
@@ -18,14 +20,16 @@ class ItemUserEvent extends StatefulWidget {
   });
 }
 
-class _ItemUserEventState extends State<ItemUserEvent> {
+class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventFavorites {
   double cardHeight = Get.height * 0.6;
 
   bool favorite = false;
   String distance = "unknown";
+  String uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
+    getEventFavorites(widget.event.id, this);
     getDistance();
     super.initState();
   }
@@ -147,9 +151,7 @@ class _ItemUserEventState extends State<ItemUserEvent> {
                         ),
                         trailing: IconButton(
                           onPressed: () {
-                            setState(() {
-                              favorite = !favorite;
-                            });
+                            updateFavorite(!favorite);
                           },
                           icon: ImageIcon(
                             AssetImage("assets/images/heart_$favorite.png"),
@@ -181,4 +183,28 @@ class _ItemUserEventState extends State<ItemUserEvent> {
       });
     }
   }
+
+  @override
+  void onEventFavorites(List<String> users) {
+    // TODO: implement onEventFavorites
+  }
+
+  @override
+  void onMyFavorite(bool favorite) {
+    if (mounted){
+      setState(() {
+        this.favorite = favorite;
+      });
+    }
+  }
+  void updateFavorite(bool status) {
+    if (status){
+      eventsRef.doc(widget.event.id).collection("favorites")
+          .doc(uid).set({"uid":uid});
+      return;
+    }
+    eventsRef.doc(widget.event.id).collection("favorites")
+        .doc(uid).delete();
+  }
+
 }

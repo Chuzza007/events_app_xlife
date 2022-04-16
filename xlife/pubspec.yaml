@@ -41,6 +41,7 @@ dependencies:
   sizer: ^2.0.15
   draggable_home: ^1.0.2
   google_maps_flutter: any
+  map_launcher: ^2.2.1+2
 #  geolocator: ^8.2.0
   location: any
   flutter_reaction_button: ^2.0.0+1
@@ -64,6 +65,7 @@ dependencies:
   flutter_firebase_app: any
   google_places_picker_advance: ^0.0.1
   geolocator: ^8.2.0
+  shared_preferences: ^2.0.13
 
 #  flutter_google_places: ^0.3.0
 

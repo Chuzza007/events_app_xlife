@@ -1,5 +1,5 @@
 class Event {
-  String title, description, organizer_id, image1, image2, image3;
+  String id, title, description, organizer_id, image1, image2, image3;
   double latitude, longitude;
   int startTime, endTime;
   List<String> tags;
@@ -7,6 +7,7 @@ class Event {
 
   Event({
     required this.title,
+    required this.id,
     required this.description,
     required this.organizer_id,
     required this.image1,
@@ -23,6 +24,7 @@ class Event {
   Map<String, dynamic> toMap() {
     return {
       'title': this.title,
+      'id': this.id,
       'description': this.description,
       'organizer_id': this.organizer_id,
       'image1': this.image1,
@@ -40,6 +42,7 @@ class Event {
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
       title: map['title'] as String,
+      id: map['id'] as String,
       description: map['description'] as String,
       organizer_id: map['organizer_id'] as String,
       image1: map['image1'] as String,

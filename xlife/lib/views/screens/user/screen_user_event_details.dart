@@ -1,23 +1,25 @@
 import 'dart:async';
 
 import 'package:draggable_home/draggable_home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:map_launcher/map_launcher.dart' as mapLauncher;
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/event.dart';
-import 'package:xlife/models/user.dart';
+import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/widgets/custom_button.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 
 class ScreenUserEventDetails extends StatefulWidget {
-
   Event event;
-
 
   @override
   _ScreenUserEventDetailsState createState() => _ScreenUserEventDetailsState();
@@ -27,7 +29,7 @@ class ScreenUserEventDetails extends StatefulWidget {
   });
 }
 
-class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> implements ListenerProfileInfo {
+class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> implements ListenerProfileInfo, ListenerEventFavorites {
   bool favorite = false;
 
   final Completer<GoogleMapController> _controller = Completer();
@@ -41,35 +43,35 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
   );
 
   List<String> images = [];
-  User? organizer;
+  model.User? organizer;
   String distance = "unknown";
 
   List<Marker> _markers = [];
 
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   void initState() {
     _checkLocationPermissions();
+    getEventFavorites(widget.event.id, this);
     getDistance();
     var _latlng = LatLng(widget.event.latitude, widget.event.longitude);
-    _markers.add(Marker(markerId: MarkerId("value"),
-      position:  _latlng,
-      infoWindow: InfoWindow(
-        title: widget.event.title,
-        snippet: widget.event.description
-      )
-    ));
+    _markers.add(
+        Marker(markerId: MarkerId("value"), position: _latlng, infoWindow: InfoWindow(title: widget.event.title, snippet: widget.event.description)));
     setState(() {
-      _kGooglePlex = CameraPosition(target: _latlng,
-        zoom: 14.4746,);
+      _kGooglePlex = CameraPosition(
+        target: _latlng,
+        zoom: 14.4746,
+      );
     });
 
-    if (widget.event.image1.isNotEmpty){
+    if (widget.event.image1.isNotEmpty) {
       images.add(widget.event.image1);
     }
-    if (widget.event.image2.isNotEmpty){
+    if (widget.event.image2.isNotEmpty) {
       images.add(widget.event.image2);
     }
-    if (widget.event.image3.isNotEmpty){
+    if (widget.event.image3.isNotEmpty) {
       images.add(widget.event.image3);
     }
 
@@ -111,9 +113,7 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
                       ),
                       IconButton(
                         onPressed: () {
-                          setState(() {
-                            favorite = !favorite;
-                          });
+                          updateFavorite(!favorite);
                         },
                         icon: ImageIcon(
                           AssetImage("assets/images/heart_$favorite.png"),
@@ -147,9 +147,7 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
           actions: [
             IconButton(
               onPressed: () {
-                setState(() {
-                  favorite = !favorite;
-                });
+                updateFavorite(!favorite);
               },
               icon: ImageIcon(AssetImage("assets/images/heart_$favorite.png")),
             )
@@ -232,6 +230,20 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
                 ),
               ),
             ),
+            FloatingActionButton.extended(
+                icon: Icon(Icons.navigation_outlined),
+                onPressed: () async {
+                  final availableMaps = await mapLauncher.MapLauncher.installedMaps;
+                  print(availableMaps);
+                  if (availableMaps.isNotEmpty){
+                    await mapLauncher.MapLauncher.showMarker(
+                      mapType: availableMaps[0].mapType,
+                      coords: mapLauncher.Coords(widget.event.latitude, widget.event.longitude),
+                      title: widget.event.title,
+                      description: widget.event.description,
+                    );
+                  }
+                }, label: Text("Navigate")),
             Container(
               margin: EdgeInsets.only(top: 10.h, left: 10.sp, right: 10.sp),
               child: CustomButton(
@@ -300,18 +312,39 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
       return;
     }
     setState(() {
-        distance =
-            "${roundDouble((Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.event.latitude, widget.event.longitude) / 1000), 2)} km";
-      });
-
+      distance =
+          "${roundDouble((Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.event.latitude, widget.event.longitude) / 1000), 2)} km";
+    });
   }
 
   @override
-  void onProfileInfo(User user) {
-    if (mounted){
+  void onProfileInfo(model.User user) {
+    if (mounted) {
       setState(() {
         organizer = user;
       });
     }
+  }
+
+  @override
+  void onEventFavorites(List<String> users) {
+    // TODO: implement onEventFavorites
+  }
+
+  @override
+  void onMyFavorite(bool favorite) {
+    if (mounted) {
+      setState(() {
+        this.favorite = favorite;
+      });
+    }
+  }
+
+  void updateFavorite(bool status) {
+    if (status) {
+      eventsRef.doc(widget.event.id).collection("favorites").doc(uid).set({"uid": uid});
+      return;
+    }
+    eventsRef.doc(widget.event.id).collection("favorites").doc(uid).delete();
   }
 }

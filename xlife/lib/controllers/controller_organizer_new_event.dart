@@ -92,6 +92,7 @@ class ControllerOrganizerNewEvent extends GetxController {
     String image3 = await _uploadImage(id, 2);
     Event event = Event(title: title,
         description: description,
+        id: id,
         organizer_id: FirebaseAuth.instance.currentUser!.uid,
         image1: image1,
         image2: image2,

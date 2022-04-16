@@ -16,11 +16,11 @@ class _ScreenAdminAllPostsState extends State<ScreenAdminAllPosts> {
       appBar: AppBar(
         title: Text("All Posts"),
       ),
-      body: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (context, index){
-        return ItemAdminNewsFeed();
-      }),
+      // body: ListView.builder(
+      //     itemCount: 20,
+      //     itemBuilder: (context, index){
+      //   return ItemAdminNewsFeed();
+      // }),
     );
   }
 }

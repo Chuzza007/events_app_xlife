@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/interfaces/listener_events.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
@@ -14,7 +16,6 @@ import 'package:xlife/models/event.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/models/reaction.dart';
 import 'package:xlife/models/user.dart' as model;
-
 import '../generated/locales.g.dart';
 import '../interfaces/listener_organizer_events_posts.dart';
 import '../models/comment.dart';
@@ -202,6 +203,8 @@ String timeStampToDateTime(int timestamp, String pattern) {
   return intl.DateFormat(pattern).format(DateTime.fromMillisecondsSinceEpoch(timestamp));
 }
 
+
+
 String convertTimeToText(int timestamp, String suffix) {
   String convTime = "";
   String prefix = "";
@@ -342,6 +345,8 @@ String convertTimeToText2(
 
   return convTime;
 }
+
+
 void fetchAllTags(){
   eventsRef.snapshots().listen((response) {
     response.docs.forEach((element) {
@@ -354,4 +359,45 @@ void fetchAllTags(){
 double roundDouble(double value, int places){
   num mod = pow(10.0, places);
   return ((value * mod).round().toDouble() / mod);
+}
+
+Future<void> addUserSuggestions(List<String> userIds) async {
+  var instance = await SharedPreferences.getInstance();
+  final oldUserIds = await getUserSuggestions();
+  userIds.addAll(oldUserIds);
+  userIds = userIds.toSet().toList();
+  await instance.setStringList("nearbyUsers", userIds);
+}
+Future<List<String>> getUserSuggestions() async {
+  var instance = await SharedPreferences.getInstance();
+  return await instance.getStringList("nearbyUsers") ?? [];
+}
+void getEventFavorites (String eventId, ListenerEventFavorites listener){
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+  eventsRef.doc(eventId).collection("favorites").snapshots().listen((response) {
+    List<String> favoriteUsers = [];
+    favoriteUsers = response.docs.map((e) => (e.data()['uid']).toString()).toList();
+    listener.onEventFavorites(favoriteUsers);
+    listener.onMyFavorite(favoriteUsers.contains(uid));
+  });
+}
+void getMyFavoriteEvents (ListenerEvents listener){
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  eventsRef.snapshots().forEach((element) {
+    List<Event> events = [];
+
+    element.docs.forEach((subElement) async {
+      var event = Event.fromMap(subElement.data() as Map<String, dynamic>);
+      String id = event.id;
+      eventsRef.doc(id).collection("favorites").snapshots().listen((favorites) {
+        favorites.docs.forEach((fav) {
+          if (fav.data()['uid'] == uid){
+            events.add(event);
+          }
+        });
+        listener.onEventAdded(events);
+      });
+    });
+  });
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/models/event.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_update_event.dart';
 
@@ -18,7 +20,15 @@ class ItemOrganizerEvent extends StatefulWidget {
   });
 }
 
-class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
+class _ItemOrganizerEventState extends State<ItemOrganizerEvent> implements ListenerEventFavorites {
+
+  @override
+  void initState() {
+    getEventFavorites(widget.event.id, this);
+    super.initState();
+  }
+
+  int favorites = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +79,7 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
                     ),
                     ListTile(
                       title: Text(
-                        "0 favorites",
+                        "$favorites favorites",
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,
@@ -87,5 +97,19 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> {
         ),
       ),
     );
+  }
+
+  @override
+  void onEventFavorites(List<String> users) {
+    if (mounted){
+      setState(() {
+        this.favorites = users.length;
+      });
+    }
+  }
+
+  @override
+  void onMyFavorite(bool favorite) {
+    // TODO: implement onMyFavorite
   }
 }

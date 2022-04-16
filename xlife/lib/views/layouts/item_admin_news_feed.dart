@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/models/post.dart';
 
 import '../../helpers/styles.dart';
 import '../screens/organizer/screen_organizer_post_comments.dart';
 import '../screens/organizer/screen_organizer_post_reactions.dart';
 
 class ItemAdminNewsFeed extends StatefulWidget {
-  ItemAdminNewsFeed({Key? key}) : super(key: key);
+
+  Post post;
+
 
   @override
   _ItemAdminNewsFeedState createState() => _ItemAdminNewsFeedState();
+
+  ItemAdminNewsFeed({
+    required this.post,
+  });
 }
 
 class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
@@ -91,7 +98,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostReactions());
+                    Get.to(ScreenOrganizerPostReactions(post: widget.post,));
                   },
                 ),
                 GestureDetector(

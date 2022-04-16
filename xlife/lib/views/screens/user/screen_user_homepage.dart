@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/helpers/fcm.dart';
 import 'package:xlife/views/layouts/layout_user_all_events.dart';
 import 'package:xlife/views/layouts/layout_user_favorite_events.dart';
@@ -30,6 +31,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   ];
   String uid = FirebaseAuth.instance.currentUser!.uid;
   final location = loc.Location();
+  final int NEARBY_LIMIT = 500;
 
   @override
   void initState() {
@@ -123,7 +125,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
     var _serviceEnabled = await location.serviceEnabled();
     location.changeSettings(interval: 10000);
     location.onLocationChanged.listen((loc.LocationData currentLocation) {
-      print(currentLocation);
+      // print(currentLocation);
       usersRef.doc(uid).update({"latitude": currentLocation.latitude, "longitude": currentLocation.longitude});
     });
     Geolocator.getPositionStream(
@@ -136,6 +138,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
         });
       }
       usersRef.doc(uid).update({"latitude": currentLocation.latitude, "longitude": currentLocation.longitude});
+      _addNearbyUsers();
     });
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
@@ -143,5 +146,22 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
         return;
       }
     }
+  }
+
+  void _addNearbyUsers() async {
+    var snaps = await usersRef.snapshots();
+    snaps.forEach((element) {
+      List<String> usersList = [];
+      element.docs.forEach((e) {
+        final user = model.User.fromMap(e.data() as Map<String, dynamic>);
+        if (user.id != uid && currentPosition != null && user.latitude != null){
+          if (Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, user.latitude!, user.longitude!) <= NEARBY_LIMIT){
+            usersList.add(user.id);
+          };
+        }
+      });
+      // print(usersList);
+      addUserSuggestions(usersList);
+    });
   }
 }

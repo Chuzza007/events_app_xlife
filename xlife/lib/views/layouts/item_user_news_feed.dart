@@ -9,6 +9,7 @@ import 'package:xlife/models/comment.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/models/reaction.dart' as model;
 import 'package:xlife/models/user.dart' as userModel;
+import 'package:xlife/views/screens/organizer/screen_organizer_post_reactions.dart';
 import 'package:xlife/views/screens/user/screen_user_post_comments.dart';
 
 import '../../helpers/styles.dart';
@@ -127,9 +128,14 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "$numReactions Reactions",
-                  style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
+                GestureDetector(
+                  child: Text(
+                    "$numReactions Reactions",
+                    style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
+                  ),
+                  onTap: (){
+                    Get.to(ScreenOrganizerPostReactions(post: widget.post,));
+                  },
                 ),
                 Text(
                   "$numComments Comments",

@@ -93,7 +93,7 @@ class _ItemOrganizerNewsFeedState
                         (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostReactions());
+                    Get.to(ScreenOrganizerPostReactions(post: widget.post,));
                   },
                 ),
                 GestureDetector(
