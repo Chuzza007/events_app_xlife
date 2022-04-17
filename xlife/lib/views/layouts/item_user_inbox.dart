@@ -90,15 +90,15 @@ class _ItemUserInboxState extends State<ItemUserInbox> implements ListenerProfil
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(convertTimeToText(widget.messageDummy.timestamp, ""), style: TextStyle(color: hintColor),),
-                  Badge(
-                    badgeContent: Text(
-                      " 1 ",
-                      style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.white),
-                    ),
-                    toAnimate: false,
-                    shape: BadgeShape.circle,
-                    position: BadgePosition.center(),
-                  ),
+                  // Badge(
+                  //   badgeContent: Text(
+                  //     " 1 ",
+                  //     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.white),
+                  //   ),
+                  //   toAnimate: false,
+                  //   shape: BadgeShape.circle,
+                  //   position: BadgePosition.center(),
+                  // ),
                 ],
               ),
               onTap: () {

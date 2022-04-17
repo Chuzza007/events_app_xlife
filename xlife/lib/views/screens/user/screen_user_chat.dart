@@ -11,10 +11,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/message.dart' as model;
 import 'package:xlife/models/user.dart';
 
 import '../../../helpers/constants.dart';
+import '../../../helpers/fcm.dart';
 import '../../../helpers/styles.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_input_field.dart';
@@ -26,31 +28,51 @@ class ScreenUserChat extends StatefulWidget {
 
   User mReceiver;
 
+
   ScreenUserChat({
     required this.mReceiver,
   });
 }
 
-class _ScreenUserChatState extends State<ScreenUserChat> {
+class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProfileInfo {
+
+  User mUser = User(full_name: "full_name",
+      nick_name: "nick_name",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
+
   List<types.Message> messages = [];
   types.User sender = types.User(
     id: auth.FirebaseAuth.instance.currentUser!.uid,
     firstName: "Me",
     lastName: "",
-    lastSeen: DateTime.now().millisecondsSinceEpoch,
+    lastSeen: DateTime
+        .now()
+        .millisecondsSinceEpoch,
   );
   types.User receiver = types.User(
     id: "1235",
     firstName: "Loading",
     lastName: "",
     imageUrl: userPlaceholder,
-    lastSeen: DateTime.now().millisecondsSinceEpoch,
+    lastSeen: DateTime
+        .now()
+        .millisecondsSinceEpoch,
   );
 
   late TextEditingController controller;
   bool loading = true;
 
   String distance = "unknown";
+
+  String uid = auth.FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
@@ -62,11 +84,12 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
         imageUrl: widget.mReceiver.image_url ?? userPlaceholder,
         lastSeen: widget.mReceiver.last_seen);
 
+    getProfileInfo(uid, this, "user");
 
     super.initState();
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  void _handleSendPressed(types.PartialText message) async {
     // final sentMessage = types.TextMessage(
     //   author: sender,
     //   createdAt: DateTime
@@ -93,18 +116,24 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     //   text: message.text,
     //   type: types.MessageType.text,
     // );
-
+    //
     // _addMessage(sentMessage);
     // _addMessage(receivedMessage);
 
-    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    int timestamp = DateTime
+        .now()
+        .millisecondsSinceEpoch;
 
     model.Message newMessage =
-        model.Message(id: timestamp.toString(), sender_id: sender.id, receiver_id: receiver.id, text: message.text, timestamp: timestamp);
+    model.Message(id: timestamp.toString(),
+        sender_id: sender.id,
+        receiver_id: receiver.id,
+        text: message.text.trim(),
+        timestamp: timestamp);
 
-    usersRef
+    await usersRef
         .doc("${sender.id}/chats/${receiver.id}")
-        .set({"timestamp": newMessage.timestamp, "last_message": message.text, "receiver_id": receiver.id}).then((value) {
+        .set({"timestamp": newMessage.timestamp, "last_message": "Me: ${message.text}", "receiver_id": receiver.id}).then((value) {
       usersRef.doc("${sender.id}/chats/${receiver.id}/messages/$timestamp").set(newMessage.toMap()).then((value) {
         setState(() {
           controller.text = "";
@@ -119,6 +148,9 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     }).catchError((error, stackTrace) {
       Get.snackbar("Error", error.toString());
     });
+
+    String response = await FCM.sendMessageSingle(mUser.full_name, message.text, widget.mReceiver.notificationToken);
+    print(response);
   }
 
   void _addMessage(types.Message message) {
@@ -142,7 +174,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
             children: [
               Hero(tag: "inbox_title", flightShuttleBuilder: flightShuttleBuilder, child: Text("${receiver.firstName} ${receiver.lastName}")),
               Text(
-                /*"$distance"*/"${getLastSeen(widget.mReceiver.last_seen)}",
+                /*"$distance"*/
+                "${getLastSeen(widget.mReceiver.last_seen)}",
                 style: (GetPlatform.isWeb ? normal_h5Style_web : normal_h5Style).copyWith(color: Colors.grey, fontWeight: FontWeight.normal),
               )
             ],
@@ -248,26 +281,26 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
           //     },
           //     icon: Icon(Icons.more_vert_rounded))
           PopupMenuButton<String>(
-            onSelected: (value){
-              if (value.toString() == "Clear chat"){
+            onSelected: (value) {
+              if (value.toString() == "Clear chat") {
                 Get.defaultDialog(
-                  title: "Clear Chat",
-                  middleText: "This will be removed from your inbox. Are you sure to clear chat with this user?",
-                  textConfirm: "Clear",
-                  textCancel: "Cancel",
-                  onConfirm: () async {
-                    Get.back();
-                    await usersRef.doc(sender.id).collection("chats").doc(receiver.id).delete();
-                    await usersRef.doc(sender.id).collection("chats").doc(receiver.id).collection("messages").get().then((value) {
-                      for (var doc in value.docs){
-                        doc.reference.delete();
-                      }
-                    });
-                    Get.back();
-                  },
-                  onCancel: (){
-                    Get.back();
-                  }
+                    title: "Clear Chat",
+                    middleText: "This will be removed from your inbox. Are you sure to clear chat with this user?",
+                    textConfirm: "Clear",
+                    textCancel: "Cancel",
+                    onConfirm: () async {
+                      Get.back();
+                      await usersRef.doc(sender.id).collection("chats").doc(receiver.id).delete();
+                      await usersRef.doc(sender.id).collection("chats").doc(receiver.id).collection("messages").get().then((value) {
+                        for (var doc in value.docs) {
+                          doc.reference.delete();
+                        }
+                      });
+                      Get.back();
+                    },
+                    onCancel: () {
+                      // Get.back();
+                    }
                 );
               }
             },
@@ -346,10 +379,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                           alignment: Alignment.centerRight,
                           child: IconButton(
                             onPressed: () {
-                              if (controller.text.isNotEmpty) {
-                                List<String> links = checkForLinks(controller.text);
+                              String text = controller.text.trim();
+                              if (text.isNotEmpty) {
+                                List<String> links = checkForLinks(text);
                                 _handleSendPressed(
-                                  types.PartialText(text: controller.text, previewData: links.isNotEmpty ? types.PreviewData(link: links[0]) : null),
+                                  types.PartialText(text: text, previewData: links.isNotEmpty ? types.PreviewData(link: links[0]) : null),
                                 );
                                 setState(() {
                                   controller.clear();
@@ -385,8 +419,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                                 color: Colors.grey,
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                  receiver.imageUrl.toString(),
-                                ))),
+                                      receiver.imageUrl.toString(),
+                                    ))),
                           ),
                           Text(
                             "From ${widget.mReceiver.address}",
@@ -489,8 +523,13 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     if (result != null) {
       final message = types.FileMessage(
         author: sender,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        createdAt: DateTime
+            .now()
+            .millisecondsSinceEpoch,
+        id: DateTime
+            .now()
+            .millisecondsSinceEpoch
+            .toString(),
         mimeType: lookupMimeType(result.files.single.path ?? ''),
         name: result.files.single.name,
         size: result.files.single.size,
@@ -514,9 +553,14 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
 
       final message = types.ImageMessage(
         author: sender,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
+        createdAt: DateTime
+            .now()
+            .millisecondsSinceEpoch,
         height: image.height.toDouble(),
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: DateTime
+            .now()
+            .millisecondsSinceEpoch
+            .toString(),
         name: result.name,
         size: bytes.length,
         uri: result.path,
@@ -533,10 +577,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     }
   }
 
-  void _handlePreviewDataFetched(
-    types.TextMessage message,
-    types.PreviewData previewData,
-  ) {
+  void _handlePreviewDataFetched(types.TextMessage message,
+      types.PreviewData previewData,) {
     final index = messages.indexWhere((element) => element.id == message.id);
     final updatedMessage = messages[index].copyWith(previewData: previewData);
 
@@ -595,8 +637,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         color: Colors.grey,
                         image: DecorationImage(
                             image: NetworkImage(
-                          receiver.imageUrl ?? userPlaceholder,
-                        ))),
+                              receiver.imageUrl ?? userPlaceholder,
+                            ))),
                   ),
                 ),
                 ListTile(
@@ -635,8 +677,15 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
     }
     setState(() {
       distance =
-      "${roundDouble((Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.mReceiver.latitude ?? 0, widget.mReceiver.longitude??0) / 1000), 2)} km away";
+      "${roundDouble((Geolocator.distanceBetween(
+          currentPosition!.latitude, currentPosition!.longitude, widget.mReceiver.latitude ?? 0, widget.mReceiver.longitude ?? 0) / 1000),
+          2)} km away";
     });
+  }
+
+  @override
+  void onProfileInfo(User user) {
+    // TODO: implement onProfileInfo
   }
 
 }

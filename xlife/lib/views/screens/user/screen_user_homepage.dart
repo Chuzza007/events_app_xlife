@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:location/location.dart' as loc;
 import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/helpers/fcm.dart';
 import 'package:xlife/views/layouts/layout_user_all_events.dart';
@@ -21,7 +24,7 @@ class ScreenUserHomepage extends StatefulWidget {
   _ScreenUserHomepageState createState() => _ScreenUserHomepageState();
 }
 
-class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
+class _ScreenUserHomepageState extends State<ScreenUserHomepage> implements ListenerProfileInfo {
   int selectedIndex = 0;
   List<Widget> pages = [
     LayoutUserAllEvents(),
@@ -32,10 +35,23 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   final location = loc.Location();
   final int NEARBY_LIMIT = 500;
+  model.User user = model.User(full_name: "full_name",
+      nick_name: "nick_name",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
 
   @override
   void initState() {
+    initializeFCM();
     _checkLocationPermissions();
+    getProfileInfo(uid, this, "user");
     location.enableBackgroundMode(enable: true);
     _getCurrentLocation();
     updateLastSeenAndToken();
@@ -46,7 +62,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomHomeHeaderContainerDesign(
-        image_url: "",
+        image_url: user.image_url ?? userPlaceholder,
         child: pages[selectedIndex],
         bottomNavigationBar: CustomBottomNavigation(
           currentIndex: selectedIndex,
@@ -86,11 +102,15 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
   }
 
   Future<void> updateLastSeenAndToken() async {
-    int last_seen = DateTime.now().millisecondsSinceEpoch;
+    int last_seen = DateTime
+        .now()
+        .millisecondsSinceEpoch;
     String? token = await FCM.generateToken();
     usersRef.doc(uid).update({"last_seen": last_seen, "notificationToken": token});
     Timer.periodic(const Duration(minutes: 4), (timer) async {
-      int last_seen = DateTime.now().millisecondsSinceEpoch;
+      int last_seen = DateTime
+          .now()
+          .millisecondsSinceEpoch;
       usersRef.doc(uid).update({"last_seen": last_seen});
     });
   }
@@ -130,9 +150,9 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
     });
     Geolocator.getPositionStream(
         locationSettings: LocationSettings(
-      accuracy: LocationAccuracy.low,
-    )).listen((currentLocation) {
-      if (mounted){
+          accuracy: LocationAccuracy.low,
+        )).listen((currentLocation) {
+      if (mounted) {
         setState(() {
           currentPosition = currentLocation;
         });
@@ -154,8 +174,8 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
       List<String> usersList = [];
       element.docs.forEach((e) {
         final user = model.User.fromMap(e.data() as Map<String, dynamic>);
-        if (user.id != uid && currentPosition != null && user.latitude != null){
-          if (Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, user.latitude!, user.longitude!) <= NEARBY_LIMIT){
+        if (user.id != uid && currentPosition != null && user.latitude != null) {
+          if (Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, user.latitude!, user.longitude!) <= NEARBY_LIMIT) {
             usersList.add(user.id);
           };
         }
@@ -163,5 +183,31 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> {
       // print(usersList);
       addUserSuggestions(usersList);
     });
+  }
+
+  initializeFCM() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print('Message clicked!');
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      print(event);
+      Get.snackbar(event.notification!.title.toString(),
+          event.notification!.body.toString(),
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 10));
+    });
+  }
+
+  @override
+  void onProfileInfo(model.User user) {
+    if (mounted){
+      setState(() {
+        this.user = user;
+      });
+    }
   }
 }

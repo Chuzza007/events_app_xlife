@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/models/user.dart' as model;
@@ -12,6 +16,7 @@ import 'package:xlife/widgets/custom_button.dart';
 import '../../../generated/locales.g.dart';
 import '../../../helpers/constants.dart';
 import '../../../interfaces/listener_profile_info.dart';
+import '../../../widgets/custom_input_field.dart';
 
 class ScreenUserEditProfile extends StatefulWidget {
   ScreenUserEditProfile({Key? key}) : super(key: key);
@@ -37,6 +42,15 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
       last_seen: 0,
       notificationToken: "notificationToken");
 
+  XFile? oldPickedImage;
+  ImagePicker _picker = ImagePicker();
+  var showDpLoading = false;
+
+  var old_pass_controller = TextEditingController();
+
+  var new_pass_controller = TextEditingController();
+
+  bool passwordLoading = false;
 
   @override
   void initState() {
@@ -66,15 +80,20 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Container(
-                        height: Get.height * 0.15,
-                        width: Get.height * 0.15,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 5.sp),
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            image:
-                            DecorationImage(fit: BoxFit.cover, image: CachedNetworkImageProvider(user.image_url ?? userPlaceholder))),
+                      GestureDetector(
+                        child: Container(
+                          height: Get.height * 0.15,
+                          width: Get.height * 0.15,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 5.sp),
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              image:
+                              DecorationImage(fit: BoxFit.cover, image: CachedNetworkImageProvider(user.image_url ?? userPlaceholder))),
+                        ),
+                        onTap: (){
+                          getImage();
+                        },
                       ),
                       Positioned(
                         right: 5,
@@ -185,6 +204,73 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                                 icon: Icon(Icons.navigate_next),
                                                 onPressed: () {},
                                               ),
+                                              onTap: (){
+                                                showModalBottomSheetMenu(
+                                                  context: context,
+                                                  content: StatefulBuilder(
+                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                      return Container(
+                                                        margin: EdgeInsets.all(20),
+                                                        child: AnimatedCrossFade(
+                                                          firstChild: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                            children: [
+                                                              Text(
+                                                                "Change Password",
+                                                                style: normal_h2Style_bold,
+                                                              ),
+                                                              CustomInputField(
+                                                                label: "Old Password",
+                                                                isPasswordField: true,
+                                                                controller: old_pass_controller,
+                                                                keyboardType: TextInputType.visiblePassword,
+                                                              ),
+                                                              CustomInputField(
+                                                                label: "New Password",
+                                                                isPasswordField: true,
+                                                                controller: new_pass_controller,
+                                                                keyboardType: TextInputType.visiblePassword,
+                                                              ),
+                                                              CustomButton(
+                                                                  text: "Change",
+                                                                  onPressed: () async {
+                                                                    String oldPassword = old_pass_controller.text;
+                                                                    String newPassword = new_pass_controller.text;
+
+                                                                    if (oldPassword.isEmpty || newPassword.isEmpty) {
+                                                                      Get.back();
+                                                                      return;
+                                                                    }
+                                                                    setState(() {
+                                                                      passwordLoading = true;
+                                                                    });
+                                                                    await Future.delayed(Duration(seconds: 1));
+                                                                    String response = await changePassword(oldPassword, newPassword);
+                                                                    print(response);
+                                                                    if (response == "success") {
+                                                                      Get.back();
+                                                                      Get.snackbar("Success", "Password changed successfully",
+                                                                          colorText: Colors.white, backgroundColor: Colors.green);
+                                                                    }
+                                                                    setState(() {
+                                                                      passwordLoading = false;
+                                                                    });
+                                                                  }),
+                                                            ],
+                                                          ),
+                                                          secondChild: Text(
+                                                            "Changing password...",
+                                                            style: normal_h3Style_bold,
+                                                          ),
+                                                          duration: Duration(milliseconds: 500),
+                                                          crossFadeState: passwordLoading ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                );
+
+                                              },
                                             ),
                                             ListTile(
                                               title: Text(
@@ -375,4 +461,94 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
   void getInfo() async {
     getProfileInfo(uid, this, "user");
   }
+
+
+  void getImage() async {
+    XFile? pickedImage =
+    await _picker.pickImage(source: ImageSource.gallery);
+    oldPickedImage = pickedImage;
+    Get.defaultDialog(
+        title: "Are you sure to upload this image",
+        content: Container(
+          margin: EdgeInsets.all(10),
+          height: Get.height * 0.2,
+          decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 10)],
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: FileImage(File(oldPickedImage!.path)),
+            ),
+          ),
+        ),
+        textConfirm: "Yes",
+        confirmTextColor: Colors.white,
+        textCancel: "Cancel",
+        radius: 0,
+        onConfirm: () async {
+          String uid = FirebaseAuth.instance.currentUser!.uid;
+          Get.back();
+          Get.snackbar("Please Wait", "Updating your profile picture",
+              colorText: Colors.white, backgroundColor: Colors.black);
+          String image_url = await _uploadImage(uid);
+          await usersRef
+              .doc(uid)
+              .update({"image_url": image_url}).catchError((error) {
+            Get.snackbar("Error", error.toString());
+          });
+          Get.snackbar(
+              "Success".tr, "Profile image updated successfully");
+          setState(() {
+            showDpLoading = false;
+          });
+        },
+        onCancel: () {
+          Get.back();
+        });
+  }
+
+  Future<String> _uploadImage(String uid) async {
+    Reference storageReference = FirebaseStorage.instance
+        .ref()
+        .child("profile_images/${uid}.png");
+    final UploadTask uploadTask =
+    storageReference.putFile(File(oldPickedImage!.path));
+
+    uploadTask.snapshotEvents.listen((event) {
+      showDpLoading = true;
+    }).onError((error) {
+      // do something to handle error
+      showDpLoading = false;
+      Get.snackbar("Error", error.toString());
+    });
+
+
+    setState(() {
+
+    });
+    final TaskSnapshot downloadUrl = (await uploadTask);
+    final String url = await downloadUrl.ref.getDownloadURL();
+    return url;
+  }
+
+  Future<String> changePassword(String oldPassword, String newPassword) async {
+    final user = await FirebaseAuth.instance.currentUser;
+    final cred = EmailAuthProvider.credential(email: user!.email!, password: oldPassword);
+
+    String response = "";
+
+    await user.reauthenticateWithCredential(cred).then((value) async {
+      await user.updatePassword(newPassword).then((_) {
+        response = "success";
+        usersRef.doc(uid).update({"password":newPassword});
+      }).catchError((error) {
+        Get.snackbar("Error", error.toString(), colorText: Colors.white, backgroundColor: Colors.red);
+      });
+    }).catchError((err) {
+      Get.snackbar("Error", err.toString(), colorText: Colors.white, backgroundColor: Colors.red);
+    });
+    passwordLoading = false;
+    return response;
+  }
+
 }

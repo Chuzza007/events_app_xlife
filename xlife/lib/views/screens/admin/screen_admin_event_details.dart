@@ -8,42 +8,65 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
+import 'package:xlife/interfaces/listener_event_favorites.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/models/event.dart';
+import 'package:xlife/models/user.dart';
 import 'package:xlife/views/layouts/item_admin_event_favorite.dart';
+import 'package:xlife/views/screens/organizer/screen_organizer_update_event.dart';
 import 'package:xlife/widgets/custom_chips.dart';
+import 'package:xlife/widgets/not_found.dart';
 
 class ScreenAdminEventDetails extends StatefulWidget {
-  ScreenAdminEventDetails({Key? key}) : super(key: key);
+  Event event;
+  bool editEnabled;
 
   @override
-  _ScreenAdminEventDetailsState createState() =>
-      _ScreenAdminEventDetailsState();
+  _ScreenAdminEventDetailsState createState() => _ScreenAdminEventDetailsState();
+
+  ScreenAdminEventDetails({
+    required this.event,
+    required this.editEnabled,
+  });
 }
 
-class _ScreenAdminEventDetailsState
-    extends State<ScreenAdminEventDetails> {
+class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> implements ListenerProfileInfo, ListenerEventFavorites {
   final Completer<GoogleMapController> _controller = Completer();
 
-  LatLng initPosition =
-  LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = LatLng(0.0,
-      0.0); //initial currentPosition values cannot assign null values
+  LatLng initPosition = LatLng(0, 0); //initial Position cannot assign null values
+  LatLng currentLatLng = LatLng(0.0, 0.0); //initial currentPosition values cannot assign null values
   //initial permission status
   static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
 
-  List<String> images = [
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
-  ];
+  List<String> images = [];
+  User organizer = User(
+      full_name: "Unknown",
+      nick_name: "nick_name",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
+  int favorites = 0;
+  List<String> favoriteUsers = [];
 
   @override
   void initState() {
     _checkLocationPermissions();
+    images = [
+      widget.event.image1,
+      widget.event.image2,
+      widget.event.image3,
+    ];
+    getProfileInfo(widget.event.organizer_id, this, "organizer");
+    getEventFavorites(widget.event.id, this);
 
     super.initState();
   }
@@ -55,7 +78,18 @@ class _ScreenAdminEventDetailsState
     return Scaffold(
       body: SafeArea(
         child: DraggableHome(
-          title: Text("Event Title"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.event.title),
+              TextButton(
+                onPressed: () {
+                  Get.to(ScreenOrganizerUpdateEvent(event: widget.event));
+                },
+                child: Text("Edit"),
+              )
+            ],
+          ),
           headerWidget: Stack(
             children: [
               PageView(
@@ -76,9 +110,15 @@ class _ScreenAdminEventDetailsState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Event Title",
-                        style: (GetPlatform.isWeb ? heading3_style_web : heading3_style).copyWith(
-                            color: Colors.white),
+                        widget.event.title,
+                        style: (GetPlatform.isWeb ? heading3_style_web : heading3_style).copyWith(color: Colors.white),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -95,8 +135,7 @@ class _ScreenAdminEventDetailsState
                     ),
                     child: Text(
                       "${imageIndex + 1} / ${images.length}",
-                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(
-                          color: Colors.white),
+                      style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(color: Colors.white),
                     ),
                   ))
             ],
@@ -106,17 +145,17 @@ class _ScreenAdminEventDetailsState
           centerTitle: true,
           backgroundColor: Colors.white,
           body: [
-            ListTile(
-              title: Text(
-                "Distance",
-                style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
-              ),
-              subtitle: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("22 Km"),
-              ),
-              leading: Icon(Icons.location_on),
-            ),
+            // ListTile(
+            //   title: Text(
+            //     "Distance",
+            //     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+            //   ),
+            //   // subtitle: Padding(
+            //   //   padding: EdgeInsets.all(8.0),
+            //   //   child: Text("22 Km"),
+            //   // ),
+            //   leading: Icon(Icons.location_on),
+            // ),
             ListTile(
               title: Text(
                 "Organized By",
@@ -124,7 +163,7 @@ class _ScreenAdminEventDetailsState
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("#####"),
+                child: Text(organizer.full_name),
               ),
               leading: Icon(Icons.info),
             ),
@@ -135,15 +174,13 @@ class _ScreenAdminEventDetailsState
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("#####"),
+                child: Text(widget.event.description),
               ),
               leading: Icon(Icons.event),
             ),
             ListTile(
               onTap: () {
-                ShapeBorder shape = RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(10.0)));
+                ShapeBorder shape = RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)));
 
                 showModalBottomSheet<dynamic>(
                     isScrollControlled: true,
@@ -155,8 +192,7 @@ class _ScreenAdminEventDetailsState
                       return DraggableScrollableSheet(
                         maxChildSize: 0.8,
                         expand: false,
-                        builder: (BuildContext context,
-                            ScrollController scrollController) {
+                        builder: (BuildContext context, ScrollController scrollController) {
                           return Container(
                             child: Column(
                               children: [
@@ -164,24 +200,30 @@ class _ScreenAdminEventDetailsState
                                   shape: shape,
                                   centerTitle: true,
                                   actions: [
-                                    IconButton(onPressed: () {
-                                      Get.back();
-                                    }, icon: Icon(Icons.close))
+                                    IconButton(
+                                        onPressed: () {
+                                          Get.back();
+                                        },
+                                        icon: Icon(Icons.close))
                                   ],
                                   title: Container(
                                       child: Text(
-                                        "20 Users",
-                                        style: heading3_style,
-                                      )),
+                                    "$favorites Users",
+                                    style: heading3_style,
+                                  )),
                                   elevation: 2,
-                                  automaticallyImplyLeading:
-                                  false, // remove back button in appbar.
+                                  automaticallyImplyLeading: false, // remove back button in appbar.
                                 ),
-                                Expanded(child: ListView.builder(
-                                    itemCount: 20,
-                                    itemBuilder: (_, index) {
-                                      return ItemAdminEventFavorite();
-                                    }))
+                                Expanded(
+                                  child: favoriteUsers.isNotEmpty
+                                      ? ListView.builder(
+                                          itemCount: favoriteUsers.length,
+                                          itemBuilder: (_, index) {
+                                            return ItemAdminEventFavorite(userId: favoriteUsers[index]);
+                                          },
+                                        )
+                                      : NotFound(message: "No users"),
+                                )
                               ],
                             ),
                           );
@@ -189,8 +231,7 @@ class _ScreenAdminEventDetailsState
                       );
                     });
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               tileColor: appSecondaryColorDark,
               title: Text(
                 "Favorite by",
@@ -198,17 +239,12 @@ class _ScreenAdminEventDetailsState
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("30 Users"),
+                child: Text("$favorites Users"),
               ),
               leading: Icon(Icons.favorite),
             ),
             CustomChips(
-              chipNames: [
-                "Birthday Party",
-                "Drinks",
-                "Dance",
-                "Shows",
-              ],
+              chipNames: widget.event.tags,
               unselectedColor: appPrimaryColor,
               textColor: Colors.white,
               selectable: false,
@@ -234,20 +270,13 @@ class _ScreenAdminEventDetailsState
                     myLocationEnabled: true,
                     zoomControlsEnabled: false,
                     initialCameraPosition: _kGooglePlex,
-                    onMapCreated:
-                        (GoogleMapController mapController) async {
+                    onMapCreated: (GoogleMapController mapController) async {
                       _controller.complete(mapController);
-                      final position =
-                      await Geolocator.getCurrentPosition(
-                          forceAndroidLocationManager: true,
-                          desiredAccuracy: LocationAccuracy.high);
+                      final position = await Geolocator.getCurrentPosition(forceAndroidLocationManager: true, desiredAccuracy: LocationAccuracy.high);
 
                       print(position);
                       mapController.animateCamera(
-                        CameraUpdate.newLatLngZoom(
-                            LatLng(position.latitude,
-                                position.longitude),
-                            19),
+                        CameraUpdate.newLatLngZoom(LatLng(position.latitude, position.longitude), 19),
                       );
                     },
                   ),
@@ -261,9 +290,7 @@ class _ScreenAdminEventDetailsState
   }
 
   void _getCurrentLocation() async {
-    final pos = await Geolocator.getCurrentPosition(
-        forceAndroidLocationManager: true,
-        desiredAccuracy: LocationAccuracy.high);
+    final pos = await Geolocator.getCurrentPosition(forceAndroidLocationManager: true, desiredAccuracy: LocationAccuracy.high);
   }
 
   Future<void> _checkLocationPermissions() async {
@@ -281,10 +308,8 @@ class _ScreenAdminEventDetailsState
       return;
     }
 
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      bool serviceEnabled =
-      await Geolocator.isLocationServiceEnabled();
+    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
       if (!serviceEnabled) {
         await Geolocator.openLocationSettings();
@@ -296,17 +321,40 @@ class _ScreenAdminEventDetailsState
 
   List<Widget> _buildPagesByLinks() {
     return images
-        .map((e) =>
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                e,
+        .map((e) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    e,
+                  ),
+                ),
               ),
-            ),
-          ),
-        ))
+            ))
         .toList();
+  }
+
+  @override
+  void onProfileInfo(User user) {
+    if (mounted) {
+      setState(() {
+        this.organizer = user;
+      });
+    }
+  }
+
+  @override
+  void onEventFavorites(List<String> users) {
+    if (mounted) {
+      setState(() {
+        favorites = users.length;
+        this.favoriteUsers = users;
+      });
+    }
+  }
+
+  @override
+  void onMyFavorite(bool favorite) {
+    // TODO: implement onMyFavorite
   }
 }

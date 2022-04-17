@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/models/event.dart';
 
 import '../../../controllers/controller_organizer_new_event.dart';
 import '../../../helpers/constants.dart';
@@ -16,11 +18,17 @@ import '../../../widgets/custom_input_field.dart';
 import '../../../widgets/pick_location_screen.dart';
 
 class ScreenOrganizerUpdateEvent extends StatefulWidget {
-  ScreenOrganizerUpdateEvent({Key? key}) : super(key: key);
+
+  Event event;
+
 
   @override
   _ScreenOrganizerUpdateEventState createState() =>
       _ScreenOrganizerUpdateEventState();
+
+  ScreenOrganizerUpdateEvent({
+    required this.event,
+  });
 }
 
 class _ScreenOrganizerUpdateEventState
@@ -29,18 +37,36 @@ class _ScreenOrganizerUpdateEventState
 
   LatLng initPosition =
   LatLng(0, 0); //initial Position cannot assign null values
-  LatLng currentLatLng = LatLng(0.0,
-      0.0); //initial currentPosition values cannot assign null values
+  // LatLng currentLatLng = LatLng(0.0,
+  //     0.0); //initial currentPosition values cannot assign null values
   //initial permission status
   static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0, 0),
     zoom: 14.4746,
   );
 
+  late DateTime startDate, endDate;
+
+
+  @override
+  void initState() {
+    startDate = DateTime.fromMillisecondsSinceEpoch(widget.event.startTime);
+    endDate = DateTime.fromMillisecondsSinceEpoch(widget.event.endTime);
+    initPosition = LatLng(widget.event.latitude, widget.event.longitude);
+
+    setState(() {
+      _kGooglePlex = CameraPosition(target: initPosition, zoom: 18);
+    });
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     ControllerOrganizerNewEvent controller =
     Get.put(ControllerOrganizerNewEvent());
+
+
+    controller.images = [widget.event.image1, widget.event.image2, widget.event.image3];
 
     return Scaffold(
       appBar: AppBar(
@@ -57,6 +83,7 @@ class _ScreenOrganizerUpdateEventState
                 _buildHeading("Event title", false),
                 CustomInputField(
                     hint: "Event title",
+                    text: widget.event.title,
                     isPasswordField: false,
                     keyboardType: TextInputType.text),
                 _buildHeading("Description", false),
@@ -64,10 +91,11 @@ class _ScreenOrganizerUpdateEventState
                     hint: "Description",
                     isPasswordField: false,
                     maxLines: 10,
+                    text: widget.event.description,
                     limit: 500,
                     showCounter: true,
                     keyboardType: TextInputType.text),
-                _buildHeading("Insert images", false),
+                _buildHeading("Event images", false),
                 Row(
                   children: [
                     Expanded(
@@ -75,27 +103,19 @@ class _ScreenOrganizerUpdateEventState
                         child: Container(
                           margin: EdgeInsets.all(5),
                           height: Get.height * 0.1,
-                          child: controller.images[0].path != ""
-                              ? Container()
-                              : Icon(Icons.add),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
-                              image: controller.images[0].path != ""
-                                  ? DecorationImage(
-                                image: FileImage(File(
-                                    controller.images[0].path)),
-                                fit: BoxFit.cover,
-                              )
-                                  : null,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      controller.images[0])),
                               boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 2,
-                                    offset: Offset(0, 1))
+                                BoxShadow(blurRadius: 2, offset: Offset(0, 1))
                               ]),
                         ),
                         onTap: () {
-                          controller.pickImage(index: 0);
+                          controller.pickNewImage(index: 0, eventId: widget.event.id);
                         },
                       ),
                     ),
@@ -104,27 +124,19 @@ class _ScreenOrganizerUpdateEventState
                         child: Container(
                           margin: EdgeInsets.all(5),
                           height: Get.height * 0.1,
-                          child: controller.images[1].path != ""
-                              ? Container()
-                              : Icon(Icons.add),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
-                              image: controller.images[1].path != ""
-                                  ? DecorationImage(
-                                image: FileImage(File(
-                                    controller.images[1].path)),
-                                fit: BoxFit.cover,
-                              )
-                                  : null,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      controller.images[1])),
                               boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 2,
-                                    offset: Offset(0, 1))
+                                BoxShadow(blurRadius: 2, offset: Offset(0, 1))
                               ]),
                         ),
                         onTap: () {
-                          controller.pickImage(index: 1);
+                          controller.pickNewImage(index: 1, eventId: widget.event.id);
                         },
                       ),
                     ),
@@ -133,27 +145,19 @@ class _ScreenOrganizerUpdateEventState
                         child: Container(
                           margin: EdgeInsets.all(5),
                           height: Get.height * 0.1,
-                          child: controller.images[2].path != ""
-                              ? Container()
-                              : Icon(Icons.add),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
-                              image: controller.images[2].path != ""
-                                  ? DecorationImage(
-                                image: FileImage(File(
-                                    controller.images[2].path)),
-                                fit: BoxFit.cover,
-                              )
-                                  : null,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      controller.images[2])),
                               boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 2,
-                                    offset: Offset(0, 1))
+                                BoxShadow(blurRadius: 2, offset: Offset(0, 1))
                               ]),
                         ),
                         onTap: () {
-                          controller.pickImage(index: 2);
+                          controller.pickNewImage(index: 2, eventId: widget.event.id);
                         },
                       ),
                     ),
@@ -298,6 +302,7 @@ class _ScreenOrganizerUpdateEventState
                 _buildHeading("Add tags", false),
                 CustomInputField(
                     hint: "Tag 1, Tag 2, Tag 3, ....",
+                    text: widget.event.tags.toString().replaceAll("]", "").replaceAll("[", ""),
                     isPasswordField: false,
                     onChange: (value) {
                       controller.buildTags(value.toString().trim());
@@ -310,6 +315,7 @@ class _ScreenOrganizerUpdateEventState
                 CustomInputField(
                     hint: "Min. 500",
                     isPasswordField: false,
+                    text: widget.event.entryFee.toString(),
                     keyboardType: TextInputType.number),
                 CustomButton(text: "Update", onPressed: () {}),
               ],
@@ -342,5 +348,6 @@ class _ScreenOrganizerUpdateEventState
       ),
     );
   }
+
 
 }

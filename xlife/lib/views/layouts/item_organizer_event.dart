@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/models/event.dart';
+import 'package:xlife/views/screens/admin/screen_admin_event_details.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_update_event.dart';
 
 import '../../helpers/styles.dart';
@@ -34,7 +35,7 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> implements List
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(ScreenOrganizerUpdateEvent());
+        Get.to(ScreenAdminEventDetails(event: widget.event, editEnabled: true));
       },
       child: Container(
         decoration: BoxDecoration(

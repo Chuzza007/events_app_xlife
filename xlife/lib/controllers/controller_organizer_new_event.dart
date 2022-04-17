@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xlife/helpers/constants.dart';
@@ -11,8 +12,10 @@ import 'package:xlife/models/selected_location.dart';
 
 class ControllerOrganizerNewEvent extends GetxController {
 
-  List<XFile> images = [XFile(""), XFile(""), XFile("")].obs;
+  List<XFile> pickedImages = [XFile(""), XFile(""), XFile("")].obs;
   final ImagePicker _picker = ImagePicker();
+  List<String> images = ["", "", ""].obs;
+
 
   late Rx<int> startTimestamp;
   late Rx<int> endTimestamp;
@@ -31,8 +34,8 @@ class ControllerOrganizerNewEvent extends GetxController {
     XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       print(pickedImage.path);
-      images[index] = pickedImage;
-      print(images[index].path);
+      pickedImages[index] = pickedImage;
+      print(pickedImages[index].path);
     }
     update();
   }
@@ -77,7 +80,7 @@ class ControllerOrganizerNewEvent extends GetxController {
     String entryFee = fee_controller.value.text;
     double lat = pickedLocation.value.latitude;
     double lng = pickedLocation.value.longitude;
-    if (title.isEmpty || description.isEmpty || images[0].path.isEmpty || images[1].path.isEmpty || images[2].path.isEmpty || tagsList.value.isEmpty) {
+    if (title.isEmpty || description.isEmpty || pickedImages[0].path.isEmpty || pickedImages[1].path.isEmpty || pickedImages[2].path.isEmpty || tagsList.value.isEmpty) {
       Get.snackbar("Error", "All fields and images are required");
       return "";
     }
@@ -115,7 +118,7 @@ class ControllerOrganizerNewEvent extends GetxController {
         .ref()
         .child("events/${event_id}_$index.png");
     final UploadTask uploadTask =
-    storageReference.putFile(File(images[index].path));
+    storageReference.putFile(File(pickedImages[index].path));
 
     uploadTask.snapshotEvents.listen((event) {}).onError((error) {
       // do something to handle error
@@ -126,5 +129,67 @@ class ControllerOrganizerNewEvent extends GetxController {
     final String url = await downloadUrl.ref.getDownloadURL();
     return url;
   }
+
+  Future<void> pickNewImage({required int index, required String eventId}) async {
+    var pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      print(pickedImage.path);
+
+      Get.defaultDialog(
+          title: "Are you sure to upload this image",
+          content: Container(
+            margin: EdgeInsets.all(10),
+            height: Get.height * 0.2,
+            decoration: BoxDecoration(
+                boxShadow: [BoxShadow(blurRadius: 10)],
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: FileImage(File(pickedImage.path)),
+                )),
+          ),
+          textConfirm: "Yes",
+          confirmTextColor: Colors.white,
+          textCancel: "Cancel",
+          radius: 0,
+          onConfirm: () async {
+            Get.back();
+            String image_url =
+            await _uploadNewImage(eventId, index, pickedImage.path);
+            images[index] = image_url;
+            await eventsRef
+                .doc(eventId)
+                .update({"image${index+1}": images[index]}).catchError((error) {
+              Get.snackbar("Error", error.toString());
+            });
+            Get.snackbar("Success".tr, "Image ${index + 1} updated");
+            showLoading.value = false;
+          },
+          onCancel: () {
+            Get.back();
+          });
+    }
+    update();
+  }
+
+  Future<String> _uploadNewImage(String eventsId, int index, String path) async {
+    Get.snackbar("Uploading Image", "Uploading organizer image to database");
+    Reference storageReference = FirebaseStorage.instance
+        .ref()
+        .child("events/${eventsId}_$index.png");
+    final UploadTask uploadTask = storageReference.putFile(File(path));
+
+    uploadTask.snapshotEvents.listen((event) {
+      showLoading.value = true;
+    }).onError((error) {
+      // do something to handle error
+      showLoading.value = false;
+    });
+    final TaskSnapshot downloadUrl = (await uploadTask);
+    final String url = await downloadUrl.ref.getDownloadURL();
+    return url;
+  }
+
 
 }

@@ -374,7 +374,8 @@ Future<void> removeUserSuggestions() async {
 }
 
 void getEventFavorites(String eventId, ListenerEventFavorites listener) {
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  var user = FirebaseAuth.instance.currentUser;
+  String uid = user == null ? "" : user.uid;
   eventsRef.doc(eventId).collection("favorites").snapshots().listen((response) {
     List<String> favoriteUsers = [];
     favoriteUsers = response.docs.map((e) => (e.data()['uid']).toString()).toList();

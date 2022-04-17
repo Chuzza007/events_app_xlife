@@ -69,13 +69,13 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.images[0].path != "" ? Container() : Icon(Icons.add),
+                            child: controller.pickedImages[0].path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
-                                image: controller.images[0].path != ""
+                                image: controller.pickedImages[0].path != ""
                                     ? DecorationImage(
-                                        image: FileImage(File(controller.images[0].path)),
+                                        image: FileImage(File(controller.pickedImages[0].path)),
                                         fit: BoxFit.cover,
                                       )
                                     : null,
@@ -91,13 +91,13 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.images[1].path != "" ? Container() : Icon(Icons.add),
+                            child: controller.pickedImages[1].path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
-                                image: controller.images[1].path != ""
+                                image: controller.pickedImages[1].path != ""
                                     ? DecorationImage(
-                                        image: FileImage(File(controller.images[1].path)),
+                                        image: FileImage(File(controller.pickedImages[1].path)),
                                         fit: BoxFit.cover,
                                       )
                                     : null,
@@ -113,13 +113,13 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.all(5),
                             height: Get.height * 0.1,
-                            child: controller.images[2].path != "" ? Container() : Icon(Icons.add),
+                            child: controller.pickedImages[2].path != "" ? Container() : Icon(Icons.add),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
-                                image: controller.images[2].path != ""
+                                image: controller.pickedImages[2].path != ""
                                     ? DecorationImage(
-                                        image: FileImage(File(controller.images[2].path)),
+                                        image: FileImage(File(controller.pickedImages[2].path)),
                                         fit: BoxFit.cover,
                                       )
                                     : null,

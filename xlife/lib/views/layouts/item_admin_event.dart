@@ -1,12 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/interfaces/listener_event_favorites.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/models/event.dart';
+import 'package:xlife/models/user.dart';
 import 'package:xlife/views/screens/admin/screen_admin_event_details.dart';
 
 import '../../helpers/styles.dart';
 
-class ItemAdminEvent extends StatelessWidget {
-  ItemAdminEvent({Key? key}) : super(key: key);
+class ItemAdminEvent extends StatefulWidget {
+  Event event;
+
+  @override
+  State<ItemAdminEvent> createState() => _ItemAdminEventState();
+
+  ItemAdminEvent({
+    required this.event,
+  });
+}
+
+class _ItemAdminEventState extends State<ItemAdminEvent> implements ListenerEventFavorites, ListenerProfileInfo {
+  int favorites = 0;
+  User organizer = User(
+      full_name: "Unknown",
+      nick_name: "nick_name",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
+
+  @override
+  void initState() {
+    // getEventFavorites(widget.event.id, this);
+    getProfileInfo(widget.event.organizer_id, this, "organizer");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +50,7 @@ class ItemAdminEvent extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(blurRadius: 5.sp, color: Color(0x414D5678))
-          ],
+          boxShadow: [BoxShadow(blurRadius: 5.sp, color: Color(0x414D5678))],
         ),
         margin: EdgeInsets.symmetric(vertical: 5),
         child: IntrinsicHeight(
@@ -33,7 +66,7 @@ class ItemAdminEvent extends StatelessWidget {
                     bottomLeft: Radius.circular(20),
                   ),
                   child: Image.network(
-                    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg",
+                    widget.event.image1,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -46,7 +79,7 @@ class ItemAdminEvent extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text(
-                        "Event title",
+                        widget.event.title,
                         style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                       ),
                       dense: true,
@@ -55,10 +88,14 @@ class ItemAdminEvent extends StatelessWidget {
                         onPressed: () {
                           Get.defaultDialog(
                               title: "Delete Event",
-                              onConfirm: () {},
+                              onConfirm: () async {
+                                Get.back();
+                                await eventsRef.doc(widget.event.id).delete().then((value) {
+                                  Get.snackbar("Alert", "Event deleted", snackPosition: SnackPosition.BOTTOM);
+                                });
+                              },
                               onCancel: () {},
-                              middleText:
-                                  "Are you sure to delete this event?",
+                              middleText: "Are you sure to delete this event?",
                               textConfirm: "Delete",
                               textCancel: "Cancel");
                         },
@@ -67,7 +104,7 @@ class ItemAdminEvent extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text(
-                        "22 favorites",
+                        "$favorites favorites",
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,
@@ -75,7 +112,7 @@ class ItemAdminEvent extends StatelessWidget {
                         AssetImage("assets/images/heart_true.png"),
                         color: Colors.red,
                       ),
-                      subtitle: Text("Organized by ####"),
+                      subtitle: Text("Organized by ${organizer.full_name}"),
                     ),
                   ],
                 ),
@@ -85,8 +122,31 @@ class ItemAdminEvent extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Get.to(ScreenAdminEventDetails());
+        Get.to(ScreenAdminEventDetails(event: widget.event, editEnabled: false,));
       },
     );
+  }
+
+  @override
+  void onEventFavorites(List<String> users) {
+    if (mounted){
+      setState(() {
+        favorites = users.length;
+      });
+    }
+  }
+
+  @override
+  void onMyFavorite(bool favorite) {
+    // TODO: implement onMyFavorite
+  }
+
+  @override
+  void onProfileInfo(User user) {
+    if (mounted){
+      setState(() {
+        this.organizer = user;
+      });
+    }
   }
 }
