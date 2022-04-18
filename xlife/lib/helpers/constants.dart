@@ -271,7 +271,8 @@ Future<void> getProfileInfo(String id, ListenerProfileInfo listener, String prof
 }
 
 void getPostDetails(Post post, ListenerPostDetails listener) async {
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  var user = FirebaseAuth.instance.currentUser;
+  String uid = user != null ? user.uid : "";
 
   postsRef.doc(post.id).collection("comments").snapshots().listen((event) {
     List<Comment> comments = [];

@@ -68,6 +68,9 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
     getProfileInfo(widget.event.organizer_id, this, "organizer");
     getEventFavorites(widget.event.id, this);
 
+    setState(() {
+      _kGooglePlex = CameraPosition(target: LatLng(widget.event.latitude, widget.event.longitude), zoom: 18);
+    });
     super.initState();
   }
 

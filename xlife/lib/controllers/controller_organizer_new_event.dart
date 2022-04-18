@@ -191,5 +191,23 @@ class ControllerOrganizerNewEvent extends GetxController {
     return url;
   }
 
+  Future<String> updateEvent({required String id, required Event event}) async {
+    String title = title_controller.value.text;
+    String description = description_controller.value.text;
+    Event updatedEvent = event;
+    updatedEvent.title = title;
+    updatedEvent.description = description;
+    updatedEvent.latitude = pickedLocation.value.latitude;
+    updatedEvent.longitude = pickedLocation.value.longitude;
+
+    String response = "";
+    await eventsRef.doc(updatedEvent.id).update(updatedEvent.toMap()).then((value) {
+      response = "success";
+    })
+    .catchError((error){Get.snackbar("Error", error.toString());});
+
+    return response;
+  }
+
 
 }

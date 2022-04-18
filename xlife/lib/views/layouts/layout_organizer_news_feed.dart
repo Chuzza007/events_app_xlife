@@ -28,7 +28,7 @@ class _LayoutOrganizerNewsFeedState
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.to(ScreenOrganizerNewPost());
+          Get.to(ScreenOrganizerNewPost(userType: "organizer",));
         },
         label: Text("Post"),
         icon: Icon(Icons.add),

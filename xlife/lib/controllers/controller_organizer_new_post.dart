@@ -47,7 +47,7 @@ class ControllerOrganizerNewPost extends GetxController {
     return url;
   }
 
-  Future<String> addPost() async {
+  Future<String> addPost({required String userType}) async {
     String title = title_controller.value.text;
     if (title.isEmpty || postImage.value.path.isEmpty) {
       Get.snackbar("Error", "Title and image both required");
@@ -66,7 +66,7 @@ class ControllerOrganizerNewPost extends GetxController {
     await postsRef.doc(id).set(Post(title: title,
         timestamp: int.parse(id),
         image: url,
-        userType: "organizer",
+        userType: userType,
         id: id,
         user_id: uid).toMap()).then((value) {
           response = "success";

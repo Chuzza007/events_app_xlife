@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
+import 'package:xlife/models/comment.dart';
 import 'package:xlife/models/post.dart';
+import 'package:xlife/models/reaction.dart';
+import 'package:xlife/models/user.dart';
+import 'package:xlife/views/screens/user/screen_user_post_comments.dart';
 
+import '../../helpers/constants.dart';
 import '../../helpers/styles.dart';
+import '../../interfaces/listener_post_details.dart';
 import '../screens/organizer/screen_organizer_post_comments.dart';
 import '../screens/organizer/screen_organizer_post_reactions.dart';
 
@@ -20,7 +27,29 @@ class ItemAdminNewsFeed extends StatefulWidget {
   });
 }
 
-class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
+class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> implements ListenerPostDetails {
+
+  User user = User(full_name: "Loading",
+      nick_name: "",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "type",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
+  int reactions = 0;
+  int comments = 0;
+
+  @override
+  void initState() {
+    getPostDetails(widget.post, this);
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,22 +74,30 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://hireme.ga/images/mubashar.png"))),
+                            user.image_url ?? userPlaceholder))),
               ),
               title: Text(
-                "Mubashar Hussain",
+                user.full_name,
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: Text("1 h"),
+              subtitle: Text(convertTimeToText(widget.post.timestamp, "ago")),
               trailing: IconButton(
-                onPressed: (){
+                onPressed: () {
                   Get.defaultDialog(
-                    title: "Delete Post",
-                    middleText: "Are you sure to delete this post?",
-                    onConfirm: (){},
-                    onCancel: (){},
-                    textConfirm: "Yes",
-                    textCancel: "No"
+                      title: "Delete Post",
+                      middleText: "Are you sure to delete this post?",
+                      onConfirm: () async {
+                        Get.back();
+                        postsRef.doc(widget.post.id).delete().then((value) {
+
+                        }).catchError((error){
+                          Get.snackbar("Error", error.toString());
+                        });
+                      },
+                      onCancel: () {
+                      },
+                      textConfirm: "Yes",
+                      textCancel: "No"
                   );
                 },
                 icon: Icon(Icons.delete),
@@ -70,7 +107,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              "post text will be here",
+              widget.post.title,
               style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -82,7 +119,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/04/pjimage-1-1556188114.jpg"),
+                    widget.post.image),
               ),
             ),
           ),
@@ -93,21 +130,21 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
               children: [
                 GestureDetector(
                   child: Text(
-                    "273 Reactions",
+                    "$reactions Reactions",
                     style:
                     (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
-                  onTap: (){
+                  onTap: () {
                     Get.to(ScreenOrganizerPostReactions(post: widget.post,));
                   },
                 ),
                 GestureDetector(
                   child: Text(
-                    "97 Comments",
+                    "$comments Comments",
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
-                  onTap: (){
-                    Get.to(ScreenOrganizerPostComments());
+                  onTap: () {
+                    Get.to(ScreenUserPostComments(post: widget.post));
                   },
                 )
               ],
@@ -116,5 +153,37 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> {
         ],
       ),
     );
+  }
+
+  @override
+  void onComments(List<Comment> comments) {
+    if (mounted){
+      setState(() {
+        this.comments = comments.length;
+      });
+    }
+  }
+
+  @override
+  void onMyReaction(String? reaction) {
+    // TODO: implement onMyReaction
+  }
+
+  @override
+  void onReactions(List<Reaction> reactions) {
+    if (mounted){
+      setState(() {
+        this.reactions = reactions.length;
+      });
+    }
+  }
+
+  @override
+  void onUserListener(User user) {
+    if (mounted){
+      setState(() {
+        this.user = user;
+      });
+    }
   }
 }

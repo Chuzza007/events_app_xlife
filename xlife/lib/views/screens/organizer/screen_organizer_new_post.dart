@@ -10,7 +10,8 @@ import '../../../helpers/styles.dart';
 import '../../../widgets/custom_input_field.dart';
 
 class ScreenOrganizerNewPost extends StatelessWidget {
-  ScreenOrganizerNewPost({Key? key}) : super(key: key);
+  String userType;
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                 );
               }),
               CustomButton(text: "Post", onPressed: () async {
-                String response = await controller.addPost();
+                String response = await controller.addPost(userType: userType);
                 if (response == "success"){
                   Get.back();
                 }
@@ -103,4 +104,8 @@ class ScreenOrganizerNewPost extends StatelessWidget {
       ),
     );
   }
+
+  ScreenOrganizerNewPost({
+    required this.userType,
+  });
 }

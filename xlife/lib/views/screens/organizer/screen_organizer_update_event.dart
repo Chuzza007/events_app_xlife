@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_picker_advance/google_places_picker_advance.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/models/event.dart';
 
 import '../../../controllers/controller_organizer_new_event.dart';
 import '../../../helpers/constants.dart';
 import '../../../helpers/styles.dart';
+import '../../../models/selected_location.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_chips.dart';
 import '../../../widgets/custom_input_field.dart';
@@ -34,6 +36,8 @@ class ScreenOrganizerUpdateEvent extends StatefulWidget {
 class _ScreenOrganizerUpdateEventState
     extends State<ScreenOrganizerUpdateEvent> {
   final Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController? mapController;
+
 
   LatLng initPosition =
   LatLng(0, 0); //initial Position cannot assign null values
@@ -85,6 +89,7 @@ class _ScreenOrganizerUpdateEventState
                     hint: "Event title",
                     text: widget.event.title,
                     isPasswordField: false,
+                    controller: controller.title_controller.value,
                     keyboardType: TextInputType.text),
                 _buildHeading("Description", false),
                 CustomInputField(
@@ -93,6 +98,7 @@ class _ScreenOrganizerUpdateEventState
                     maxLines: 10,
                     text: widget.event.description,
                     limit: 500,
+                    controller: controller.description_controller.value,
                     showCounter: true,
                     keyboardType: TextInputType.text),
                 _buildHeading("Event images", false),
@@ -196,6 +202,7 @@ class _ScreenOrganizerUpdateEventState
                                   desiredAccuracy:
                                   LocationAccuracy.high);
 
+                              this.mapController = mapController;
                               print(position);
                               mapController.animateCamera(
                                 CameraUpdate.newLatLngZoom(
@@ -222,7 +229,33 @@ class _ScreenOrganizerUpdateEventState
                           child: Icon(Icons.edit),
                         ),
                         onTap: () async {
-                          var pickedData = await Get.to(LayoutPickLocation());
+                          PickResult pickedLocation = await Get.to(PlacePicker(
+                            apiKey: googleAPIKey,
+                            useCurrentLocation: true,
+                            forceAndroidLocationManager: true,
+                            enableMyLocationButton: true,
+                            initialPosition: initPosition,
+                            autocompleteLanguage: "fr",
+                            automaticallyImplyAppBarLeading: true,
+                            onPlacePicked: (result) {
+                              print(result.toMap());
+                            },
+                            popOnPickResult: true,
+                          ));
+                          double lat = pickedLocation.geometry!.location.lat;
+                          double lng = pickedLocation.geometry!.location.lng;
+                          String name = "${pickedLocation.name ?? "" + ","} ${pickedLocation.formattedAddress.toString()}";
+                          controller.pickedLocation.value = SelectedLocation(
+                            name: name,
+                            latitude: lat,
+                            longitude: lng,
+                          );
+                          initPosition = LatLng(lat, lng);
+                          if (mapController != null) {
+                            mapController!.animateCamera(
+                              CameraUpdate.newLatLngZoom(initPosition, 19),
+                            );
+                          }
                         },
                       ),
                     ),
@@ -317,7 +350,13 @@ class _ScreenOrganizerUpdateEventState
                     isPasswordField: false,
                     text: widget.event.entryFee.toString(),
                     keyboardType: TextInputType.number),
-                CustomButton(text: "Update", onPressed: () {}),
+                CustomButton(text: "Update", onPressed: () async {
+                  String response = await controller.updateEvent(id: widget.event.id, event: widget.event);
+                  if (response == "success"){
+                    Get.back();
+                    Get.snackbar("Success", "Event updated");
+                  }
+                }),
               ],
             ),
           ),

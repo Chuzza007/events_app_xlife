@@ -28,7 +28,7 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Get.to(ScreenOrganizerNewPost());
+          Get.to(ScreenOrganizerNewPost(userType: "user",));
         },
       ),
       body: StreamBuilder(
