@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/xlife/xlife.iml" filepath="$PROJECT_DIR$/xlife/xlife.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xlife/android/xlife_android.iml" filepath="$PROJECT_DIR$/xlife/android/xlife_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xlife.iml" filepath="$PROJECT_DIR$/xlife.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/xlife_android.iml" filepath="$PROJECT_DIR$/android/xlife_android.iml" />
     </modules>
   </component>
 </project>
