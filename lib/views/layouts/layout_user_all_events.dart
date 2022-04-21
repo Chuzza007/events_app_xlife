@@ -65,6 +65,7 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> implements Li
 
   @override
   void onEventAdded(List<Event> events) {
+
     if (mounted) {
       showDefaultDialog();
       setState(() {

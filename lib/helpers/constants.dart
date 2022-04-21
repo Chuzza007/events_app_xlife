@@ -296,7 +296,7 @@ void getPostDetails(Post post, ListenerPostDetails listener) async {
 }
 
 void getAllEvents(ListenerEvents listenerEvents) {
-  eventsRef.snapshots().listen((event) {
+  eventsRef.orderBy("id", descending: true).snapshots().listen((event) {
     List<Event> events = [];
     if (event.docs.isNotEmpty) {
       events = event.docs.map((e) => Event.fromMap(e.data() as Map<String, dynamic>)).toList();
@@ -394,12 +394,12 @@ void getMyFavoriteEvents(ListenerEvents listener) {
     element.docs.forEach((subElement) async {
       var event = Event.fromMap(subElement.data() as Map<String, dynamic>);
       String id = event.id;
-      eventsRef.doc(id).collection("favorites").snapshots().listen((favorites) {
+      eventsRef.doc(id).collection("favorites").orderBy("id", descending: true).snapshots().listen((favorites) {
         favorites.docs.forEach((fav) {
           if (fav.data()['uid'] == uid) {
             events.add(event);
           }
-        });
+        }); 
         listener.onEventAdded(events);
       });
     });

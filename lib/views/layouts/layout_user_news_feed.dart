@@ -33,7 +33,7 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
         },
       ),
       body: StreamBuilder(
-        stream: postsRef.snapshots(),
+        stream: postsRef.orderBy("timestamp",descending: true).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CupertinoActivityIndicator());
