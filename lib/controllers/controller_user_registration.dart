@@ -16,7 +16,7 @@ class ControllerUserRegistration extends GetxController {
   final nickname_controller = TextEditingController().obs;
   final address_controller = TextEditingController().obs;
   final phone_controller = TextEditingController().obs;
-  final selected_gender = "male".obs;
+  final selected_gender = (LocaleKeys.Male.tr).obs;
   final isLoading = false.obs;
   final acceptedTerm1 = false.obs;
   final acceptedTerm2 = false.obs;
@@ -29,7 +29,7 @@ class ControllerUserRegistration extends GetxController {
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
-      return "Provide valid Email";
+      return LocaleKeys.ProvideValidEmail.tr;
     }
     return null;
   }
@@ -42,22 +42,22 @@ class ControllerUserRegistration extends GetxController {
   }
 
   String? validatePassword(String value) {
-    if (value.length < 6) {
-      return LocaleKeys.PasswordMustBeSixCharacters.tr;
+    if (value.length < 8) {
+      return LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "8");
     }
     return null;
   }
 
   String? validateName(String value) {
-    if (value.length < 10) {
-      return LocaleKeys.MustBeTenCharacter.tr;
+    if (value.length < 8) {
+      return LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "8");
     }
     return null;
   }
 
   String? validatePhone(String value) {
-    if (value.length < 12 || !value.startsWith("92")) {
-      return LocaleKeys.MustBeTwelveToN.tr;
+    if (value.length < 8) {
+      return LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "8");
     }
     return null;
   }

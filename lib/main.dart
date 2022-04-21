@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, device) {
       return GetMaterialApp(
-        locale: Locale('en', 'US'),
+        locale: Locale('fr', 'FR'),
         debugShowCheckedModeBanner: false,
         title: LocaleKeys.AppName.tr,
         theme: ThemeData(

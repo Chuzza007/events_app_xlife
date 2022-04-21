@@ -6,9 +6,11 @@ import 'package:sizer/sizer.dart';
 import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
+import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/views/screens/user/screen_user_event_details.dart';
 
 import '../../helpers/constants.dart';
+import '../../interfaces/listener_profile_info.dart';
 import '../../models/event.dart';
 
 class ItemUserEvent extends StatefulWidget {
@@ -21,24 +23,41 @@ class ItemUserEvent extends StatefulWidget {
   });
 }
 
-class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventFavorites {
+class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventFavorites, ListenerProfileInfo {
   double cardHeight = Get.height * 0.6;
 
   bool favorite = false;
   String distance = "unknown";
   String uid = FirebaseAuth.instance.currentUser!.uid;
+  model.User organizer = model.User(full_name: "Loading",
+      nick_name: "nick_name",
+      email: "email",
+      phone: "phone",
+      address: "address",
+      password: "password",
+      gender: "gender",
+      type: "",
+      id: "id",
+      last_seen: 0,
+      notificationToken: "notificationToken");
 
   @override
   void initState() {
     getEventFavorites(widget.event.id, this);
+    getProfileInfo(widget.event.organizer_id, this, "organizer");
     getDistance();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool contestExpired =
+        widget.event.endTime < DateTime
+            .now()
+            .millisecondsSinceEpoch;
+
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.to(ScreenUserEventDetails(event: widget.event));
       },
       child: Container(
@@ -101,8 +120,16 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
                         width: 5.sp,
                       ),
                       Text(
-                        convertTimeToText(widget.event.startTime, LocaleKeys.left.tr
-                        ),
+                        (!contestExpired)
+                            ? (widget.event.startTime >
+                            DateTime
+                                .now()
+                                .millisecondsSinceEpoch
+                            ? convertTimeToText2(
+                            LocaleKeys.StartingFrom.tr, widget.event.startTime, "")
+                            : convertTimeToText2(
+                            "", widget.event.endTime, LocaleKeys.left.tr))
+                            : LocaleKeys.Expired.tr,
                         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold).copyWith(color: Colors.white),
                       ),
                     ],
@@ -122,9 +149,12 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        widget.event.title,
-                        style: (GetPlatform.isWeb ? heading2_style_web : heading2_style).copyWith(color: Colors.white),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0),
+                        child: Text(
+                          widget.event.title,
+                          style: (GetPlatform.isWeb ? heading2_style_web : heading2_style).copyWith(color: Colors.white),
+                        ),
                       ),
                       ListTile(
                         title: Text(
@@ -144,7 +174,7 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
                             ),
                             Expanded(
                               child: Text(
-                                "${widget.event.organizer_id}",
+                                " ${organizer.full_name}",
                                 overflow: TextOverflow.ellipsis,
                                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold).copyWith(color: Colors.white),
                               ),
@@ -181,7 +211,9 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
     if (mounted) {
       setState(() {
         distance =
-            "${roundDouble((Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.event.latitude, widget.event.longitude) / 1000), 2)} km";
+        "${roundDouble(
+            (Geolocator.distanceBetween(currentPosition!.latitude, currentPosition!.longitude, widget.event.latitude, widget.event.longitude) / 1000),
+            2)} km";
       });
     }
   }
@@ -193,20 +225,30 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
 
   @override
   void onMyFavorite(bool favorite) {
-    if (mounted){
+    if (mounted) {
       setState(() {
         this.favorite = favorite;
       });
     }
   }
+
   void updateFavorite(bool status) {
-    if (status){
+    if (status) {
       eventsRef.doc(widget.event.id).collection("favorites")
-          .doc(uid).set({"uid":uid});
+          .doc(uid).set({"uid": uid});
       return;
     }
     eventsRef.doc(widget.event.id).collection("favorites")
         .doc(uid).delete();
+  }
+
+  @override
+  void onProfileInfo(model.User user) {
+    if (mounted) {
+      setState(() {
+        this.organizer = user;
+      });
+    }
   }
 
 }

@@ -27,16 +27,11 @@ class ScreenUserHomepage extends StatefulWidget {
 
 class _ScreenUserHomepageState extends State<ScreenUserHomepage> implements ListenerProfileInfo {
   int selectedIndex = 0;
-  List<Widget> pages = [
-    LayoutUserAllEvents(),
-    LayoutUserSearchEventsByOrganizers(),
-    LayoutUserFavoriteEvents(),
-    LayoutUserNewsFeed(),
-  ];
+  List<Widget> pages = [];
   String uid = FirebaseAuth.instance.currentUser!.uid;
   final location = loc.Location();
-  final int NEARBY_LIMIT = 500;
-  model.User user = model.User(full_name: "full_name",
+  final int NEARBY_LIMIT = 800;
+  model.User user = model.User(full_name: "Username",
       nick_name: "nick_name",
       email: "email",
       phone: "phone",
@@ -50,6 +45,12 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> implements List
 
   @override
   void initState() {
+    pages = [
+      LayoutUserAllEvents(),
+      LayoutUserSearchEventsByOrganizers(),
+      LayoutUserFavoriteEvents(),
+      LayoutUserNewsFeed(),
+    ];
     initializeFCM();
     _checkLocationPermissions();
     getProfileInfo(uid, this, "user");

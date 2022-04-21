@@ -52,44 +52,38 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/logo.png',
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.3,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (widget.type == HomePageType.user)
-                            Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: IconButton(
-                                  onPressed: () {
-                                    Get.to(ScreenUserConnections());
-                                  },
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(widget.type == HomePageType.user ? ScreenUserEditProfile() : ScreenOrganizerEditProfile());
+                          },
+                          child: Hero(
+                            tag: "edit_profile",
+                            flightShuttleBuilder: flightShuttleBuilder,
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.045,
+                              width: MediaQuery.of(context).size.height * 0.045,
+                              decoration: BoxDecoration(
                                   color: Colors.white,
-                                  icon: ImageIcon(AssetImage("assets/images/icon_inbox.png"))),
-                            ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(widget.type == HomePageType.user ? ScreenUserEditProfile() : ScreenOrganizerEditProfile());
-                            },
-                            child: Hero(
-                              tag: "edit_profile",
-                              flightShuttleBuilder: flightShuttleBuilder,
-                              child: Container(
-                                height: MediaQuery.of(context).size.height * 0.045,
-                                width: MediaQuery.of(context).size.height * 0.045,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(width: 2.sp, color: Colors.white),
-                                    image: DecorationImage(image: NetworkImage(widget.image_url.isNotEmpty ? widget.image_url : userPlaceholder))),
-                              ),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(width: 2.sp, color: Colors.white),
+                                  image: DecorationImage(image: NetworkImage(widget.image_url.isNotEmpty ? widget.image_url : userPlaceholder))),
                             ),
                           ),
-                        ],
-                      )
+                        ),
+                      ),
+                      if (widget.type == HomePageType.user)
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                              onPressed: () {
+                                Get.to(ScreenUserConnections());
+                              },
+                              iconSize: MediaQuery.of(context).size.height * 0.030,
+                              color: Colors.white,
+                              icon: ImageIcon(AssetImage("assets/images/icon_inbox.png"))),
+                        ),
                     ],
                   ),
                 ),

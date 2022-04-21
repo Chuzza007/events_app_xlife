@@ -47,10 +47,13 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
   var showDpLoading = false;
 
   var old_pass_controller = TextEditingController();
-
   var new_pass_controller = TextEditingController();
 
+  var old_name_controller = TextEditingController();
+  var new_name_controller = TextEditingController();
+
   bool passwordLoading = false;
+  bool nameLoading = false;
 
   @override
   void initState() {
@@ -183,7 +186,73 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                               ),
                                               trailing: IconButton(
                                                 icon: Icon(Icons.edit),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  showModalBottomSheetMenu(
+                                                    context: context,
+                                                    content: StatefulBuilder(
+                                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                                        return Container(
+                                                          margin: EdgeInsets.all(20),
+                                                          child: AnimatedCrossFade(
+                                                            firstChild: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                              children: [
+                                                                Text(
+                                                                  LocaleKeys.ChangeName.tr,
+                                                                  style: normal_h2Style_bold,
+                                                                ),
+                                                                CustomInputField(
+                                                                  label: LocaleKeys.CurrentName.tr,
+                                                                  isPasswordField: false,
+                                                                  controller: old_name_controller,
+                                                                  text: user.full_name,
+                                                                  keyboardType: TextInputType.none,
+                                                                ),
+                                                                CustomInputField(
+                                                                  label: LocaleKeys.NewName.tr,
+                                                                  isPasswordField: false,
+                                                                  controller: new_name_controller,
+                                                                  keyboardType: TextInputType.visiblePassword,
+                                                                ),
+                                                                CustomButton(
+                                                                    text: LocaleKeys.Change.tr,
+                                                                    onPressed: () async {
+                                                                      String oldName = old_name_controller.text;
+                                                                      String newName = new_name_controller.text;
+
+                                                                      if (oldName.isEmpty || newName.isEmpty) {
+                                                                        Get.back();
+                                                                        return;
+                                                                      }
+                                                                      setState(() {
+                                                                        nameLoading = true;
+                                                                      });
+                                                                      await Future.delayed(Duration(seconds: 1));
+                                                                      String response = await changeName(oldName, newName);
+                                                                      print(response);
+                                                                      if (response == "success") {
+                                                                        Get.back();
+                                                                        Get.snackbar(LocaleKeys.Success.tr, LocaleKeys.NameChangedSuccessfully.tr,
+                                                                            colorText: Colors.white, backgroundColor: Colors.green);
+                                                                      }
+                                                                      setState(() {
+                                                                        nameLoading = false;
+                                                                      });
+                                                                    }),
+                                                              ],
+                                                            ),
+                                                            secondChild: Text(
+                                                              LocaleKeys.ChangingName.tr,
+                                                              style: normal_h3Style_bold,
+                                                            ),
+                                                            duration: Duration(milliseconds: 500),
+                                                            crossFadeState: nameLoading ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             ),
                                             ListTile(
@@ -338,67 +407,67 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                           ],
                                         ),
                                       ),
-                                      Text(
-                                        LocaleKeys.Others.tr,
-                                        style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Colors.black12,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            ListTile(
-                                              onTap: () {},
-                                              title: Text(
-                                                LocaleKeys.Rate.tr,
-                                                style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
-                                              ),
-                                              subtitle: Text(
-                                                LocaleKeys.RateUsOnAppStore.tr,
-                                                style: normal_h3Style.copyWith(color: Colors.black45),
-                                              ),
-                                              trailing: Icon(
-                                                Icons.navigate_next_outlined,
-                                                color: appTextColor,
-                                              ),
-                                            ),
-                                            ListTile(
-                                              onTap: () {},
-                                              title: Text(
-                                                LocaleKeys.Share.tr,
-                                                style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
-                                              ),
-                                              subtitle: Text(
-                                                LocaleKeys.ShareThisAppWithFriends.tr,
-                                                style: normal_h3Style.copyWith(color: Colors.black45),
-                                              ),
-                                              trailing: Icon(
-                                                Icons.navigate_next_outlined,
-                                                color: appTextColor,
-                                              ),
-                                            ),
-                                            ListTile(
-                                              onTap: () {},
-                                              title: Text(
-                                                LocaleKeys.WinGifts.tr,
-                                                style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
-                                              ),
-                                              subtitle: Text(
-                                                LocaleKeys.WinAmazingGifts.tr,
-                                                style: normal_h3Style.copyWith(color: Colors.black45),
-                                              ),
-                                              trailing: Icon(
-                                                Icons.navigate_next_outlined,
-                                                color: appTextColor,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      // Text(
+                                      //   LocaleKeys.Others.tr,
+                                      //   style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
+                                      // ),
+                                      // Container(
+                                      //   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                      //   padding: EdgeInsets.all(10),
+                                      //   decoration: BoxDecoration(
+                                      //     borderRadius: BorderRadius.circular(10),
+                                      //     color: Colors.black12,
+                                      //   ),
+                                      //   child: Column(
+                                      //     children: [
+                                      //       ListTile(
+                                      //         onTap: () {},
+                                      //         title: Text(
+                                      //           LocaleKeys.Rate.tr,
+                                      //           style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                      //         ),
+                                      //         subtitle: Text(
+                                      //           LocaleKeys.RateUsOnAppStore.tr,
+                                      //           style: normal_h3Style.copyWith(color: Colors.black45),
+                                      //         ),
+                                      //         trailing: Icon(
+                                      //           Icons.navigate_next_outlined,
+                                      //           color: appTextColor,
+                                      //         ),
+                                      //       ),
+                                      //       ListTile(
+                                      //         onTap: () {},
+                                      //         title: Text(
+                                      //           LocaleKeys.Share.tr,
+                                      //           style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                      //         ),
+                                      //         subtitle: Text(
+                                      //           LocaleKeys.ShareThisAppWithFriends.tr,
+                                      //           style: normal_h3Style.copyWith(color: Colors.black45),
+                                      //         ),
+                                      //         trailing: Icon(
+                                      //           Icons.navigate_next_outlined,
+                                      //           color: appTextColor,
+                                      //         ),
+                                      //       ),
+                                      //       ListTile(
+                                      //         onTap: () {},
+                                      //         title: Text(
+                                      //           LocaleKeys.WinGifts.tr,
+                                      //           style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
+                                      //         ),
+                                      //         subtitle: Text(
+                                      //           LocaleKeys.WinAmazingGifts.tr,
+                                      //           style: normal_h3Style.copyWith(color: Colors.black45),
+                                      //         ),
+                                      //         trailing: Icon(
+                                      //           Icons.navigate_next_outlined,
+                                      //           color: appTextColor,
+                                      //         ),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
                                       Container(
                                         margin: EdgeInsets.symmetric(horizontal: 20),
                                         child: CustomButton(
@@ -556,6 +625,16 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
           , err.toString(), colorText: Colors.white, backgroundColor: Colors.red);
     });
     passwordLoading = false;
+    return response;
+  }
+
+  Future<String> changeName (String oldName, String newName) async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String response = "";
+    await usersRef.doc(uid).update({"full_name":newName}).then((value) {
+      response = "success";
+    });
+
     return response;
   }
 

@@ -111,7 +111,7 @@ class SignupScreen extends StatelessWidget {
                                   vertical: VisualDensity.minimumDensity,
                                 ),
                                 title: Text(LocaleKeys.Male.tr),
-                                value: "male",
+                                value: LocaleKeys.Male.tr,
                                 groupValue: controller.selected_gender.value,
                                 onChanged: (value) {
                                   controller.selected_gender.value = value.toString();
@@ -130,7 +130,7 @@ class SignupScreen extends StatelessWidget {
                                   vertical: VisualDensity.minimumDensity,
                                 ),
                                 title: Text(LocaleKeys.Female.tr),
-                                value: "female",
+                                value: LocaleKeys.Female.tr,
                                 groupValue: controller.selected_gender.value,
                                 onChanged: (value) {
                                   controller.selected_gender.value = value.toString();
@@ -196,9 +196,9 @@ class SignupScreen extends StatelessWidget {
                         },
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(LocaleKeys.AlreadyMember.tr),
                             TextButton(
@@ -232,10 +232,15 @@ class SignupScreen extends StatelessWidget {
                                   )
                                 );
                               },
-                              child: Text(
-                                LocaleKeys.ApplyAsOrganizer.tr,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.visible,
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: Get.width * 0.3
+                                ),
+                                child: Text(
+                                  LocaleKeys.ApplyAsOrganizer.tr,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.visible,
+                                ),
                               ),
                             ),
                           ],

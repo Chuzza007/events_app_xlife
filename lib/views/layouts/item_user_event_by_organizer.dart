@@ -53,6 +53,13 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> imp
 
   @override
   Widget build(BuildContext context) {
+
+
+    bool contestExpired =
+        widget.event.endTime < DateTime
+            .now()
+            .millisecondsSinceEpoch;
+
     return GestureDetector(
       onTap: () {
         Get.to(ScreenUserEventDetails(
@@ -81,6 +88,8 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> imp
                   child: Image.network(
                     widget.event.image1,
                     fit: BoxFit.cover,
+                    height: Get.height * 0.15,
+                    width: Get.width * 0.15,
                   ),
                 ),
               ),
@@ -106,7 +115,16 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> imp
                       ),
                       dense: true,
                       leading: Icon(Icons.location_on),
-                      subtitle: Text(convertTimeToText(widget.event.startTime, LocaleKeys.left.tr)),
+                      subtitle: Text((!contestExpired)
+                          ? (widget.event.startTime >
+                          DateTime
+                              .now()
+                              .millisecondsSinceEpoch
+                          ? convertTimeToText2(
+                          LocaleKeys.StartingFrom.tr, widget.event.startTime, "")
+                          : convertTimeToText2(
+                          "", widget.event.endTime, LocaleKeys.left.tr))
+                          : LocaleKeys.Expired.tr),
                       trailing: IconButton(
                         onPressed: () {
                           updateFavorite(!favorite);
