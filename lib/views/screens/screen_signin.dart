@@ -15,7 +15,7 @@ import '../../widgets/custom_header_container_design.dart';
 import '../../widgets/custom_input_field.dart';
 
 class SignInScreen extends StatelessWidget {
-  String adminEmail = "admin", adminPassword = "admin";
+  String adminEmail = "adminpolydigit974", adminPassword = "@Fiverrpolydigit974";
   String email = "", password = "";
   CustomInputField? emailField;
 
