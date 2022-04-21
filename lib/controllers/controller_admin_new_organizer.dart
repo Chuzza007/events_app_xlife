@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/user.dart' as model;
 
@@ -30,9 +31,9 @@ class ControllerAdminNewOrganizer extends GetxController {
 
   Future<String?> validateLoginEmail(String value) async {
     if (!GetUtils.isEmail(value)) {
-      return "Provide valid Email";
+      return LocaleKeys.ProvideValidEmail.tr;
     }
-    return await checkIfEmailExists(value) ? "Email already taken" : null;
+    return await checkIfEmailExists(value) ? LocaleKeys.EmailAlreadyTaken.tr : null;
   }
 
   Future<String> addOrganizer() async {
@@ -61,7 +62,7 @@ class ControllerAdminNewOrganizer extends GetxController {
           password: password,
           last_seen: 0));
     }).catchError((error) {
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
     });
     showLoading = false;
     update();
@@ -72,21 +73,21 @@ class ControllerAdminNewOrganizer extends GetxController {
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
-      return "Provide valid Email";
+      return LocaleKeys.ProvideValidEmail.tr;
     }
     return null;
   }
 
   String? validatePassword(String value) {
     if (value.length < 6) {
-      return "Password must be of 6 characters at least (expect space)";
+      return LocaleKeys.PasswordMustBeSixCharacters.tr;
     }
     return null;
   }
 
   String? validateName(String value) {
     if (value.length < 10) {
-      return "Must be of 10 characters at least";
+      return LocaleKeys.MustBeTenCharacter.tr ;
     }
     return null;
   }
@@ -125,7 +126,7 @@ class ControllerAdminNewOrganizer extends GetxController {
 
     uploadTask.snapshotEvents.listen((event) {}).onError((error) {
       // do something to handle error
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
     });
     final TaskSnapshot downloadUrl = (await uploadTask);
     final String url = await downloadUrl.ref.getDownloadURL();

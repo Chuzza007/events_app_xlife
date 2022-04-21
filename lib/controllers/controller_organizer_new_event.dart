@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/event.dart';
 import 'package:xlife/models/selected_location.dart';
@@ -81,7 +82,7 @@ class ControllerOrganizerNewEvent extends GetxController {
     double lat = pickedLocation.value.latitude;
     double lng = pickedLocation.value.longitude;
     if (title.isEmpty || description.isEmpty || pickedImages[0].path.isEmpty || pickedImages[1].path.isEmpty || pickedImages[2].path.isEmpty || tagsList.value.isEmpty) {
-      Get.snackbar("Error", "All fields and images are required");
+      Get.snackbar(LocaleKeys.Error.tr, LocaleKeys.AllFieldsImagesRequired.tr);
       return "";
     }
     String id = DateTime
@@ -122,7 +123,7 @@ class ControllerOrganizerNewEvent extends GetxController {
 
     uploadTask.snapshotEvents.listen((event) {}).onError((error) {
       // do something to handle error
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
       showLoading.value = false;
     });
     final TaskSnapshot downloadUrl = (await uploadTask);
@@ -136,7 +137,7 @@ class ControllerOrganizerNewEvent extends GetxController {
       print(pickedImage.path);
 
       Get.defaultDialog(
-          title: "Are you sure to upload this image",
+          title: LocaleKeys.AreYouSureToUploadImage.tr,
           content: Container(
             margin: EdgeInsets.all(10),
             height: Get.height * 0.2,
@@ -149,9 +150,9 @@ class ControllerOrganizerNewEvent extends GetxController {
                   image: FileImage(File(pickedImage.path)),
                 )),
           ),
-          textConfirm: "Yes",
+          textConfirm: LocaleKeys.Yes.tr,
           confirmTextColor: Colors.white,
-          textCancel: "Cancel",
+          textCancel: LocaleKeys.Cancel.tr,
           radius: 0,
           onConfirm: () async {
             Get.back();
@@ -161,9 +162,9 @@ class ControllerOrganizerNewEvent extends GetxController {
             await eventsRef
                 .doc(eventId)
                 .update({"image${index+1}": images[index]}).catchError((error) {
-              Get.snackbar("Error", error.toString());
+              Get.snackbar(LocaleKeys.Error.tr, error.toString());
             });
-            Get.snackbar("Success".tr, "Image ${index + 1} updated");
+            Get.snackbar("Success".tr, "${LocaleKeys.Image.tr} ${index + 1} ${LocaleKeys.Update.tr}");
             showLoading.value = false;
           },
           onCancel: () {
@@ -174,7 +175,7 @@ class ControllerOrganizerNewEvent extends GetxController {
   }
 
   Future<String> _uploadNewImage(String eventsId, int index, String path) async {
-    Get.snackbar("Uploading Image", "Uploading organizer image to database");
+    Get.snackbar(LocaleKeys.UploadingImage.tr, LocaleKeys.UploadingOrganizerImageDatabase.tr);
     Reference storageReference = FirebaseStorage.instance
         .ref()
         .child("events/${eventsId}_$index.png");
@@ -204,7 +205,7 @@ class ControllerOrganizerNewEvent extends GetxController {
     await eventsRef.doc(updatedEvent.id).update(updatedEvent.toMap()).then((value) {
       response = "success";
     })
-    .catchError((error){Get.snackbar("Error", error.toString());});
+    .catchError((error){Get.snackbar(LocaleKeys.Error.tr, error.toString());});
 
     return response;
   }

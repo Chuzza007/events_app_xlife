@@ -267,5 +267,22 @@
   "AreYouSureToUploadImage": "Are you sure to upload this image",
   "PleaseWait": "Please Wait",
   "UpdatingProfilePicture": "Updating your profile picture",
-  "ProfileImageUpdatedSuccessfully": "Profile image updated successfully"
+  "ProfileImageUpdatedSuccessfully": "Profile image updated successfully",
+  "ProvideValidEmail": "Provide valid Email",
+  "EmailAlreadyTaken":"Email already taken",
+  "PasswordMustBeSixCharacters":"Password must be of 6 characters at least (expect space)",
+  "MustBeTenCharacter": "Must be of 10 characters at least",
+  "AllFieldsImagesRequired": "All fields and images are required",
+  "UploadingImage":"Uploading Image",
+  "UploadingOrganizerImageDatabase": "Uploading organizer image to database",
+  "TitleImageBothRequired": "Title and image both required",
+  "UpdatingYourProfilePicture": "Updating your profile picture",
+  "PleaseWait": "Please Wait",
+  "ProfileImageUpdatedSuccessfully": "Profile image updated successfully",
+  "EmailDoesNotExist": "Email doesn't exist",
+  "MustBeTwelveToN": "Must be of 12 digits starting from 92",
+  "MakeSureYouAcceptTermsCondition": "Make sure you accept all terms and conditions",
+  "Image": "Image"
+
+
 }

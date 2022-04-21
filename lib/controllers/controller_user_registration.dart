@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/views/screens/organizer/screen_organizer_homepage.dart';
 import 'package:xlife/views/screens/user/screen_user_homepage.dart';
@@ -35,28 +36,28 @@ class ControllerUserRegistration extends GetxController {
 
   Future<String?> validateLoginEmail(String value) async {
     if (!GetUtils.isEmail(value)) {
-      return "Provide valid Email";
+      return LocaleKeys.ProvideValidEmail.tr;
     }
-    return await checkIfEmailExists(value) ? null : "Email doesn't exist";
+    return await checkIfEmailExists(value) ? null : LocaleKeys.EmailDoesNotExist.tr;
   }
 
   String? validatePassword(String value) {
     if (value.length < 6) {
-      return "Password must be of 6 characters at least (expect space)";
+      return LocaleKeys.PasswordMustBeSixCharacters.tr;
     }
     return null;
   }
 
   String? validateName(String value) {
     if (value.length < 10) {
-      return "Must be of 10 characters at least";
+      return LocaleKeys.MustBeTenCharacter.tr;
     }
     return null;
   }
 
   String? validatePhone(String value) {
     if (value.length < 12 || !value.startsWith("92")) {
-      return "Must be of 12 digits starting from 92";
+      return LocaleKeys.MustBeTwelveToN.tr;
     }
     return null;
   }
@@ -74,7 +75,7 @@ class ControllerUserRegistration extends GetxController {
     await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) {
       status = "success";
     }).catchError((error) {
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
     });
 
     loginFormKey.currentState!.save();
@@ -88,7 +89,7 @@ class ControllerUserRegistration extends GetxController {
     }
 
     if (!acceptedTerm1.value || !acceptedTerm2.value || !acceptedTerm3.value) {
-      Get.snackbar("Alert", "Make sure you accept all terms and conditions");
+      Get.snackbar(LocaleKeys.Alert.tr, LocaleKeys.MakeSureYouAcceptTermsCondition.tr);
       return "";
     }
 
@@ -117,7 +118,7 @@ class ControllerUserRegistration extends GetxController {
           gender: gender,
           last_seen: DateTime.now().millisecondsSinceEpoch));
     }).catchError((error) {
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
     });
 
     signupFormKey.currentState!.save();

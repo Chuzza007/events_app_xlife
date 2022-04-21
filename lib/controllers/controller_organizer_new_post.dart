@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/post.dart';
 
@@ -39,7 +40,7 @@ class ControllerOrganizerNewPost extends GetxController {
 
     uploadTask.snapshotEvents.listen((event) {}).onError((error) {
       // do something to handle error
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
       showLoading.value = false;
     });
     final TaskSnapshot downloadUrl = (await uploadTask);
@@ -50,7 +51,7 @@ class ControllerOrganizerNewPost extends GetxController {
   Future<String> addPost({required String userType}) async {
     String title = title_controller.value.text;
     if (title.isEmpty || postImage.value.path.isEmpty) {
-      Get.snackbar("Error", "Title and image both required");
+      Get.snackbar(LocaleKeys.Error.tr, LocaleKeys.TitleImageBothRequired.tr);
       return "";
     }
     showLoading.value = true;
