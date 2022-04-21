@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_events.dart';
 import 'package:xlife/models/event.dart';
@@ -27,7 +29,7 @@ class _ScreenAdminAllEventsState extends State<ScreenAdminAllEvents> implements 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Events  (${events.length})"),
+        title: Text("${LocaleKeys.AllEvents.tr}  (${events.length})"),
       ),
       body: Container(
         margin: EdgeInsets.all(10),
@@ -35,7 +37,7 @@ class _ScreenAdminAllEventsState extends State<ScreenAdminAllEvents> implements 
             itemCount: events.length,
             itemBuilder: (_, index) {
           return ItemAdminEvent(event: events[index]);
-        }) : NotFound(message: "No Events yet"),
+        }) : NotFound(message: LocaleKeys.NoEventsYet.tr),
       ),
     );
   }

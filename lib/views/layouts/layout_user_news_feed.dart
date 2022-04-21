@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_new_post.dart';
 
@@ -23,7 +24,7 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text("News feed"),
+        title: Text(LocaleKeys.NewsFeed.tr),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -44,7 +45,7 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
             );
           } else if (snapshot.connectionState == ConnectionState.none) {
             return NotFound(
-              message: "No Internet Connection",
+              message: LocaleKeys.NoInternetConnection.tr,
               assetImage: "assets/images/nothing.png",
             );
           }
@@ -58,7 +59,7 @@ class _LayoutUserNewsFeedState extends State<LayoutUserNewsFeed> {
                     return ItemUserNewsFeed(post: posts[index]);
                   })
               : NotFound(
-                  message: "No Posts",
+                  message: LocaleKeys.NoPosts.tr,
                 );
         },
       ),

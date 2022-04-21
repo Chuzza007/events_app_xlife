@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
@@ -89,7 +90,7 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
                 onPressed: () {
                   Get.to(ScreenOrganizerUpdateEvent(event: widget.event));
                 },
-                child: Text("Edit"),
+                child: Text(LocaleKeys.Edit.tr),
               )
             ],
           ),
@@ -161,7 +162,7 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
             // ),
             ListTile(
               title: Text(
-                "Organized By",
+                LocaleKeys.OrganizedBy.tr,
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
@@ -172,7 +173,7 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
             ),
             ListTile(
               title: Text(
-                "Description",
+                LocaleKeys.Description.tr,
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
@@ -211,7 +212,7 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
                                   ],
                                   title: Container(
                                       child: Text(
-                                    "$favorites Users",
+                                    "$favorites ${LocaleKeys.Users.tr}",
                                     style: heading3_style,
                                   )),
                                   elevation: 2,
@@ -225,7 +226,7 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
                                             return ItemAdminEventFavorite(userId: favoriteUsers[index]);
                                           },
                                         )
-                                      : NotFound(message: "No users"),
+                                      : NotFound(message: LocaleKeys.NoUsers.tr),
                                 )
                               ],
                             ),
@@ -237,12 +238,12 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               tileColor: appSecondaryColorDark,
               title: Text(
-                "Favorite by",
+                LocaleKeys.FavoriteBy.tr,
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("$favorites Users"),
+                child: Text("$favorites ${LocaleKeys.Users.tr}"),
               ),
               leading: Icon(Icons.favorite),
             ),
@@ -306,7 +307,7 @@ class _ScreenAdminEventDetailsState extends State<ScreenAdminEventDetails> imple
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return Future.error(LocaleKeys.LocationPermissionsDenied.tr);
       }
       return;
     }

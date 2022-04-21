@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/models/event.dart';
@@ -80,7 +81,7 @@ class _ItemOrganizerEventState extends State<ItemOrganizerEvent> implements List
                     ),
                     ListTile(
                       title: Text(
-                        "$favorites favorites",
+                        "$favorites ${LocaleKeys.Favorites.tr}",
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,

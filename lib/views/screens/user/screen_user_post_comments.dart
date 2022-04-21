@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
 import 'package:xlife/models/comment.dart';
@@ -39,7 +40,7 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${comments.length} comments"),
+        title: Text("${comments.length} ${LocaleKeys.comments.tr}"),
       ),
       body: AnimatedCrossFade(
         firstChild: Column(
@@ -57,7 +58,7 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
                 ),
                 secondChild: Container(
                   alignment: Alignment.center,
-                  child: Text("No Comments"),
+                  child: Text(LocaleKeys.NoComments.tr),
                 ),
                 duration: Duration(seconds: 1),
                 crossFadeState: comments.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
@@ -77,7 +78,7 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
                         isPasswordField: false,
                         keyboardType: TextInputType.text,
                         margin: EdgeInsets.only(top: 10),
-                        label: "Your comment",
+                        label: LocaleKeys.YourComment.tr,
                         controller: controller,
                       ),
                     ),

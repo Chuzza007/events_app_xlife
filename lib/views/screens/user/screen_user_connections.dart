@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/models/message_dummy.dart';
@@ -33,7 +35,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections> with Tick
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chats"),
+        title: Text(LocaleKeys.Chats.tr),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,7 +45,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections> with Tick
               Padding(
                 padding: EdgeInsets.only(left: 15.0, bottom: 10),
                 child: Text(
-                  "Suggestions",
+                  LocaleKeys.Suggestions.tr,
                   style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: appPrimaryColor),
                 ),
               ),
@@ -54,11 +56,11 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections> with Tick
                       },
                       itemCount: suggestedUsers.length,
                       scrollDirection: CustomDirection.horizontal)
-                  : Center(child: Text("No Suggestions")),
+                  : Center(child: Text(LocaleKeys.NoSuggestions.tr)),
               Padding(
                 padding: EdgeInsets.only(top: 10, left: 15.0, bottom: 10),
                 child: Text(
-                  "Messages",
+                  LocaleKeys.Messages.tr,
                   style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: appPrimaryColor),
                 ),
               ),
@@ -87,7 +89,7 @@ class _ScreenUserConnectionsState extends State<ScreenUserConnections> with Tick
                             },
                             itemCount: messageDummies.length,
                             scrollDirection: CustomDirection.vertical)
-                        : NotFound(showImage: false, message: "No messages");
+                        : NotFound(showImage: false, message: LocaleKeys.NoMessages.tr);
                   })
             ],
           ),

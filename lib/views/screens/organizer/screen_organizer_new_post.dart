@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/controllers/controller_organizer_new_post.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/widgets/custom_button.dart';
 
 import '../../../helpers/styles.dart';
@@ -19,7 +20,7 @@ class ScreenOrganizerNewPost extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create new post"),
+        title: Text(LocaleKeys.CreateNewPost.tr),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -31,9 +32,9 @@ class ScreenOrganizerNewPost extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _buildHeading("Post text", false),
+              _buildHeading(LocaleKeys.PostText.tr, false),
               CustomInputField(
-                  hint: "Write something....",
+                  hint: LocaleKeys.WriteSomething.tr,
                   isPasswordField: false,
                   minLines: 1,
                   maxLines: 7,
@@ -41,7 +42,7 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                   limit: 500,
                   showCounter: true,
                   keyboardType: TextInputType.multiline),
-              _buildHeading("Insert image", false),
+              _buildHeading(LocaleKeys.InsertImage.tr, false),
               Obx(() {
                 print(controller.postImage.value.path);
                 return GestureDetector(
@@ -69,7 +70,7 @@ class ScreenOrganizerNewPost extends StatelessWidget {
                   },
                 );
               }),
-              CustomButton(text: "Post", onPressed: () async {
+              CustomButton(text: LocaleKeys.Post.tr, onPressed: () async {
                 String response = await controller.addPost(userType: userType);
                 if (response == "success"){
                   Get.back();
@@ -95,7 +96,7 @@ class ScreenOrganizerNewPost extends StatelessWidget {
             width: 5,
           ),
           Text(
-            optional ? "(optional)" : "*",
+            optional ? LocaleKeys.optional.tr : "*",
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: optional ? Colors.grey : Colors.red,
             ),

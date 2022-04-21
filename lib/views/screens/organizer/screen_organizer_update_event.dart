@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_picker_advance/google_places_picker_advance.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/models/event.dart';
 
 import '../../../controllers/controller_organizer_new_event.dart';
@@ -74,7 +75,7 @@ class _ScreenOrganizerUpdateEventState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Event"),
+        title: Text(LocaleKeys.UpdateEvent.tr),
       ),
       body: Obx(() {
         return SingleChildScrollView(
@@ -84,9 +85,9 @@ class _ScreenOrganizerUpdateEventState
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeading("Event title", false),
+                _buildHeading(LocaleKeys.EventTitle.tr, false),
                 CustomInputField(
-                    hint: "Event title",
+                    hint: LocaleKeys.EventTitle.tr,
                     text: widget.event.title,
                     isPasswordField: false,
                     controller: controller.title_controller.value,
@@ -101,7 +102,7 @@ class _ScreenOrganizerUpdateEventState
                     controller: controller.description_controller.value,
                     showCounter: true,
                     keyboardType: TextInputType.text),
-                _buildHeading("Event images", false),
+                _buildHeading(LocaleKeys.EventImages.tr, false),
                 Row(
                   children: [
                     Expanded(
@@ -169,7 +170,7 @@ class _ScreenOrganizerUpdateEventState
                     ),
                   ],
                 ),
-                _buildHeading("Pick event location", false),
+                _buildHeading(LocaleKeys.PickEventLocation.tr, false),
                 Stack(
                   children: [
                     Container(
@@ -262,7 +263,7 @@ class _ScreenOrganizerUpdateEventState
 
                   ],
                 ),
-                _buildHeading("Timings", false),
+                _buildHeading(LocaleKeys.Timings.tr, false),
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: ListTile(
@@ -284,7 +285,7 @@ class _ScreenOrganizerUpdateEventState
                               color: Colors.black,
                             ),
                             children: [
-                              TextSpan(text: "Starting from "),
+                              TextSpan(text: LocaleKeys.StartingFrom.tr),
                               TextSpan(
                                   text: timestampToDateFormat(
                                       controller.startTimestamp.value,
@@ -321,7 +322,8 @@ class _ScreenOrganizerUpdateEventState
                               color: Colors.black,
                             ),
                             children: [
-                              TextSpan(text: "Ending at "),
+                              TextSpan(text: LocaleKeys.EndingAt.tr
+                              ),
                               TextSpan(
                                   text: timestampToDateFormat(
                                       controller.endTimestamp.value,
@@ -332,9 +334,9 @@ class _ScreenOrganizerUpdateEventState
                     leading: Icon(Icons.access_time),
                   ),
                 ),
-                _buildHeading("Add tags", false),
+                _buildHeading(LocaleKeys.AddTags.tr, false),
                 CustomInputField(
-                    hint: "Tag 1, Tag 2, Tag 3, ....",
+                    hint: LocaleKeys.Tags.tr,
                     text: widget.event.tags.toString().replaceAll("]", "").replaceAll("[", ""),
                     isPasswordField: false,
                     onChange: (value) {
@@ -344,17 +346,17 @@ class _ScreenOrganizerUpdateEventState
                 CustomChips(
                     chipNames: controller.tagsList.value,
                     selectable: false),
-                _buildHeading("Entry fee", true),
+                _buildHeading(LocaleKeys.EntryFee.tr, true),
                 CustomInputField(
-                    hint: "Min. 500",
+                    hint: LocaleKeys.Min.tr,
                     isPasswordField: false,
                     text: widget.event.entryFee.toString(),
                     keyboardType: TextInputType.number),
-                CustomButton(text: "Update", onPressed: () async {
+                CustomButton(text: LocaleKeys.Update.tr, onPressed: () async {
                   String response = await controller.updateEvent(id: widget.event.id, event: widget.event);
                   if (response == "success"){
                     Get.back();
-                    Get.snackbar("Success", "Event updated");
+                    Get.snackbar(LocaleKeys.Success.tr, LocaleKeys.EventUpdated.tr);
                   }
                 }),
               ],
@@ -378,7 +380,8 @@ class _ScreenOrganizerUpdateEventState
             width: 5,
           ),
           Text(
-            optional ? "(optional)" : "*",
+            optional ? LocaleKeys.optional.tr
+                : "*",
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: optional ? Colors.grey : Colors.red,
             ),

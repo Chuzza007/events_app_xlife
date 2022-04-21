@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/controllers/controller_admin_new_organizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/widgets/custom_progress_widget.dart';
 
 import '../../../helpers/styles.dart';
@@ -16,7 +17,7 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add new Organizer"),
+        title: Text(LocaleKeys.AddNewOrganizer.tr),
       ),
       body: SafeArea(
         child: GetBuilder<ControllerAdminNewOrganizer>(
@@ -31,28 +32,28 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        _buildHeading("Name", false),
+                        _buildHeading(LocaleKeys.Name.tr, false),
                         CustomInputField(
-                            hint: "Organizer name",
+                            hint: LocaleKeys.OrganizerName.tr,
                             isPasswordField: false,
                             controller: controller.name_controller,
                             validator: (value) => controller.validateName(value.toString()),
                             keyboardType: TextInputType.emailAddress),
-                        _buildHeading("Email Address", false),
+                        _buildHeading(LocaleKeys.EmailAddress.tr, false),
                         CustomInputField(
-                            hint: "organizer@test.com",
+                            hint: LocaleKeys.organizertestcom.tr,
                             isPasswordField: false,
                             controller: controller.email_controller,
                             asyncValidator: (value) => controller.validateLoginEmail(value.toString()),
                             keyboardType: TextInputType.emailAddress),
-                        _buildHeading("Password", false),
+                        _buildHeading(LocaleKeys.Password.tr, false),
                         CustomInputField(
-                            hint: "Password",
+                            hint: LocaleKeys.Password.tr,
                             isPasswordField: false,
                             controller: controller.password_controller,
                             validator: (value) => controller.validatePassword(value.toString()),
                             keyboardType: TextInputType.text),
-                        _buildHeading("Insert image", true),
+                        _buildHeading(LocaleKeys.InsertImage.tr, true),
                         GestureDetector(
                           child: Container(
                             width: Get.width * .3,
@@ -75,7 +76,7 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
                           },
                         ),
                         CustomButton(
-                            text: "Add",
+                            text: LocaleKeys.Add.tr,
                             onPressed: () async {
                               String response = await controller.addOrganizer();
                               print(response);
@@ -109,7 +110,7 @@ class ScreenAdminAddOrganizer extends StatelessWidget {
             width: 5,
           ),
           Text(
-            optional ? "(optional)" : "*",
+            optional ? LocaleKeys.optional.tr : "*",
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: optional ? Colors.grey : Colors.red,
             ),

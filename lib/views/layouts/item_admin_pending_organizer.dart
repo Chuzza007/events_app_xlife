@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/widgets/custom_button.dart';
 
 import '../../helpers/styles.dart';
@@ -38,7 +39,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              "Pending",
+              LocaleKeys.Pending.tr,
               style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: Colors.grey),
             ),
             leading: Icon(
@@ -50,7 +51,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomButton(
-                  text: "Approve",
+                  text: LocaleKeys.Approve.tr,
                   onPressed: () {},
                   height: Get.height * 0.07,
                   color: Colors.green,
@@ -58,7 +59,7 @@ class ItemAdminPendingOrganizer extends StatelessWidget {
               ),
               Expanded(
                 child: CustomButton(
-                  text: "Reject",
+                  text: LocaleKeys.Reject.tr,
                   onPressed: () {},
                   height: Get.height * 0.07,
                   color: Colors.red,

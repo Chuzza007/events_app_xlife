@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:xlife/interfaces/listener_events.dart';
 import 'package:xlife/models/event.dart';
 import 'package:xlife/views/layouts/item_user_event_by_organizer.dart';
 import 'package:xlife/widgets/not_found.dart';
 
+import '../../generated/locales.g.dart';
 import '../../helpers/constants.dart';
 
 class LayoutUserFavoriteEvents extends StatefulWidget {
@@ -30,14 +32,14 @@ class _LayoutUserFavoriteEventsState
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text("Liked Events"),
+        title: Text(LocaleKeys.LikedEvents.tr),
       ),
       body: events.isNotEmpty ? ListView.builder(
         itemCount: events.length,
         itemBuilder: (context, index) {
           return ItemUserEventByOrganizer( event: events[index]);
         },
-      ) : NotFound(message: "No Favorites"),
+      ) : NotFound(message: LocaleKeys.NoFavorites.tr),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_post_comments.dart';
@@ -51,7 +52,7 @@ class _ItemOrganizerNewsFeedState
                             widget.post.image))),
               ),
               title: Text(
-                "Organizer",
+                LocaleKeys.Organizer.tr,
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
               subtitle: Text(convertTimeToText(widget.post.timestamp, "")),
@@ -88,7 +89,7 @@ class _ItemOrganizerNewsFeedState
               children: [
                 GestureDetector(
                   child: Text(
-                    "273 Reactions",
+                    LocaleKeys.NReactions.replaceFirst("000", "257").tr,
                     style:
                         (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
@@ -98,7 +99,7 @@ class _ItemOrganizerNewsFeedState
                 ),
                 GestureDetector(
                   child: Text(
-                    "97 Comments",
+                    LocaleKeys.NComments.replaceFirst("000", "98"),
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){

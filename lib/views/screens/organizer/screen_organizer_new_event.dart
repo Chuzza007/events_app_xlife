@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_picker_advance/google_places_picker_advance.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/controllers/controller_organizer_new_event.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/models/selected_location.dart';
 import 'package:xlife/widgets/custom_button.dart';
@@ -32,7 +33,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Event"),
+        title: Text(LocaleKeys.NewEvent.tr),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -49,19 +50,19 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHeading("Event title", false),
+                  _buildHeading(LocaleKeys.EventTitle.tr, false),
                   CustomInputField(
-                      hint: "Event title", isPasswordField: false, controller: controller.title_controller.value, keyboardType: TextInputType.text),
-                  _buildHeading("Description", false),
+                      hint: LocaleKeys.EventTitle.tr, isPasswordField: false, controller: controller.title_controller.value, keyboardType: TextInputType.text),
+                  _buildHeading(LocaleKeys.Description.tr, false),
                   CustomInputField(
-                      hint: "Description",
+                      hint: LocaleKeys.Description.tr,
                       isPasswordField: false,
                       maxLines: 10,
                       limit: 500,
                       controller: controller.description_controller.value,
                       showCounter: true,
                       keyboardType: TextInputType.text),
-                  _buildHeading("Insert images", false),
+                  _buildHeading(LocaleKeys.InsertImage.tr, false),
                   Row(
                     children: [
                       Expanded(
@@ -132,7 +133,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       ),
                     ],
                   ),
-                  _buildHeading("Pick event location", false),
+                  _buildHeading(LocaleKeys.PickEventLocation.tr, false),
                   Column(
                     children: [
                       Stack(
@@ -236,7 +237,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       ),
                     ],
                   ),
-                  _buildHeading("Timings", false),
+                  _buildHeading(LocaleKeys.Timings.tr, false),
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: ListTile(
@@ -255,7 +256,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               children: [
-                            TextSpan(text: "Starting from "),
+                            TextSpan(text: LocaleKeys.StartingFrom.tr),
                             TextSpan(
                                 text: timestampToDateFormat(controller.startTimestamp.value, "dd MMM, yyyy"),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -283,7 +284,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               children: [
-                            TextSpan(text: "Ending at "),
+                            TextSpan(text: LocaleKeys.EndingAt.tr),
                             TextSpan(
                                 text: timestampToDateFormat(controller.endTimestamp.value, "dd MMM, yyyy"),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -291,20 +292,20 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
                       leading: Icon(Icons.access_time),
                     ),
                   ),
-                  _buildHeading("Add tags", false),
+                  _buildHeading(LocaleKeys.AddTags.tr, false),
                   CustomInputField(
-                      hint: "Tag 1, Tag 2, Tag 3, ....",
+                      hint: LocaleKeys.Tags.tr,
                       isPasswordField: false,
                       onChange: (value) {
                         controller.buildTags(value.toString().trim());
                       },
                       keyboardType: TextInputType.text),
                   CustomChips(chipNames: controller.tagsList.value, selectable: false),
-                  _buildHeading("Entry fee", true),
+                  _buildHeading(LocaleKeys.EntryFee.tr, true),
                   CustomInputField(
-                      hint: "Min. 500", isPasswordField: false, controller: controller.fee_controller.value, keyboardType: TextInputType.number),
+                      hint: LocaleKeys.Min.tr, isPasswordField: false, controller: controller.fee_controller.value, keyboardType: TextInputType.number),
                   CustomButton(
-                      text: "Add",
+                      text: LocaleKeys.Add.tr,
                       onPressed: () async {
                         String response = await controller.addNewEvent();
                         if (response == "success") {
@@ -333,7 +334,7 @@ class ScreenOrganizerNewEvent extends StatelessWidget {
             width: 5,
           ),
           Text(
-            optional ? "(optional)" : "*",
+            optional ? LocaleKeys.optional.tr : "*",
             style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(
               color: optional ? Colors.grey : Colors.red,
             ),

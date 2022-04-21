@@ -18,6 +18,8 @@ import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/widgets/custom_button.dart';
 import 'package:xlife/widgets/custom_chips.dart';
 
+import '../../../generated/locales.g.dart';
+
 class ScreenUserEventDetails extends StatefulWidget {
   Event event;
 
@@ -155,7 +157,7 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
           body: [
             ListTile(
               title: Text(
-                "Distance",
+                LocaleKeys.Distance.tr,
                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
               ),
               subtitle: Padding(
@@ -166,7 +168,7 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
             ),
             ListTile(
               title: Text(
-                "Organized By",
+                LocaleKeys.OrganizedBy.tr,
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
@@ -177,7 +179,7 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
             ),
             ListTile(
               title: Text(
-                "Description",
+                LocaleKeys.Description.tr,
                 style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
               ),
               subtitle: Padding(
@@ -243,11 +245,11 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
                       description: widget.event.description,
                     );
                   }
-                }, label: Text("Navigate")),
+                }, label: Text(LocaleKeys.Navigate.tr)),
             Container(
               margin: EdgeInsets.only(top: 10.h, left: 10.sp, right: 10.sp),
               child: CustomButton(
-                  text: "Favorite",
+                  text:LocaleKeys.Favorite.tr,
                   color: favorite ? Colors.green : hintColor,
                   onPressed: () {
                     setState(() {
@@ -275,7 +277,7 @@ class _ScreenUserEventDetailsState extends State<ScreenUserEventDetails> impleme
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return Future.error(LocaleKeys.LocationPermissionsDenied.tr);
       }
       return;
     }

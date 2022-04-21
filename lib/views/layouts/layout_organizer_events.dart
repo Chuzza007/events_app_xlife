@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/views/layouts/item_organizer_event.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_new_event.dart';
@@ -27,9 +28,9 @@ class _LayoutOrganizerEventsState extends State<LayoutOrganizerEvents> {
         onPressed: () {
           Get.to(ScreenOrganizerNewEvent());
         },
-        label: Text("Event"),
+        label: Text(LocaleKeys.Event.tr),
         icon: Icon(Icons.add),
-        tooltip: "Add new Event",
+        tooltip: LocaleKeys.AddNewEvent.tr,
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: eventsRef.where("organizer_id", isEqualTo: uid).snapshots(),
@@ -45,7 +46,7 @@ class _LayoutOrganizerEventsState extends State<LayoutOrganizerEvents> {
               );
             } else if (snapshot.connectionState == ConnectionState.none) {
               return NotFound(
-                message: "No Internet Connection",
+                message: LocaleKeys.NoInternetConnection.tr,
               );
             }
 
@@ -59,7 +60,7 @@ class _LayoutOrganizerEventsState extends State<LayoutOrganizerEvents> {
                       return ItemOrganizerEvent(event: event);
                     },
                   )
-                : NotFound(message: "No Data");
+                : NotFound(message: LocaleKeys.NoData.tr);
           }),
     );
   }

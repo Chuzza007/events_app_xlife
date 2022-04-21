@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/views/screens/user/screen_user_event_details.dart';
@@ -100,7 +101,8 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
                         width: 5.sp,
                       ),
                       Text(
-                        convertTimeToText(widget.event.startTime, "left"),
+                        convertTimeToText(widget.event.startTime, LocaleKeys.left.tr
+                        ),
                         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold).copyWith(color: Colors.white),
                       ),
                     ],
@@ -137,7 +139,7 @@ class _ItemUserEventState extends State<ItemUserEvent> implements ListenerEventF
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Organized by ",
+                              LocaleKeys.OrganizedBy.tr,
                               style: normal_h4Style_bold.copyWith(color: Colors.white),
                             ),
                             Expanded(

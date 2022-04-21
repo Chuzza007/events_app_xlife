@@ -50,7 +50,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               if (enteredValue.isEmail){
                 Get.to(EmailVerificationDoneScreen());
               } else {
-                Get.snackbar("Alert", "Invalid Email");
+                Get.snackbar(LocaleKeys.Alert.tr, LocaleKeys.InvalidEmail.tr);
               }
             })
           ],

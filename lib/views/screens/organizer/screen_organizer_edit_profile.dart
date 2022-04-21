@@ -43,7 +43,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Organizer profile"),
+        title: Text(LocaleKeys.OrganizerProfile.tr),
       ),
       body: Center(
         child: loading
@@ -135,7 +135,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Profile Information",
+                                            LocaleKeys.ProfileInformation.tr,
                                             style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                           ),
                                           Container(
@@ -149,7 +149,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                               children: [
                                                 ListTile(
                                                   title: Text(
-                                                    "Name",
+                                                    LocaleKeys.Name.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   subtitle: Text(
@@ -163,7 +163,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                 ),
                                                 ListTile(
                                                   title: Text(
-                                                    "Email",
+                                                    LocaleKeys.Email.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   subtitle: Text(
@@ -173,7 +173,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                 ),
                                                 ListTile(
                                                   title: Text(
-                                                    "Change Password",
+                                                    LocaleKeys.ChangePassword.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   trailing: IconButton(
@@ -192,23 +192,23 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                 children: [
                                                                   Text(
-                                                                    "Change Password",
+                                                                    LocaleKeys.ChangePassword.tr,
                                                                     style: normal_h2Style_bold,
                                                                   ),
                                                                   CustomInputField(
-                                                                    label: "Old Password",
+                                                                    label: LocaleKeys.OldPassword.tr,
                                                                     isPasswordField: true,
                                                                     controller: old_pass_controller,
                                                                     keyboardType: TextInputType.visiblePassword,
                                                                   ),
                                                                   CustomInputField(
-                                                                    label: "New Password",
+                                                                    label: LocaleKeys.NewPassword.tr,
                                                                     isPasswordField: true,
                                                                     controller: new_pass_controller,
                                                                     keyboardType: TextInputType.visiblePassword,
                                                                   ),
                                                                   CustomButton(
-                                                                      text: "Change",
+                                                                      text: LocaleKeys.Change.tr,
                                                                       onPressed: () async {
                                                                         String oldPassword = old_pass_controller.text;
                                                                         String newPassword = new_pass_controller.text;
@@ -225,7 +225,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                                         print(response);
                                                                         if (response == "success") {
                                                                           Get.back();
-                                                                          Get.snackbar("Success", "Password changed successfully",
+                                                                          Get.snackbar(LocaleKeys.Success.tr, LocaleKeys.PasswordChangedSuccessfully.tr,
                                                                               colorText: Colors.white, backgroundColor: Colors.green);
                                                                         }
                                                                         setState(() {
@@ -235,7 +235,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                                 ],
                                                               ),
                                                               secondChild: Text(
-                                                                "Changing password...",
+                                                                LocaleKeys.ChangingPassword.tr,
                                                                 style: normal_h3Style_bold,
                                                               ),
                                                               duration: Duration(milliseconds: 500),
@@ -249,7 +249,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                 ),
                                                 ListTile(
                                                   title: Text(
-                                                    "My QR Code",
+                                                    LocaleKeys.MyQRCode.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   trailing: IconButton(
@@ -262,7 +262,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             ),
                                           ),
                                           Text(
-                                            "Terms",
+                                            LocaleKeys.Terms.tr,
                                             style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                           ),
                                           Container(
@@ -311,7 +311,7 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             ),
                                           ),
                                           Text(
-                                            "Others",
+                                            LocaleKeys.Others.tr,
                                             style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                           ),
                                           Container(
@@ -326,11 +326,11 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                 ListTile(
                                                   onTap: () {},
                                                   title: Text(
-                                                    "Rate",
+                                                    LocaleKeys.Rate.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   subtitle: Text(
-                                                    "Rate us on app store",
+                                                    LocaleKeys.RateUsOnAppStore.tr,
                                                     style: normal_h3Style.copyWith(color: Colors.black45),
                                                   ),
                                                   trailing: Icon(
@@ -341,11 +341,11 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                 ListTile(
                                                   onTap: () {},
                                                   title: Text(
-                                                    "Share",
+                                                    LocaleKeys.Share.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   subtitle: Text(
-                                                    "Share this app with friends",
+                                                    LocaleKeys.ShareThisAppWithFriends.tr,
                                                     style: normal_h3Style.copyWith(color: Colors.black45),
                                                   ),
                                                   trailing: Icon(
@@ -356,11 +356,11 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                 ListTile(
                                                   onTap: () {},
                                                   title: Text(
-                                                    "Win Gifts",
+                                                    LocaleKeys.WinGifts.tr,
                                                     style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                                   ),
                                                   subtitle: Text(
-                                                    "Win amazing gifts by downloading our app",
+                                                    LocaleKeys.WinAmazingGifts.tr,
                                                     style: normal_h3Style.copyWith(color: Colors.black45),
                                                   ),
                                                   trailing: Icon(
@@ -377,10 +377,10 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                               text: LocaleKeys.Logout.tr,
                                               onPressed: () {
                                                 showIosDialog(
-                                                  title: "Logout",
-                                                  message: "Are you sure to logout?",
-                                                  confirmText: "Logout",
-                                                  cancelText: "Cancel",
+                                                  title: LocaleKeys.Logout.tr,
+                                                  message: LocaleKeys.AreYouSureLogout.tr,
+                                                  confirmText: LocaleKeys.Logout.tr,
+                                                  cancelText: LocaleKeys.Cancel.tr,
                                                   onConfirm: () async {
                                                     await FirebaseAuth.instance.signOut();
                                                     Get.offAll(SignupScreen());
@@ -431,10 +431,10 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
       await user.updatePassword(newPassword).then((_) {
         response = "success";
       }).catchError((error) {
-        Get.snackbar("Error", error.toString(), colorText: Colors.white, backgroundColor: Colors.red);
+        Get.snackbar(LocaleKeys.Error.tr, error.toString(), colorText: Colors.white, backgroundColor: Colors.red);
       });
     }).catchError((err) {
-      Get.snackbar("Error", err.toString(), colorText: Colors.white, backgroundColor: Colors.red);
+      Get.snackbar(LocaleKeys.Error.tr, err.toString(), colorText: Colors.white, backgroundColor: Colors.red);
     });
     passwordLoading = false;
     return response;

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/views/layouts/layout_organizer_events.dart';
@@ -34,7 +36,7 @@ class _ScreenOrganizerHomepageState extends State<ScreenOrganizerHomepage> with 
       child: CustomTabBarView(
           tabs_length: 2,
           borderRadius: BorderRadius.circular(30),
-          tabs_titles_list: ["My Events", "News Feed"],
+          tabs_titles_list: [LocaleKeys.MyEvents.tr, LocaleKeys.NewsFeed.tr],
           tabController: TabController(length: 2, vsync: this),
           tab_children_layouts: organizer_layouts),
     );

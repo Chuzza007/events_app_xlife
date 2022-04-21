@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart' as loc;
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/user.dart' as model;
@@ -78,19 +79,19 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> implements List
           unselectedItemColor: Colors.black26,
           items: [
             CustomBottomMenuItem(
-              label: "Nearby Events",
+              label: LocaleKeys.NearbyEvents.tr,
               icon: ImageIcon(AssetImage("assets/images/multiple_events.png")),
             ),
             CustomBottomMenuItem(
-              label: "Search",
+              label: LocaleKeys.Search.tr,
               icon: ImageIcon(AssetImage("assets/images/search_events.png")),
             ),
             CustomBottomMenuItem(
-              label: "Favorites",
+              label: LocaleKeys.Favorites.tr,
               icon: ImageIcon(AssetImage("assets/images/star.png")),
             ),
             CustomBottomMenuItem(
-              label: "News Feed",
+              label: LocaleKeys.NewsFeed.tr,
               icon: ImageIcon(AssetImage("assets/images/newsfeed.png")),
             ),
           ],
@@ -125,7 +126,7 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> implements List
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return Future.error(LocaleKeys.LocationPermissionsDenied.tr);
       }
       return;
     }

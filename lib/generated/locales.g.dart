@@ -3,7 +3,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 // ignore: avoid_classes_with_only_static_members
 class AppTranslation {
-  static const Map<String, Map<String, String>> translations = {
+  static Map<String, Map<String, String>> translations = {
     'en_US': Locales.en_US,
   };
 }
@@ -145,6 +145,131 @@ class LocaleKeys {
   static const Success = 'Success';
   static const NameUpdatedSuccessfully = 'NameUpdatedSuccessfully';
   static const NoContests = 'NoContests';
+  static const AddNewOrganizer = 'AddNewOrganizer';
+  static const Name = 'Name';
+  static const OrganizerName = 'OrganizerName';
+  static const organizertestcom = 'organizertestcom';
+  static const InsertImage = 'InsertImage';
+  static const optional = 'optional';
+  static const NoEventsYet = 'NoEventsYet';
+  static const AllOrganizers = 'AllOrganizers';
+  static const NoInternetConnection = 'NoInternetConnection';
+  static const NoData = 'NoData';
+  static const AllPosts = 'AllPosts';
+  static const NoPosts = 'NoPosts';
+  static const OrganizedBy = 'OrganizedBy';
+  static const NoUsers = 'NoUsers';
+  static const AdminPortal = 'AdminPortal';
+  static const SelectOption = 'SelectOption';
+  static const AllEvents = 'AllEvents';
+  static const Posts = 'Posts';
+  static const ProfileInformation = 'ProfileInformation';
+  static const ChangePassword = 'ChangePassword';
+  static const OldPassword = 'OldPassword';
+  static const Change = 'Change';
+  static const PasswordChangedSuccessfully = 'PasswordChangedSuccessfully';
+  static const ChangingPassword = 'ChangingPassword';
+  static const MyQRCode = 'MyQRCode';
+  static const Terms = 'Terms';
+  static const Others = 'Others';
+  static const Rate = 'Rate';
+  static const RateUsOnAppStore = 'RateUsOnAppStore';
+  static const Share = 'Share';
+  static const ShareThisAppWithFriends = 'ShareThisAppWithFriends';
+  static const WinGifts = 'WinGifts';
+  static const WinAmazingGifts = 'WinAmazingGifts';
+  static const AreYouSureLogout = 'AreYouSureLogout';
+  static const FavoriteBy = 'FavoriteBy';
+  static const LocationPermissionsDenied = 'LocationPermissionsDenied';
+  static const MyEvents = 'MyEvents';
+  static const NewsFeed = 'NewsFeed';
+  static const NewEvent = 'NewEvent';
+  static const EventTitle = 'EventTitle';
+  static const PickEventLocation = 'PickEventLocation';
+  static const Timings = 'Timings';
+  static const StartingFrom = 'StartingFrom';
+  static const EndingAt = 'EndingAt';
+  static const AddTags = 'AddTags';
+  static const Tags = 'Tags';
+  static const EntryFee = 'EntryFee';
+  static const Min = 'Min';
+  static const CreateNewPost = 'CreateNewPost';
+  static const PostText = 'PostText';
+  static const WriteSomething = 'WriteSomething';
+  static const Post = 'Post';
+  static const NComments = 'NComments';
+  static const Reactions = 'Reactions';
+  static const UpdateEvent = 'UpdateEvent';
+  static const EventImages = 'EventImages';
+  static const EventUpdated = 'EventUpdated';
+  static const ClearChat = 'ClearChat';
+  static const AreYouSureToClearChat = 'AreYouSureToClearChat';
+  static const Clear = 'Clear';
+  static const TypeMessage = 'TypeMessage';
+  static const From = 'From';
+  static const SelectAttachmentOption = 'SelectAttachmentOption';
+  static const ChooseFile = 'ChooseFile';
+  static const Unknown = 'Unknown';
+  static const Chat = 'Chat';
+  static const Suggestions = 'Suggestions';
+  static const NoSuggestions = 'NoSuggestions';
+  static const Messages = 'Messages';
+  static const NoMessages = 'NoMessages';
+  static const MyProfile = 'MyProfile';
+  static const Changingpassword = 'Changingpassword';
+  static const AllUserSuggestionsRemovedSureToLogout =
+      'AllUserSuggestionsRemovedSureToLogout';
+  static const Distance = 'Distance';
+  static const Navigate = 'Navigate';
+  static const Favorite = 'Favorite';
+  static const NearbyEvents = 'NearbyEvents';
+  static const Search = 'Search';
+  static const Favorites = 'Favorites';
+  static const comments = 'comments';
+  static const NoComments = 'NoComments';
+  static const YourComment = 'YourComment';
+  static const InvalidEmail = 'InvalidEmail';
+  static const SignInAs = 'SignInAs';
+  static const LoginAs = 'LoginAs';
+  static const User = 'User';
+  static const SomethingWentWrong = 'SomethingWentWrong';
+  static const ApplyAsOrganizer = 'ApplyAsOrganizer';
+  static const SendRequestEmailToAdmin = 'SendRequestEmailToAdmin';
+  static const EmailCopied = 'EmailCopied';
+  static const NoResults = 'NoResults';
+  static const SearchEvent = 'SearchEvent';
+  static const Filter = 'Filter';
+  static const LikedEvents = 'LikedEvents';
+  static const NoFavorites = 'NoFavorites';
+  static const AddNewPost = 'AddNewPost';
+  static const Event = 'Event';
+  static const AddNewEvent = 'AddNewEvent';
+  static const None = 'None';
+  static const Like = 'Like';
+  static const Love = 'Love';
+  static const Dislike = 'Dislike';
+  static const ago = 'ago';
+  static const Comment = 'Comment';
+  static const left = 'left';
+  static const NReactions = 'NReactions';
+  static const Pending = 'Pending';
+  static const Approve = 'Approve';
+  static const Reject = 'Reject';
+  static const DeletePost = 'DeletePost';
+  static const AreYouSureToDeletePost = 'AreYouSureToDeletePost';
+  static const DeleteEvent = 'DeleteEvent';
+  static const EventDeleted = 'EventDeleted';
+  static const AreYouSureToDeleteThisEvent = 'AreYouSureToDeleteThisEvent';
+  static const Delete = 'Delete';
+  static const OrganizedNEvents = 'OrganizedNEvents';
+  static const Approved = 'Approved';
+  static const OrganizerProfile = 'OrganizerProfile';
+  static const KmAway = 'KmAway';
+  static const Chats = 'Chats';
+  static const AreYouSureToUploadImage = 'AreYouSureToUploadImage';
+  static const UpdatingProfilePicture = 'UpdatingProfilePicture';
+  static const ProfileImageUpdatedSuccessfully =
+      'ProfileImageUpdatedSuccessfully';
 }
 
 class Locales {
@@ -294,5 +419,131 @@ class Locales {
     'Success': 'Success',
     'NameUpdatedSuccessfully': 'Name updated successfully',
     'NoContests': 'No Contests',
+    'AddNewOrganizer': 'Add new Organizer',
+    'Name': 'Name',
+    'OrganizerName': 'Organizer name',
+    'organizertestcom': 'organizer@test.com',
+    'InsertImage': 'Insert image',
+    'optional': '(optional)',
+    'NoEventsYet': 'No Events yet',
+    'AllOrganizers': 'All Organizers',
+    'NoInternetConnection': 'No Internet Connection',
+    'NoData': 'No data',
+    'AllPosts': 'All Posts',
+    'NoPosts': 'No Posts',
+    'OrganizedBy': 'Organized By',
+    'NoUsers': 'No users',
+    'AdminPortal': 'Admin Portal',
+    'SelectOption': 'Select an option',
+    'AllEvents': 'All Events',
+    'Posts': 'Posts',
+    'ProfileInformation': 'Profile Information',
+    'ChangePassword': 'Change Password',
+    'OldPassword': 'Old Password',
+    'Change': 'Change',
+    'PasswordChangedSuccessfully': 'Password changed successfully',
+    'ChangingPassword': 'Changing password...',
+    'MyQRCode': 'My QR Code',
+    'Terms': 'Terms',
+    'Others': 'Others',
+    'Rate': 'Rate',
+    'RateUsOnAppStore': 'Rate us on app store',
+    'Share': 'Share',
+    'ShareThisAppWithFriends': 'Share this app with friends',
+    'WinGifts': 'Win Gifts',
+    'WinAmazingGifts': 'Win amazing gifts by downloading our app',
+    'AreYouSureLogout': 'Are you sure to logout?',
+    'FavoriteBy': 'Favorite by',
+    'LocationPermissionsDenied': 'Location permissions are denied',
+    'MyEvents': 'My Events',
+    'NewsFeed': 'News Feed',
+    'NewEvent': 'New Event',
+    'EventTitle': 'Event title',
+    'PickEventLocation': 'Pick event location',
+    'Timings': 'Timings',
+    'StartingFrom': 'Starting from',
+    'EndingAt': 'Ending at',
+    'AddTags': 'Add tags',
+    'Tags': 'Tag 1, Tag 2, Tag 3, ....',
+    'EntryFee': 'Entry fee',
+    'Min': 'Minimum 500',
+    'CreateNewPost': 'Create new post',
+    'PostText': 'Post text',
+    'WriteSomething': 'Write something....',
+    'Post': 'Post',
+    'NComments': '000 comments',
+    'Reactions': 'Reactions',
+    'UpdateEvent': 'Update Event',
+    'EventImages': 'Event images',
+    'EventUpdated': 'Event updated',
+    'ClearChat': 'Clear Chat',
+    'AreYouSureToClearChat':
+        'This will be removed from your inbox. Are you sure to clear chat with this user?',
+    'Clear': 'Clear',
+    'TypeMessage': 'Type a message...',
+    'From': 'From ',
+    'SelectAttachmentOption': 'Select Attachment Option',
+    'ChooseFile': 'Choose file',
+    'Unknown': 'Unknown',
+    'Chat': 'Chat',
+    'Suggestions': 'Suggestions',
+    'NoSuggestions': 'No Suggestions',
+    'Messages': 'Messages',
+    'NoMessages': 'No messages',
+    'MyProfile': 'My Profile',
+    'Changingpassword': 'Changing password...',
+    'AllUserSuggestionsRemovedSureToLogout':
+        'All user suggestions will be removed. Are you sure to logout?',
+    'Distance': 'Distance',
+    'Navigate': 'Navigate',
+    'Favorite': 'Favorite',
+    'NearbyEvents': 'Nearby Events',
+    'Search': 'Search',
+    'Favorites': 'favorites',
+    'comments': 'comments',
+    'NoComments': 'No Comments',
+    'YourComment': 'Your comment',
+    'InvalidEmail': 'Invalid Email',
+    'SignInAs': 'Sign In as',
+    'LoginAs': 'Login as',
+    'User': 'User',
+    'SomethingWentWrong': 'Something went wrong',
+    'ApplyAsOrganizer': 'Apply as organizer',
+    'SendRequestEmailToAdmin':
+        'Send request email to admin for being an organizer. Once request accepted you\'ll be notified',
+    'EmailCopied': 'Email copied',
+    'NoResults': 'No results',
+    'SearchEvent': 'Search Event',
+    'Filter': 'Filter',
+    'LikedEvents': 'Liked Events',
+    'NoFavorites': 'No Favorites',
+    'AddNewPost': 'Add new Post',
+    'Event': 'Event',
+    'AddNewEvent': 'Add new Event',
+    'None': 'None',
+    'Like': 'Like',
+    'Love': 'Love',
+    'Dislike': 'Dislike',
+    'ago': 'ago',
+    'Comment': 'Comment',
+    'left': 'left',
+    'NReactions': '000 Reactions',
+    'Pending': 'Pending',
+    'Approve': 'Approve',
+    'Reject': 'Reject',
+    'DeletePost': 'Delete Post',
+    'AreYouSureToDeletePost': 'Are you sure to delete this post?',
+    'DeleteEvent': 'Delete Event',
+    'EventDeleted': 'Event deleted',
+    'AreYouSureToDeleteThisEvent': 'Are you sure to delete this event?',
+    'Delete': 'Delete',
+    'OrganizedNEvents': 'Organized 000 events',
+    'Approved': 'Approved',
+    'OrganizerProfile': 'Organizer profile',
+    'KmAway': 'km away',
+    'Chats': 'Chats',
+    'AreYouSureToUploadImage': 'Are you sure to upload this image',
+    'UpdatingProfilePicture': 'Updating your profile picture',
+    'ProfileImageUpdatedSuccessfully': 'Profile image updated successfully',
   };
 }

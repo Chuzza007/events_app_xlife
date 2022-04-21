@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
@@ -37,7 +39,7 @@ class _ScreenOrganizerPostReactionsState extends State<ScreenOrganizerPostReacti
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$numReactions  Reactions"),
+        title: Text("$numReactions  ${LocaleKeys.Reactions.tr}"),
       ),
       body: ListView.builder(
         itemCount: reactions.length,

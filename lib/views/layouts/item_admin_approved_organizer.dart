@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/user.dart';
 
+import '../../generated/locales.g.dart';
 import '../../helpers/styles.dart';
 
 class ItemAdminApprovedOrganizer extends StatelessWidget {
@@ -54,7 +55,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
                     SizedBox(
                       width: Get.width * 0.02,
                     ),
-                    Text("Organized 0 events"),
+                    Text(LocaleKeys.OrganizedNEvents.replaceAll("N", "0")),
                   ],
                 ),
                 // Row(
@@ -71,7 +72,7 @@ class ItemAdminApprovedOrganizer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              "Approved",
+              LocaleKeys.Approved.tr,
               style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold).copyWith(color: Colors.green),
             ),
             // trailing: IconButton(

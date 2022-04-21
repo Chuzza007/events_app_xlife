@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
@@ -96,7 +97,7 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> imp
                       ),
                       dense: true,
                       leading: Icon(Icons.event),
-                      subtitle: Text("Organized by ${organizer.full_name}"),
+                      subtitle: Text("${LocaleKeys.OrganizedBy.tr} ${organizer.full_name}"),
                     ),
                     ListTile(
                       title: Text(
@@ -105,7 +106,7 @@ class _ItemUserEventByOrganizerState extends State<ItemUserEventByOrganizer> imp
                       ),
                       dense: true,
                       leading: Icon(Icons.location_on),
-                      subtitle: Text(convertTimeToText(widget.event.startTime, "left")),
+                      subtitle: Text(convertTimeToText(widget.event.startTime, LocaleKeys.left.tr)),
                       trailing: IconButton(
                         onPressed: () {
                           updateFavorite(!favorite);

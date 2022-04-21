@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/views/layouts/item_admin_news_feed.dart';
@@ -19,7 +21,7 @@ class _ScreenAdminAllPostsState extends State<ScreenAdminAllPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Posts"),
+        title: Text(LocaleKeys.AllPosts.tr),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: postsRef.snapshots(),
@@ -34,7 +36,7 @@ class _ScreenAdminAllPostsState extends State<ScreenAdminAllPosts> {
             );
           } else if (snapshot.connectionState == ConnectionState.none) {
             return NotFound(
-              message: "No Internet Connection",
+              message: LocaleKeys.NoInternetConnection.tr,
               assetImage: "assets/images/nothing.png",
             );
           }
@@ -47,7 +49,7 @@ class _ScreenAdminAllPostsState extends State<ScreenAdminAllPosts> {
                 post: posts[index],
               );
             },
-          ) : NotFound(message: "No Posts",);
+          ) : NotFound(message: LocaleKeys.NoPosts.tr,);
         },
       ),
     );

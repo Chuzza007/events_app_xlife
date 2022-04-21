@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
 import 'package:xlife/models/comment.dart';
@@ -53,16 +54,16 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
     getPostDetails(widget.post, this);
     reactions = [
       Reaction(
-          title: _buildReactionTitle("None"),
+          title: _buildReactionTitle(LocaleKeys.None.tr),
           previewIcon: Icon(Icons.thumb_up_alt_outlined),
-          icon: _buildIcon(Icons.thumb_up_alt_outlined, "None"),
+          icon: _buildIcon(Icons.thumb_up_alt_outlined, LocaleKeys.None.tr),
           value: "none"),
-      Reaction(title: _buildReactionTitle("Like"), previewIcon: Icon(Icons.thumb_up), icon: _buildIcon(Icons.thumb_up, "Like"), value: "like"),
-      Reaction(title: _buildReactionTitle("Love"), previewIcon: Icon(Icons.favorite), icon: _buildIcon(Icons.favorite, "Love"), value: "love"),
+      Reaction(title: _buildReactionTitle(LocaleKeys.Like.tr), previewIcon: Icon(Icons.thumb_up), icon: _buildIcon(Icons.thumb_up, LocaleKeys.Like.tr), value: "like"),
+      Reaction(title: _buildReactionTitle(LocaleKeys.Love.tr), previewIcon: Icon(Icons.favorite), icon: _buildIcon(Icons.favorite, LocaleKeys.Love.tr), value: "love"),
       Reaction(
-          title: _buildReactionTitle("Dislike"),
+          title: _buildReactionTitle(LocaleKeys.Dislike.tr),
           previewIcon: Icon(Icons.thumb_down),
-          icon: _buildIcon(Icons.thumb_down, "Dislike"),
+          icon: _buildIcon(Icons.thumb_down, LocaleKeys.Dislike.tr),
           value: "dislike"),
     ];
 
@@ -95,7 +96,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
                 postUser.full_name,
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: Text(convertTimeToText(timestamp, "ago")),
+              subtitle: Text(convertTimeToText(timestamp, LocaleKeys.ago.tr)),
             ),
           ),
           Padding(
@@ -130,7 +131,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
               children: [
                 GestureDetector(
                   child: Text(
-                    "$numReactions Reactions",
+                    "$numReactions ${LocaleKeys.Reactions.tr}",
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
@@ -138,7 +139,7 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
                   },
                 ),
                 Text(
-                  "$numComments Comments",
+                  "$numComments ${LocaleKeys.comments.tr}",
                   style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                 )
               ],
@@ -175,7 +176,8 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
                         width: 5.sp,
                       ),
                       Text(
-                        "Comment",
+                        LocaleKeys.Comment.tr
+                        ,
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                         textAlign: TextAlign.center,
                       ),

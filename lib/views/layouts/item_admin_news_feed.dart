@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/comment.dart';
 import 'package:xlife/models/post.dart';
@@ -80,24 +81,24 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> implements Listen
                 user.full_name,
                 style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
               ),
-              subtitle: Text(convertTimeToText(widget.post.timestamp, "ago")),
+              subtitle: Text(convertTimeToText(widget.post.timestamp, LocaleKeys.ago.tr)),
               trailing: IconButton(
                 onPressed: () {
                   Get.defaultDialog(
-                      title: "Delete Post",
-                      middleText: "Are you sure to delete this post?",
+                      title: LocaleKeys.DeletePost.tr,
+                      middleText: LocaleKeys.AreYouSureToDeletePost.tr,
                       onConfirm: () async {
                         Get.back();
                         postsRef.doc(widget.post.id).delete().then((value) {
 
                         }).catchError((error){
-                          Get.snackbar("Error", error.toString());
+                          Get.snackbar(LocaleKeys.Error.tr, error.toString());
                         });
                       },
                       onCancel: () {
                       },
-                      textConfirm: "Yes",
-                      textCancel: "No"
+                      textConfirm: LocaleKeys.Yes.tr,
+                      textCancel: LocaleKeys.No.tr
                   );
                 },
                 icon: Icon(Icons.delete),
@@ -130,7 +131,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> implements Listen
               children: [
                 GestureDetector(
                   child: Text(
-                    "$reactions Reactions",
+                    "$reactions ${LocaleKeys.Reactions.tr}",
                     style:
                     (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
@@ -140,7 +141,7 @@ class _ItemAdminNewsFeedState extends State<ItemAdminNewsFeed> implements Listen
                 ),
                 GestureDetector(
                   child: Text(
-                    "$comments Comments",
+                    "$comments ${LocaleKeys.comments.tr}",
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: () {

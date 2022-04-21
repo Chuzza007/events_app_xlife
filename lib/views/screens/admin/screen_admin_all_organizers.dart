@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/views/screens/admin/screen_admin_add_organizer.dart';
 import 'package:xlife/widgets/not_found.dart';
@@ -32,7 +33,7 @@ class _ScreenAdminAllOrganizersState extends State<ScreenAdminAllOrganizers> wit
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Organizers"),
+        title: Text(LocaleKeys.AllOrganizers.tr),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -53,7 +54,7 @@ class _ScreenAdminAllOrganizersState extends State<ScreenAdminAllOrganizers> wit
             );
           } else if (snapshot.connectionState == ConnectionState.none) {
             return NotFound(
-              message: "No Internet Connection",
+              message: LocaleKeys.NoInternetConnection.tr,
               assetImage: "assets/images/nothing.png",
             );
           }
@@ -66,7 +67,7 @@ class _ScreenAdminAllOrganizersState extends State<ScreenAdminAllOrganizers> wit
                     var organizer = User.fromMap(data as Map<String, dynamic>);
                     return ItemAdminApprovedOrganizer(organizer: organizer);
                   })
-              : NotFound(message: "No data");
+              : NotFound(message: LocaleKeys.NoData.tr);
         },
       ),
     );

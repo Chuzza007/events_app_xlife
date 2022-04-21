@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/interfaces/listener_event_favorites.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
@@ -87,24 +88,24 @@ class _ItemAdminEventState extends State<ItemAdminEvent> implements ListenerEven
                       trailing: IconButton(
                         onPressed: () {
                           Get.defaultDialog(
-                              title: "Delete Event",
+                              title: LocaleKeys.DeleteEvent.tr,
                               onConfirm: () async {
                                 Get.back();
                                 await eventsRef.doc(widget.event.id).delete().then((value) {
-                                  Get.snackbar("Alert", "Event deleted", snackPosition: SnackPosition.BOTTOM);
+                                  Get.snackbar(LocaleKeys.Alert.tr, LocaleKeys.EventDeleted.tr, snackPosition: SnackPosition.BOTTOM);
                                 });
                               },
                               onCancel: () {},
-                              middleText: "Are you sure to delete this event?",
-                              textConfirm: "Delete",
-                              textCancel: "Cancel");
+                              middleText: LocaleKeys.AreYouSureToDeleteThisEvent.tr,
+                              textConfirm: LocaleKeys.Delete.tr,
+                              textCancel: LocaleKeys.Cancel.tr);
                         },
                         icon: Icon(Icons.delete),
                       ),
                     ),
                     ListTile(
                       title: Text(
-                        "$favorites favorites",
+                        "$favorites ${LocaleKeys.Favorites.tr}",
                         style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
                       ),
                       dense: true,
@@ -112,7 +113,7 @@ class _ItemAdminEventState extends State<ItemAdminEvent> implements ListenerEven
                         AssetImage("assets/images/heart_true.png"),
                         color: Colors.red,
                       ),
-                      subtitle: Text("Organized by ${organizer.full_name}"),
+                      subtitle: Text("${LocaleKeys.OrganizedBy.tr} ${organizer.full_name}"),
                     ),
                   ],
                 ),

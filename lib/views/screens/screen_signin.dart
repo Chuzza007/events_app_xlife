@@ -64,7 +64,7 @@ class SignInScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            "Sign In as",
+                            LocaleKeys.SignInAs.tr,
                             style: normal_h3Style_bold,
                           ),
                           Obx(() {
@@ -74,16 +74,16 @@ class SignInScreen extends StatelessWidget {
                                 icon: Icon(Icons.keyboard_arrow_down),
                                 elevation: 8,
                                 underline: SizedBox(),
-                                hint: Text("Login as"),
+                                hint: Text(LocaleKeys.LoginAs.tr),
                                 value: controller.selectedRole.value,
                                 isExpanded: true,
                                 items: [
                                   DropdownMenuItem(
-                                    child: Text("User"),
+                                    child: Text(LocaleKeys.User.tr),
                                     value: "users",
                                   ),
                                   DropdownMenuItem(
-                                    child: Text("Organizer"),
+                                    child: Text(LocaleKeys.Organizer.tr),
                                     value: "organizers",
                                   ),
                                 ],
@@ -137,7 +137,7 @@ class SignInScreen extends StatelessWidget {
                             } else if (controller.selectedRole == "organizers") {
                               Get.offAll(ScreenOrganizerHomepage());
                             } else {
-                              Get.snackbar("Error", "Something went wrong");
+                              Get.snackbar(LocaleKeys.Error, LocaleKeys.SomethingWentWrong.tr);
                             }
                           }
                         },

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_new_post.dart';
@@ -30,9 +31,9 @@ class _LayoutOrganizerNewsFeedState
         onPressed: () {
           Get.to(ScreenOrganizerNewPost(userType: "organizer",));
         },
-        label: Text("Post"),
+        label: Text(LocaleKeys.Post.tr),
         icon: Icon(Icons.add),
-        tooltip: "Add new Post",
+        tooltip: LocaleKeys.AddNewPost.tr,
       ),
 
       body: StreamBuilder<QuerySnapshot>(
@@ -50,7 +51,7 @@ class _LayoutOrganizerNewsFeedState
               );
             } else if (snapshot.connectionState == ConnectionState.none) {
               return NotFound(
-                message: "No Internet Connection",
+                message: LocaleKeys.NoInternetConnection.tr,
               );
             }
 
@@ -64,7 +65,7 @@ class _LayoutOrganizerNewsFeedState
                   var post = Post.fromMap(docs[index].data() as Map<String, dynamic>);
 
                   return ItemOrganizerNewsFeed(post: post);
-                }) : NotFound(message: "No posts");
+                }) : NotFound(message: LocaleKeys.NoPosts.tr);
           }),
     );
   }

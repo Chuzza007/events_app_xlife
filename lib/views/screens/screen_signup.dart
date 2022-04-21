@@ -47,7 +47,7 @@ class SignupScreen extends StatelessWidget {
                           },
                           keyboardType: TextInputType.name),
                       CustomInputField(
-                          hint: "Nickname",
+                          hint: LocaleKeys.Nickname.tr,
                           isPasswordField: false,
                           controller: controller.nickname_controller.value,
                           fillColor: Colors.white,
@@ -94,7 +94,7 @@ class SignupScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          "Select Gender",
+                          LocaleKeys.SelectGender.tr,
                           style: TextStyle(color: hintColor),
                         ),
                       ),
@@ -209,21 +209,22 @@ class SignupScreen extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 Get.defaultDialog(
-                                  title: "Apply as organizer",
+                                  title: LocaleKeys.ApplyAsOrganizer.tr,
                                   content: Column(
                                     children: [
                                       ListTile(
                                         title: Text("mathieu@polydigit.org", style: normal_h3Style_bold,),
-                                        subtitle: Text("Send request email to admin for being an organizer. Once request accepted you'll be notified"),
+                                        subtitle: Text(LocaleKeys.SendRequestEmailToAdmin.tr),
                                         trailing: IconButton(
                                           icon: Icon(Icons.copy),
                                           onPressed: () async {
                                             Get.back();
                                             await Clipboard.setData(ClipboardData(text: "mathieu@polydigit.org")).catchError((error){
-                                              Get.snackbar("Error", error.toString());
+                                              Get.snackbar(LocaleKeys.Error.tr, error.toString());
                                               return;
                                             });
-                                            Get.snackbar("Alert", "Email copied", colorText: Colors.white, backgroundColor: Colors.green);
+                                            Get.snackbar(LocaleKeys.Alert.tr
+                                                , LocaleKeys.EmailCopied.tr, colorText: Colors.white, backgroundColor: Colors.green);
                                           },
                                         ),
                                       )
@@ -232,7 +233,7 @@ class SignupScreen extends StatelessWidget {
                                 );
                               },
                               child: Text(
-                                "Apply as Organizer",
+                                LocaleKeys.ApplyAsOrganizer.tr,
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.visible,
                               ),

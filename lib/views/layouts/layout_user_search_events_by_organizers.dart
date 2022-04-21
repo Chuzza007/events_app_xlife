@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/interfaces/listener_events.dart';
@@ -77,7 +78,8 @@ class _LayoutUserSearchEventsByOrganizersState extends State<LayoutUserSearchEve
                   : Container(
                       height: Get.height * 0.6,
                       alignment: Alignment.center,
-                      child: NotFound(message: "No results"),
+                      child: NotFound(message: LocaleKeys.NoResults.tr
+                      ),
                     ),
             ],
           ),
@@ -88,7 +90,7 @@ class _LayoutUserSearchEventsByOrganizersState extends State<LayoutUserSearchEve
 
   Widget _buildSearchField() {
     return CustomInputField(
-        hint: "Search Event",
+        hint: LocaleKeys.SearchEvent.tr,
         isPasswordField: false,
         onChange: (value) {
           filterEvents(value.toString().trim());
@@ -97,7 +99,7 @@ class _LayoutUserSearchEventsByOrganizersState extends State<LayoutUserSearchEve
         suffix: searchController.text.trim().isNotEmpty ? IconButton(
           onPressed: () {
             Get.defaultDialog(
-                title: "Filter",
+                title: LocaleKeys.Filter.tr,
                 content: StatefulBuilder(builder: (_, setState) {
                   return Expanded(
                     child: CustomListviewBuilder(
@@ -130,8 +132,8 @@ class _LayoutUserSearchEventsByOrganizersState extends State<LayoutUserSearchEve
                   filterEvents(searchController.text);
                   Get.back();
                 },
-                textConfirm: "Filter",
-                textCancel: "Cancel",
+                textConfirm: LocaleKeys.Filter.tr,
+                textCancel: LocaleKeys.Cancel.tr,
                 onCancel: () {
                   Get.back();
                 });

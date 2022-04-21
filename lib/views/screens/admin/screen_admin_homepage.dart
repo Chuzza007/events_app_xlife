@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_events.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_organizers.dart';
@@ -19,28 +20,28 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Admin Portal"),
+        title: Text(LocaleKeys.AdminPortal.tr),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Select an option",
+              LocaleKeys.SelectOption.tr,
               style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
             ),
             CustomButton(
-                text: "All Events",
+                text: LocaleKeys.AllEvents.tr,
                 onPressed: () {
                   Get.to(ScreenAdminAllEvents());
                 }),
             CustomButton(
-                text: "Organizers",
+                text:LocaleKeys.Organizers.tr,
                 onPressed: () {
                   Get.to(ScreenAdminAllOrganizers());
                 }),
             CustomButton(
-                text: "Posts",
+                text: LocaleKeys.Posts.tr,
                 onPressed: () {
                   Get.to(ScreenAdminAllPosts());
                 }),

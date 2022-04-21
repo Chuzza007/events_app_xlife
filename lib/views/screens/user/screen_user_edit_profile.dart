@@ -63,7 +63,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text("My Profile"),
+        title: Text(LocaleKeys.MyProfile.tr),
       ),
       body: AnimatedCrossFade(
         firstChild: Container(
@@ -159,7 +159,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Profile Information",
+                                        LocaleKeys.ProfileInformation.tr,
                                         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                       ),
                                       Container(
@@ -173,7 +173,8 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                           children: [
                                             ListTile(
                                               title: Text(
-                                                "Name",
+                                                LocaleKeys.Name.tr
+                                                ,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               subtitle: Text(
@@ -187,7 +188,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             ),
                                             ListTile(
                                               title: Text(
-                                                "Email",
+                                                LocaleKeys.Email.tr,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               subtitle: Text(
@@ -197,7 +198,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             ),
                                             ListTile(
                                               title: Text(
-                                                "Change Password",
+                                                LocaleKeys.ChangePassword.tr,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               trailing: IconButton(
@@ -216,23 +217,25 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                             children: [
                                                               Text(
-                                                                "Change Password",
+                                                                LocaleKeys.ChangePassword.tr
+                                                                ,
                                                                 style: normal_h2Style_bold,
                                                               ),
                                                               CustomInputField(
-                                                                label: "Old Password",
+                                                                label: LocaleKeys.OldPassword.tr,
                                                                 isPasswordField: true,
                                                                 controller: old_pass_controller,
                                                                 keyboardType: TextInputType.visiblePassword,
                                                               ),
                                                               CustomInputField(
-                                                                label: "New Password",
+                                                                label: LocaleKeys.NewPassword.tr
+                                                                ,
                                                                 isPasswordField: true,
                                                                 controller: new_pass_controller,
                                                                 keyboardType: TextInputType.visiblePassword,
                                                               ),
                                                               CustomButton(
-                                                                  text: "Change",
+                                                                  text: LocaleKeys.Change.tr,
                                                                   onPressed: () async {
                                                                     String oldPassword = old_pass_controller.text;
                                                                     String newPassword = new_pass_controller.text;
@@ -249,7 +252,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                                                     print(response);
                                                                     if (response == "success") {
                                                                       Get.back();
-                                                                      Get.snackbar("Success", "Password changed successfully",
+                                                                      Get.snackbar(LocaleKeys.Success.tr, LocaleKeys.PasswordChangedSuccessfully.tr,
                                                                           colorText: Colors.white, backgroundColor: Colors.green);
                                                                     }
                                                                     setState(() {
@@ -259,7 +262,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                                             ],
                                                           ),
                                                           secondChild: Text(
-                                                            "Changing password...",
+                                                            LocaleKeys.Changingpassword.tr,
                                                             style: normal_h3Style_bold,
                                                           ),
                                                           duration: Duration(milliseconds: 500),
@@ -274,7 +277,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             ),
                                             ListTile(
                                               title: Text(
-                                                "My QR Code",
+                                                LocaleKeys.MyQRCode.tr,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               trailing: IconButton(
@@ -287,7 +290,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                         ),
                                       ),
                                       Text(
-                                        "Terms",
+                                        LocaleKeys.Terms.tr,
                                         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                       ),
                                       Container(
@@ -336,7 +339,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                         ),
                                       ),
                                       Text(
-                                        "Others",
+                                        LocaleKeys.Others.tr,
                                         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
                                       ),
                                       Container(
@@ -351,11 +354,11 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             ListTile(
                                               onTap: () {},
                                               title: Text(
-                                                "Rate",
+                                                LocaleKeys.Rate.tr,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               subtitle: Text(
-                                                "Rate us on app store",
+                                                LocaleKeys.RateUsOnAppStore.tr,
                                                 style: normal_h3Style.copyWith(color: Colors.black45),
                                               ),
                                               trailing: Icon(
@@ -366,11 +369,11 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             ListTile(
                                               onTap: () {},
                                               title: Text(
-                                                "Share",
+                                                LocaleKeys.Share.tr,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               subtitle: Text(
-                                                "Share this app with friends",
+                                                LocaleKeys.ShareThisAppWithFriends.tr,
                                                 style: normal_h3Style.copyWith(color: Colors.black45),
                                               ),
                                               trailing: Icon(
@@ -381,11 +384,11 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                             ListTile(
                                               onTap: () {},
                                               title: Text(
-                                                "Win Gifts",
+                                                LocaleKeys.WinGifts.tr,
                                                 style: (GetPlatform.isWeb ? normal_h2Style_bold_web : normal_h2Style_bold),
                                               ),
                                               subtitle: Text(
-                                                "Win amazing gifts by downloading our app",
+                                                LocaleKeys.WinAmazingGifts.tr,
                                                 style: normal_h3Style.copyWith(color: Colors.black45),
                                               ),
                                               trailing: Icon(
@@ -403,8 +406,8 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                           onPressed: () {
                                             showIosDialog(
                                                 context: context,
-                                                title: "Logout",
-                                                message: "All user suggestions will be removed. Are you sure to logout?",
+                                                title: LocaleKeys.Logout.tr,
+                                                message: LocaleKeys.AllUserSuggestionsRemovedSureToLogout.tr,
                                                 onConfirm: () {
                                                   FirebaseAuth.instance.signOut().then((value) async {
                                                     await removeUserSuggestions();
@@ -414,8 +417,9 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                                 onCancel: () {
                                                   Get.back();
                                                 },
-                                                confirmText: "Logout",
-                                                cancelText: "Cancel"
+                                                confirmText: LocaleKeys.Logout.tr,
+                                                cancelText: LocaleKeys.Cancel.tr
+
                                             );
                                           },
                                         ),
@@ -468,7 +472,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
     await _picker.pickImage(source: ImageSource.gallery);
     oldPickedImage = pickedImage;
     Get.defaultDialog(
-        title: "Are you sure to upload this image",
+        title: LocaleKeys.AreYouSureToUploadImage.tr,
         content: Container(
           margin: EdgeInsets.all(10),
           height: Get.height * 0.2,
@@ -481,23 +485,25 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
             ),
           ),
         ),
-        textConfirm: "Yes",
+        textConfirm: LocaleKeys.Yes.tr,
         confirmTextColor: Colors.white,
-        textCancel: "Cancel",
+        textCancel: LocaleKeys.Cancel.tr
+        ,
         radius: 0,
         onConfirm: () async {
           String uid = FirebaseAuth.instance.currentUser!.uid;
           Get.back();
-          Get.snackbar("Please Wait", "Updating your profile picture",
+          Get.snackbar(LocaleKeys.PleaseWait.tr, LocaleKeys.UpdatingProfilePicture.tr,
               colorText: Colors.white, backgroundColor: Colors.black);
           String image_url = await _uploadImage(uid);
           await usersRef
               .doc(uid)
               .update({"image_url": image_url}).catchError((error) {
-            Get.snackbar("Error", error.toString());
+            Get.snackbar(LocaleKeys.Error.tr, error.toString());
           });
           Get.snackbar(
-              "Success".tr, "Profile image updated successfully");
+              LocaleKeys.Success.tr, LocaleKeys.ProfileImageUpdatedSuccessfully.tr
+          );
           setState(() {
             showDpLoading = false;
           });
@@ -519,7 +525,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
     }).onError((error) {
       // do something to handle error
       showDpLoading = false;
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr, error.toString());
     });
 
 
@@ -542,10 +548,12 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
         response = "success";
         usersRef.doc(uid).update({"password":newPassword});
       }).catchError((error) {
-        Get.snackbar("Error", error.toString(), colorText: Colors.white, backgroundColor: Colors.red);
+        Get.snackbar(LocaleKeys.Error.tr
+            , error.toString(), colorText: Colors.white, backgroundColor: Colors.red);
       });
     }).catchError((err) {
-      Get.snackbar("Error", err.toString(), colorText: Colors.white, backgroundColor: Colors.red);
+      Get.snackbar(LocaleKeys.Error.tr
+          , err.toString(), colorText: Colors.white, backgroundColor: Colors.red);
     });
     passwordLoading = false;
     return response;

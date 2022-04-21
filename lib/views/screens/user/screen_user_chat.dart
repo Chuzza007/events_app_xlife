@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
+import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/message.dart' as model;
 import 'package:xlife/models/user.dart';
@@ -146,7 +147,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
         usersRef.doc("${receiver.id}/chats/${sender.id}/messages/$timestamp").set(newMessage.toMap());
       });
     }).catchError((error, stackTrace) {
-      Get.snackbar("Error", error.toString());
+      Get.snackbar(LocaleKeys.Error.tr
+          , error.toString());
     });
 
     String response = await FCM.sendMessageSingle(mUser.full_name, message.text, widget.mReceiver.notificationToken);
@@ -284,10 +286,11 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
             onSelected: (value) {
               if (value.toString() == "Clear chat") {
                 Get.defaultDialog(
-                    title: "Clear Chat",
-                    middleText: "This will be removed from your inbox. Are you sure to clear chat with this user?",
-                    textConfirm: "Clear",
-                    textCancel: "Cancel",
+                    title: LocaleKeys.ClearChat.tr,
+                    middleText:LocaleKeys.AreYouSureToClearChat.tr,
+                    textConfirm: LocaleKeys.Clear.tr,
+                    textCancel: LocaleKeys.Cancel.tr
+                    ,
                     onConfirm: () async {
                       Get.back();
                       await usersRef.doc(sender.id).collection("chats").doc(receiver.id).delete();
@@ -330,7 +333,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
                 return Center(child: CupertinoActivityIndicator());
               } else if (snapshot.connectionState == ConnectionState.none) {
                 return NotFound(
-                  message: "No Internet Connection",
+                  message: LocaleKeys.NoInternetConnection.tr
+                  ,
                   assetImage: "assets/images/nothing.png",
                 );
               }
@@ -364,7 +368,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
                       children: [
                         Expanded(
                           child: CustomInputField(
-                              hint: "Type a message...",
+                              hint: LocaleKeys.TypeMessage.tr,
                               isPasswordField: false,
                               controller: controller,
                               showBorder: false,
@@ -423,7 +427,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
                                     ))),
                           ),
                           Text(
-                            "From ${widget.mReceiver.address}",
+                            "${LocaleKeys.From.tr}${widget.mReceiver.address}",
                             style: (GetPlatform.isWeb ? normal_h3Style_bold_web : normal_h3Style_bold),
                           ),
                           Text(
@@ -450,15 +454,17 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
     showOptionsBottomSheet(
       context: context,
       title: Text(
-        "Select Attachment Option",
+        LocaleKeys.SelectAttachmentOption.tr
+        ,
         style: (GetPlatform.isWeb ? normal_h1Style_bold_web : normal_h1Style_bold),
       ),
       options: [
         ListTile(
-          title: Text("Insert Images"),
+          title: Text(LocaleKeys.InsertImage.tr),
         ),
         ListTile(
-          title: Text("Choose file"),
+          title: Text(LocaleKeys.ChooseFile.tr
+          ),
         ),
       ],
       showSkipButton: true,
@@ -642,7 +648,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
                   ),
                 ),
                 ListTile(
-                  title: Text(widget.mReceiver.address ?? "Unknown"),
+                  title: Text(widget.mReceiver.address ?? LocaleKeys.Unknown.tr),
                   leading: Icon(Icons.home),
                 ),
                 ListTile(
@@ -650,7 +656,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
                   leading: Icon(Icons.alternate_email),
                 ),
                 ListTile(
-                  title: Text(widget.mReceiver.phone ?? "Unknown"),
+                  title: Text(widget.mReceiver.phone ?? LocaleKeys.Unknown.tr
+                  ),
                   leading: Icon(Icons.phone),
                 ),
                 ListTile(
@@ -658,7 +665,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
                   leading: Icon(Icons.location_on),
                 ),
                 CustomButton(
-                    text: "Chat",
+                    text: LocaleKeys.Chat.tr
+                    ,
                     onPressed: () {
                       Get.back();
                     }),
@@ -679,7 +687,8 @@ class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProf
       distance =
       "${roundDouble((Geolocator.distanceBetween(
           currentPosition!.latitude, currentPosition!.longitude, widget.mReceiver.latitude ?? 0, widget.mReceiver.longitude ?? 0) / 1000),
-          2)} km away";
+          2)} ${LocaleKeys.KmAway.tr
+      }";
     });
   }
 
