@@ -42,8 +42,8 @@ class ControllerUserRegistration extends GetxController {
   }
 
   String? validatePassword(String value) {
-    if (value.length < 8) {
-      return LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "8");
+    if (value.length < 6) {
+      return LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "6");
     }
     return null;
   }

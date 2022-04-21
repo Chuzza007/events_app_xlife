@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/helpers/fcm.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/comment.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/models/reaction.dart' as model;
@@ -27,7 +29,7 @@ class ItemUserNewsFeed extends StatefulWidget {
   });
 }
 
-class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements ListenerPostDetails {
+class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements ListenerPostDetails, ListenerProfileInfo {
   late List<Reaction<String>> reactions;
   String? currentReaction = null;
   int numReactions = 0, numComments = 0;
@@ -47,11 +49,13 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
       last_seen: 0);
 
   var uid = FirebaseAuth.instance.currentUser!.uid;
+  String myName = "A user";
 
   @override
   void initState() {
     timestamp = widget.post.timestamp;
     getPostDetails(widget.post, this);
+    getProfileInfo(uid, this, "user");
     reactions = [
       Reaction(
           title: _buildReactionTitle(LocaleKeys.None.tr),
@@ -276,10 +280,16 @@ class _ItemUserNewsFeedState extends State<ItemUserNewsFeed> implements Listener
       postsRef.doc(widget.post.id).collection("reactions").doc(uid).delete();
       return;
     }
+    FCM.sendMessageSingle("New post reaction", "$myName reacted to your post \"${widget.post.title}\"", postUser.notificationToken);
     postsRef
         .doc(widget.post.id)
         .collection("reactions")
         .doc(uid)
         .set(model.Reaction(user_id: uid, timestamp: DateTime.now().millisecondsSinceEpoch, value: value).toMap());
+  }
+
+  @override
+  void onProfileInfo(userModel.User user) {
+    myName = user.full_name;
   }
 }

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/constants.dart';
+import 'package:xlife/helpers/fcm.dart';
 import 'package:xlife/interfaces/listener_post_details.dart';
+import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/models/comment.dart';
 import 'package:xlife/models/post.dart';
 import 'package:xlife/models/reaction.dart';
@@ -23,15 +25,18 @@ class ScreenUserPostComments extends StatefulWidget {
   });
 }
 
-class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> implements ListenerPostDetails {
+class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> implements ListenerPostDetails, ListenerProfileInfo {
   List<Comment> comments = [];
   bool loading = true;
   final controller = TextEditingController();
 
   String uid = FirebaseAuth.instance.currentUser!.uid;
+  String myName = "A user";
+  String userToken = "";
 
   @override
   void initState() {
+    getProfileInfo(uid, this, "user");
     getPostDetails(widget.post, this);
     super.initState();
   }
@@ -94,6 +99,7 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
                                 user_id: uid, text: commentText, timestamp: int.parse(id)).toMap()).then((value) {
                                   setState(() {
                                     controller.text = "";
+                                    FCM.sendMessageSingle("New comment", "$myName commented on your post \"${widget.post.title}\".", userToken);
                                   });
                             });
                           }
@@ -134,6 +140,11 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
 
   @override
   void onUserListener(model.User user) {
-    // TODO: implement onUserListener
+    userToken = user.notificationToken;
+  }
+
+  @override
+  void onProfileInfo(model.User user) {
+    myName = user.full_name;
   }
 }

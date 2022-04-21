@@ -103,7 +103,7 @@ class _ItemOrganizerNewsFeedState
                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style).copyWith(color: Colors.grey),
                   ),
                   onTap: (){
-                    Get.to(ScreenOrganizerPostComments());
+                    Get.to(ScreenOrganizerPostComments(post: widget.post,));
                   },
                 )
               ],
