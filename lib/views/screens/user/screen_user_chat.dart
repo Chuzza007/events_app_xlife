@@ -37,7 +37,7 @@ class ScreenUserChat extends StatefulWidget {
 
 class _ScreenUserChatState extends State<ScreenUserChat> implements ListenerProfileInfo {
 
-  User mUser = User(full_name: "full_name",
+  User mUser = User(full_name: "Unknown User",
       nick_name: "nick_name",
       email: "email",
       phone: "phone",

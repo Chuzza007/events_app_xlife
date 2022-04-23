@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xlife/helpers/styles.dart';
 
 import '../helpers/constants.dart';
 
@@ -27,7 +28,7 @@ class _CustomHeaderContainerDesignState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appPrimaryColor,
+      backgroundColor: Colors.white,
       bottomNavigationBar: widget.bottomNavigationBar,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -52,12 +53,12 @@ class _CustomHeaderContainerDesignState
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
-                        color: Colors.white38,
+                        color: Colors.grey[350],
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30),
                         ),
-                        boxShadow: []),
+                        boxShadow: appBoxShadow),
                   ),
                   Positioned(
                     child: Container(
@@ -72,6 +73,7 @@ class _CustomHeaderContainerDesignState
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30),
                         ),
+                        boxShadow: appBoxShadow
                       ),
                       child: MediaQuery.removePadding(
                           context: context,

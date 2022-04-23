@@ -35,8 +35,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.1
-  flutter_native_splash: ^2.0.5
-  animated_splash_screen: ^1.2.0
+  flutter_native_splash: ^2.1.6
+#  animated_splash_screen: ^1.2.0
   card_swiper: ^2.0.1
   sizer: ^2.0.15
   draggable_home: ^1.0.2
@@ -81,8 +81,11 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter_native_splash:
-  color: "#A033FF"
+  color: "#FFFFFF"
   image: assets/images/logo.png
+  dark_color: "#000000"
+
+#  flutter pub run flutter_native_splash:create
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -98,7 +101,6 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
-    - assets/gifs/
     - assets/locales/
 
   fonts:

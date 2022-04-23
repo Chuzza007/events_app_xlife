@@ -1,7 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:page_transition/src/enum.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         locale: Locale('fr', 'FR'),
         debugShowCheckedModeBanner: false,
-        title: LocaleKeys.AppName.tr,
+        title: "Fenua X Life",
         theme: ThemeData(
           fontFamily: 'Outfit',
           primarySwatch: appPrimaryColor,
@@ -72,7 +70,7 @@ class MyApp extends StatelessWidget {
               behavior: ScrollBehaviorModified(), child: widget!);
         },
         translationsKeys: AppTranslation.translations,
-        home: AnimatedSplashScreen(
+        home: /*AnimatedSplashScreen(
           splash: Image.asset(
             "assets/gifs/splash.gif",
             fit: BoxFit.cover,
@@ -81,7 +79,7 @@ class MyApp extends StatelessWidget {
           splashIconSize: Get.height,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
           nextScreen: SignupScreen(),
-        ),
+        ),*/SignupScreen()
       );
     });
   }

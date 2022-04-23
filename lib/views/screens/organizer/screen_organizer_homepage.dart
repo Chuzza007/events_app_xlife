@@ -33,12 +33,16 @@ class _ScreenOrganizerHomepageState extends State<ScreenOrganizerHomepage> with 
     return CustomHomeHeaderContainerDesign(
       type: HomePageType.organizer,
       image_url: imageUrl,
-      child: CustomTabBarView(
-          tabs_length: 2,
-          borderRadius: BorderRadius.circular(30),
-          tabs_titles_list: [LocaleKeys.MyEvents.tr, LocaleKeys.NewsFeed.tr],
-          tabController: TabController(length: 2, vsync: this),
-          tab_children_layouts: organizer_layouts),
+
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: CustomTabBarView(
+            tabs_length: 2,
+            borderRadius: BorderRadius.circular(30),
+            tabs_titles_list: [LocaleKeys.MyEvents.tr, LocaleKeys.NewsFeed.tr],
+            tabController: TabController(length: 2, vsync: this),
+            tab_children_layouts: organizer_layouts),
+      ),
     );
   }
 

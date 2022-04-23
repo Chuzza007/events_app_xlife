@@ -23,8 +23,6 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> implements Li
   int selectedIndex = 0;
   List<Event> events = [];
   String selectedType = "all";
-  List<String> allEventsTypes = ["all", "dance", "drink", "eat", "find", "travel"];
-  List<String> allEventsTitles = ["See All", "Dance", "Have a drink", "Eat", "Find an activity", "Traveling"];
 
   bool loading = true;
 
@@ -76,30 +74,37 @@ class _LayoutUserAllEventsState extends State<LayoutUserAllEvents> implements Li
   }
 
   void showDefaultDialog() {
+    List<String> allTags = ['All', ...allEventTags];
+    // allTags.addAll(allEventTags);
+
     Get.defaultDialog(
       titlePadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       contentPadding: EdgeInsets.all(10),
       title: LocaleKeys.WhatToDoToday.tr,
       content: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-        return CustomListviewBuilder(
-          itemBuilder: (context, index){
-            return RadioListTile(
-                title: Text(allEventsTitles[index]),
-                value: allEventsTypes[index], groupValue: selectedType, onChanged: (value){
-              setState((){
-                selectedType = value.toString();
+        return Container(
+          height: Get.height * 0.6,
+          child: CustomListviewBuilder(
+            itemBuilder: (context, index){
+              return RadioListTile(
+                  title: Text(allTags[index]),
+                  value: allTags[index], groupValue: selectedType, onChanged: (value){
+                setState((){
+                  selectedType = value.toString();
+                });
               });
-            });
-          },
-          itemCount: allEventsTypes.length,
-          scrollDirection: CustomDirection.vertical,
+            },
+            scrollable: true,
+            itemCount: allTags.length,
+            scrollDirection: CustomDirection.vertical,
+          ),
         );
       }),
       onConfirm: (){
         Get.back();
 
         setState(() {
-          if (selectedType != "all"){
+          if (selectedType != "All"){
             events = events.where((element) => element.tags.contains(selectedType)).toList();
           }
         });

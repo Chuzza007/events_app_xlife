@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/views/screens/organizer/screen_organizer_edit_profile.dart';
 import 'package:xlife/views/screens/user/screen_user_connections.dart';
 import 'package:xlife/views/screens/user/screen_user_edit_profile.dart';
@@ -34,7 +35,7 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.headerColor ?? appPrimaryColor,
+      backgroundColor: widget.headerColor ?? Colors.white,
       bottomNavigationBar: widget.bottomNavigationBar,
       body: SafeArea(
         bottom: false,
@@ -65,14 +66,15 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                               height: MediaQuery.of(context).size.height * 0.045,
                               width: MediaQuery.of(context).size.height * 0.045,
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.grey,
                                   shape: BoxShape.circle,
-                                  border: Border.all(width: 2.sp, color: Colors.white),
+                                  border: Border.all(width: 2.sp, color: Colors.grey),
                                   image: DecorationImage(image: NetworkImage(widget.image_url.isNotEmpty ? widget.image_url : userPlaceholder))),
                             ),
                           ),
                         ),
                       ),
+                      Image.asset("assets/images/logo.png"),
                       if (widget.type == HomePageType.user)
                         Padding(
                           padding: EdgeInsets.only(right: 8.0),
@@ -82,7 +84,7 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                               },
                               iconSize: MediaQuery.of(context).size.height * 0.030,
                               color: Colors.white,
-                              icon: ImageIcon(AssetImage("assets/images/icon_inbox.png"))),
+                              icon: ImageIcon(AssetImage("assets/images/icon_inbox.png"), color: Colors.black,)),
                         ),
                     ],
                   ),
@@ -96,12 +98,12 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15.sp),
                     decoration: BoxDecoration(
-                        color: Colors.white38,
+                        color: Colors.grey[350],
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(26.sp),
                           topRight: Radius.circular(26.sp),
                         ),
-                        boxShadow: []),
+                        boxShadow: appBoxShadow),
                   ),
                   Positioned(
                     child: Container(
@@ -116,13 +118,14 @@ class _CustomHomeHeaderContainerDesignState extends State<CustomHomeHeaderContai
                           topLeft: Radius.circular(26.sp),
                           topRight: Radius.circular(26.sp),
                         ),
+                        boxShadow: appBoxShadow
                       ),
                       child: Container(
-                          margin: EdgeInsets.only(
-                            top: 10,
-                            left: 10,
-                            right: 10,
-                          ),
+                          // margin: EdgeInsets.only(
+                          //   top: 10,
+                          //   left: 10,
+                          //   right: 10,
+                          // ),
                           child: widget.child),
                     ),
                   )

@@ -2,13 +2,6 @@
   <library name="Dart Packages" type="DartPackagesLibraryType">
     <properties>
       <option name="packageNameToDirsMap">
-        <entry key="animated_splash_screen">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/animated_splash_screen-1.2.0/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="archive">
           <value>
             <list>
@@ -355,7 +348,7 @@
         <entry key="flutter_native_splash">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.1.2+1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.1.6/lib" />
             </list>
           </value>
         </entry>
@@ -562,6 +555,13 @@
             </list>
           </value>
         </entry>
+        <entry key="lint">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/lint-1.8.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="lints">
           <value>
             <list>
@@ -699,13 +699,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_info_plus_windows-1.0.4/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="page_transition">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/page_transition-2.0.5/lib" />
             </list>
           </value>
         </entry>
@@ -1153,7 +1146,6 @@
       </option>
     </properties>
     <CLASSES>
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/animated_splash_screen-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/archive-3.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/args-2.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/async-2.8.2/lib" />
@@ -1202,7 +1194,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_link_previewer-2.6.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_linkify-5.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.1.2+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.1.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_reaction_button-2.0.0+2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.3/lib" />
@@ -1230,6 +1222,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/js-0.6.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/linkify-4.1.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/lint-1.8.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/location-4.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/location_platform_interface-2.3.0/lib" />
@@ -1250,7 +1243,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_info_plus_platform_interface-1.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_info_plus_web-1.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_info_plus_windows-1.0.4/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/page_transition-2.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path-1.8.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path_drawing-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path_parsing-1.0.0/lib" />

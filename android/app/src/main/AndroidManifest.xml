@@ -10,7 +10,8 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="xlife">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="Fenua X Life">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

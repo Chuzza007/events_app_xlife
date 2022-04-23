@@ -585,7 +585,7 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
   Future<String> _uploadImage(String uid) async {
     Reference storageReference = FirebaseStorage.instance
         .ref()
-        .child("profile_images/${uid}.png");
+        .child("profile_images/users/${uid}.png");
     final UploadTask uploadTask =
     storageReference.putFile(File(oldPickedImage!.path));
 
