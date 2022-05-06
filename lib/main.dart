@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xlife/generated/locales.g.dart';
-import 'package:xlife/screen_video_player_test.dart';
 
 import 'package:xlife/views/screens/screen_signup.dart';
 
@@ -80,7 +79,7 @@ class MyApp extends StatelessWidget {
           splashIconSize: Get.height,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
           nextScreen: SignupScreen(),
-        ),*/ScreenVideoPlayerTest()
+        ),*/SignupScreen()
       );
     });
   }
