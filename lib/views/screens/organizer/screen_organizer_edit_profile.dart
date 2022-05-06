@@ -13,6 +13,7 @@ import 'package:xlife/interfaces/listener_profile_info.dart';
 import 'package:xlife/views/screens/screen_signup.dart';
 import 'package:xlife/widgets/custom_input_field.dart';
 
+import '../../../controllers/controller_admin_links.dart';
 import '../../../generated/locales.g.dart';
 import '../../../helpers/constants.dart';
 import '../../../helpers/styles.dart';
@@ -359,7 +360,12 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                             child: Column(
                                               children: [
                                                 ListTile(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    launchUrl(
+                                                        Get.find<ControllerAdminLinks>()
+                                                            .links!
+                                                            .help);
+                                                  },
                                                   title: Text(
                                                     LocaleKeys.HELP.tr,
                                                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -370,7 +376,12 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                   ),
                                                 ),
                                                 ListTile(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    launchUrl(
+                                                        Get.find<ControllerAdminLinks>()
+                                                            .links!
+                                                            .privacy_policy);
+                                                  },
                                                   title: Text(
                                                     LocaleKeys.PRIVACYPOLICY.tr,
                                                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -381,7 +392,12 @@ class _ScreenOrganizerEditProfileState extends State<ScreenOrganizerEditProfile>
                                                   ),
                                                 ),
                                                 ListTile(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    launchUrl(
+                                                        Get.find<ControllerAdminLinks>()
+                                                            .links!
+                                                            .terms_conditions);
+                                                  },
                                                   title: Text(
                                                     LocaleKeys.TERMSANDCONDITIONS.tr,
                                                     style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),

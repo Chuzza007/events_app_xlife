@@ -30,7 +30,7 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
   bool loading = true;
   final controller = TextEditingController();
 
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  String uid = FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.uid : "";
   String myName = "A user";
   String userToken = "";
 
@@ -69,6 +69,7 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
                 crossFadeState: comments.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               ),
             ),
+            if (uid.isNotEmpty)
             Card(
               margin: EdgeInsets.all(10),
               child: Padding(
@@ -90,17 +91,18 @@ class _ScreenUserPostCommentsState extends State<ScreenUserPostComments> impleme
                     IconButton(
                         onPressed: () async {
                           String commentText = controller.text;
-                          String id = DateTime
-                              .now()
-                              .millisecondsSinceEpoch
-                              .toString();
+                          String id = DateTime.now().millisecondsSinceEpoch.toString();
                           if (commentText.isNotEmpty) {
-                            postsRef.doc(widget.post.id).collection("comments").doc(id).set(Comment(
-                                user_id: uid, text: commentText, timestamp: int.parse(id)).toMap()).then((value) {
-                                  setState(() {
-                                    controller.text = "";
-                                    FCM.sendMessageSingle("New comment", "$myName commented on your post \"${widget.post.title}\".", userToken);
-                                  });
+                            postsRef
+                                .doc(widget.post.id)
+                                .collection("comments")
+                                .doc(id)
+                                .set(Comment(user_id: uid, text: commentText, timestamp: int.parse(id)).toMap())
+                                .then((value) {
+                              setState(() {
+                                controller.text = "";
+                                FCM.sendMessageSingle("New comment", "$myName commented on your post \"${widget.post.title}\".", userToken);
+                              });
                             });
                           }
                         },

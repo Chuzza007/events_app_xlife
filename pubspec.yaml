@@ -66,6 +66,8 @@ dependencies:
   google_places_picker_advance: ^0.0.1
   geolocator: ^8.2.0
   shared_preferences: ^2.0.13
+  url_launcher: ^6.1.0
+  video_player: ^2.4.0
 
 #  flutter_google_places: ^0.3.0
 

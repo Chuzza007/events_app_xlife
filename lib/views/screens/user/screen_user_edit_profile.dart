@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xlife/controllers/controller_admin_links.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/models/user.dart' as model;
 import 'package:xlife/views/screens/screen_signup.dart';
@@ -372,7 +373,12 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                         child: Column(
                                           children: [
                                             ListTile(
-                                              onTap: () {},
+                                              onTap: () {
+                                                launchUrl(
+                                                    Get.find<ControllerAdminLinks>()
+                                                        .links!
+                                                        .help);
+                                              },
                                               title: Text(
                                                 LocaleKeys.HELP.tr,
                                                 style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -383,7 +389,12 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                               ),
                                             ),
                                             ListTile(
-                                              onTap: () {},
+                                              onTap: () {
+                                                launchUrl(
+                                                    Get.find<ControllerAdminLinks>()
+                                                        .links!
+                                                        .privacy_policy);
+                                              },
                                               title: Text(
                                                 LocaleKeys.PRIVACYPOLICY.tr,
                                                 style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),
@@ -394,7 +405,12 @@ class _ScreenUserEditProfileState extends State<ScreenUserEditProfile> implement
                                               ),
                                             ),
                                             ListTile(
-                                              onTap: () {},
+                                              onTap: () {
+                                                launchUrl(
+                                                    Get.find<ControllerAdminLinks>()
+                                                        .links!
+                                                        .terms_conditions);
+                                              },
                                               title: Text(
                                                 LocaleKeys.TERMSANDCONDITIONS.tr,
                                                 style: (GetPlatform.isWeb ? normal_h3Style_web : normal_h3Style),

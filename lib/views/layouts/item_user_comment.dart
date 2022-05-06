@@ -37,7 +37,7 @@ class _ItemUserCommentState extends State<ItemUserComment> implements ListenerPr
 
   @override
   void initState() {
-    getProfileInfo(FirebaseAuth.instance.currentUser!.uid, this, "user");
+    getProfileInfo(widget.comment.user_id, this, "user");
     super.initState();
   }
 

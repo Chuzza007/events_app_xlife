@@ -20,7 +20,6 @@ class ControllerUserRegistration extends GetxController {
   final isLoading = false.obs;
   final acceptedTerm1 = false.obs;
   final acceptedTerm2 = false.obs;
-  final acceptedTerm3 = false.obs;
   final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
@@ -88,7 +87,7 @@ class ControllerUserRegistration extends GetxController {
       return "";
     }
 
-    if (!acceptedTerm1.value || !acceptedTerm2.value || !acceptedTerm3.value) {
+    if (!acceptedTerm1.value || !acceptedTerm2.value) {
       Get.snackbar(LocaleKeys.Alert.tr, LocaleKeys.MakeSureYouAcceptTermsCondition.tr);
       return "";
     }

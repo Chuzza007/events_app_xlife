@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:xlife/generated/locales.g.dart';
 import 'package:xlife/helpers/styles.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_events.dart';
+import 'package:xlife/views/screens/admin/screen_admin_all_links.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_organizers.dart';
 import 'package:xlife/views/screens/admin/screen_admin_all_posts.dart';
 import 'package:xlife/widgets/custom_button.dart';
+
+import '../../../controllers/controller_admin_links.dart';
 
 class ScreenAdminHomepage extends StatefulWidget {
   ScreenAdminHomepage({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class ScreenAdminHomepage extends StatefulWidget {
 class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.AdminPortal.tr),
@@ -44,6 +48,11 @@ class _ScreenAdminHomepageState extends State<ScreenAdminHomepage> {
                 text: LocaleKeys.Posts.tr,
                 onPressed: () {
                   Get.to(ScreenAdminAllPosts());
+                }),
+            CustomButton(
+                text: "Links",
+                onPressed: () {
+                  Get.to(ScreenAdminAllLinks());
                 }),
           ],
         ),

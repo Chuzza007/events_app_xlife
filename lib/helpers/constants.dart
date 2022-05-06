@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +20,7 @@ import 'package:xlife/models/user.dart' as model;
 import '../generated/locales.g.dart';
 import '../interfaces/listener_organizer_events_posts.dart';
 import '../models/comment.dart';
+import '../models/links.dart';
 import '../widgets/custom_button.dart';
 
 MaterialColor appPrimaryColor = MaterialColor(
@@ -44,6 +45,8 @@ List<String> allEventTags = [];
 Position? currentPosition;
 String googleAPIKey = "AIzaSyB2tfPVP5CVeqDZAtuMjzE_tz0K62Gb_LY";
 CollectionReference usersRef = FirebaseFirestore.instance.collection("users");
+CollectionReference linksRef =
+FirebaseFirestore.instance.collection("links");
 CollectionReference organizersRef = FirebaseFirestore.instance.collection("organizers");
 CollectionReference eventsRef = FirebaseFirestore.instance.collection("events");
 CollectionReference postsRef = FirebaseFirestore.instance.collection("posts");
@@ -393,8 +396,11 @@ void getMyFavoriteEvents(ListenerEvents listener) {
 
     element.docs.forEach((subElement) async {
       var event = Event.fromMap(subElement.data() as Map<String, dynamic>);
+      print(event.toMap());
       String id = event.id;
-      eventsRef.doc(id).collection("favorites").orderBy("id", descending: true).snapshots().listen((favorites) {
+      await eventsRef.doc(id).collection("favorites").orderBy("uid", descending: true).snapshots().listen((favorites) {
+        print("fav of $id : " + "${favorites.docs}");
+
         favorites.docs.forEach((fav) {
           if (fav.data()['uid'] == uid) {
             events.add(event);
@@ -415,5 +421,37 @@ String getLastSeen(int timestamp) {
     return "Online";
   } else {
     return convertTimeToText(timestamp, "ago");
+  }
+}
+
+void saveLinks(Links links) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("game_rules", links.game_rules);
+  prefs.setString("privacy_policy", links.privacy_policy);
+  prefs.setString("terms_conditions", links.terms_conditions);
+  prefs.setString("help", links.help);
+}
+
+Future<Links> getSavedLinks() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return Links(
+      game_rules: prefs.getString("game_rules") ??
+          "http://jeuxconcoursfenua.polydigit.org/r%C3%A8glement",
+      help: prefs.getString("help") ??
+          "http://jeuxconcoursfenua.polydigit.org/help",
+      privacy_policy: prefs.getString("privacy_policy") ??
+          "http://jeuxconcoursfenua.polydigit.org/policy",
+      terms_conditions: prefs.getString("terms_conditions") ??
+          "http://jeuxconcoursfenua.polydigit.org/condiitons");
+}
+void launchUrl(String url) async {
+  url = !url.startsWith("http") ? ("http://" + url) : url;
+  if (await canLaunch(url)) {
+    launch(url,
+        forceSafariVC: true,
+        enableJavaScript: true,
+        /*forceWebView: GetPlatform.isAndroid*/);
+  } else {
+    throw 'Could not launch $url';
   }
 }

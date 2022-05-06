@@ -7,6 +7,7 @@ import 'package:xlife/views/screens/screen_forgot_password.dart';
 import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 import 'package:xlife/widgets/custom_progress_widget.dart';
 
+import '../../controllers/controller_admin_links.dart';
 import '../../generated/locales.g.dart';
 import '../../helpers/constants.dart';
 import '../../helpers/styles.dart';
@@ -16,11 +17,15 @@ import '../../widgets/custom_input_field.dart';
 
 class SignInScreen extends StatelessWidget {
   String adminEmail = "adminpolydigit974", adminPassword = "@Fiverrpolydigit974";
+  // String adminEmail = "a", adminPassword = "a";
   String email = "", password = "";
   CustomInputField? emailField;
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return CustomHeaderContainerDesign(
       showBack: true,
       title: Text(LocaleKeys.SignInTitle.tr),

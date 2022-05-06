@@ -7,6 +7,7 @@ import 'package:xlife/views/screens/screen_signin.dart';
 import 'package:xlife/views/screens/user/screen_user_homepage.dart';
 import 'package:xlife/widgets/custom_progress_widget.dart';
 
+import '../../controllers/controller_admin_links.dart';
 import '../../generated/locales.g.dart';
 import '../../helpers/constants.dart';
 import '../../widgets/custom_button.dart';
@@ -16,6 +17,9 @@ import '../../widgets/custom_input_field.dart';
 class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    var admin = Get.put(ControllerAdminLinks(), permanent: true).onInit();
+
     return CustomHeaderContainerDesign(
       showBack: false,
       title: Text(
@@ -43,7 +47,7 @@ class SignupScreen extends StatelessWidget {
                           controller: controller.full_name_controller.value,
                           fillColor: Colors.white,
                           validator: (value) {
-                            return controller.validateName(value!);
+                            return value.toString().length < 2 ? LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "2") : null;
                           },
                           keyboardType: TextInputType.name),
                       CustomInputField(
@@ -52,7 +56,7 @@ class SignupScreen extends StatelessWidget {
                           controller: controller.nickname_controller.value,
                           fillColor: Colors.white,
                           validator: (value) {
-                            return controller.validateName(value!);
+                            return value.toString().length < 2 ? LocaleKeys.MinimumCharactersRequiredN.tr.replaceAll("nnn", "2") : null;
                           },
                           keyboardType: TextInputType.name),
                       CustomInputField(
@@ -171,21 +175,21 @@ class SignupScreen extends StatelessWidget {
                                 ..update();
                             }),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: CheckboxListTile(
-                            contentPadding: EdgeInsets.zero,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            activeColor: appPrimaryColor,
-                            title: Text(LocaleKeys.term3.tr),
-                            checkColor: Colors.white,
-                            value: controller.acceptedTerm3.value,
-                            onChanged: (value) {
-                              controller
-                                ..acceptedTerm3.value = value!
-                                ..update();
-                            }),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.all(8.0),
+                      //   child: CheckboxListTile(
+                      //       contentPadding: EdgeInsets.zero,
+                      //       controlAffinity: ListTileControlAffinity.leading,
+                      //       activeColor: appPrimaryColor,
+                      //       title: Text(LocaleKeys.term3.tr),
+                      //       checkColor: Colors.white,
+                      //       value: controller.acceptedTerm3.value,
+                      //       onChanged: (value) {
+                      //         controller
+                      //           ..acceptedTerm3.value = value!
+                      //           ..update();
+                      //       }),
+                      // ),
                       CustomButton(
                         text: LocaleKeys.SignUp.tr,
                         onPressed: () async {

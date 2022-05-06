@@ -118,29 +118,31 @@ class _ScreenUserHomepageState extends State<ScreenUserHomepage> implements List
   }
 
   Future<void> _checkLocationPermissions() async {
-    var permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error(LocaleKeys.LocationPermissionsDenied.tr);
-      }
-      return;
-    }
+    // var permission = await Geolocator.checkPermission();
+    // if (permission == LocationPermission.denied) {
+    //   permission = await Geolocator.requestPermission();
+    //   if (permission == LocationPermission.denied) {
+    //     // Permissions are denied, next time you could try
+    //     // requesting permissions again (this is also where
+    //     // Android's shouldShowRequestPermissionRationale
+    //     // returned true. According to Android guidelines
+    //     // your App should show an explanatory UI now.
+    //     return Future.error(LocaleKeys.LocationPermissionsDenied.tr);
+    //   }
+    //   return;
+    // }
+    //
+    // if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+    //   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //
+    //   if (!serviceEnabled) {
+    //     await Geolocator.openLocationSettings();
+    //     _checkLocationPermissions();
+    //   }
+    // }
 
-    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    _getCurrentLocation();
 
-      if (!serviceEnabled) {
-        await Geolocator.openLocationSettings();
-        _checkLocationPermissions();
-      }
-      _getCurrentLocation();
-    }
   }
 
   void _getCurrentLocation() async {
