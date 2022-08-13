@@ -24,8 +24,6 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
     return CustomHeaderContainerDesign(
       showBack: true,
       title: Text(LocaleKeys.SignInTitle.tr),
